@@ -13,6 +13,6 @@
         }
     },
     "typeAcquisition": {
-        "exclude": ["dotenv"]
+        "exclude": ["dotenv", "harmony-reflect"]
     }
 }
