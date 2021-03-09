@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@/": ["src/*"],
+            "@asets/*": ["src/assets/*"],
+            "@components/*": ["src/components/*"],
+            "@components": ["src/components/index.js"],
+            "@views/*": ["src/views/*"],
+            "@views": ["src/views/index.js"],
+            "@hooks/*": ["src/hooks/*"],
+            "@hooks": ["src/hooks/index.js"]
+        }
+    },
+    "typeAcquisition": {
+        "exclude": ["dotenv"]
+    }
+}
