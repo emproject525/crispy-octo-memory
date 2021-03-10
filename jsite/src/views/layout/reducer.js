@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 import produce from 'immer';
-import * as action from './action';
+import action from './action';
 
 /** initialState */
 const initialState = {

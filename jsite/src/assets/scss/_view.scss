@@ -12,7 +12,12 @@
     padding: 0 25px;
     vertical-align: top;
     width: 280px;
-    transition: width 0.3s ease;
+    transition: width 0.30s ease;
+
+    &.s-close {
+        max-width: 70px;
+        width: 70px;
+    }
 }
 
 .navbar-header {

@@ -1,16 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import Col from 'react-bootstrap/Col';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHandPointRight } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '@components';
 
-const Content = ({ children }) => {
+const propTypes = {
+    /**
+     * 사이드바 오픈 여부
+     */
+    sidebarIsOpen: PropTypes.bool,
+    /**
+     * 사이드바 토글 버튼
+     */
+    onToggleSidebar: PropTypes.func,
+};
+const defaultProps = {
+    sidebarIsOpen: false,
+};
+
+const Content = (props) => {
+    const { children, sidebarIsOpen, onToggleSidebar } = props;
+
     return (
-        <div id="right-panel" className="right-panel">
+        <div id="right-panel" className={clsx('right-panel', { open: !sidebarIsOpen })}>
             <header id="header" className="header">
                 <div className="header-menu">
                     <Col sm={7}>
-                        <a id="menuToggle" className="menutoggle float-left">
-                            <Icon icon={faBars} />
+                        <a id="menuToggle" className="menutoggle float-left" onClick={onToggleSidebar}>
+                            <Icon icon={sidebarIsOpen ? faBars : faHandPointRight} />
                         </a>
                     </Col>
                 </div>
@@ -19,5 +37,8 @@ const Content = ({ children }) => {
         </div>
     );
 };
+
+Content.propTypes = propTypes;
+Content.defaultProps = defaultProps;
 
 export default Content;
