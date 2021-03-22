@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Sidebar, Content } from '@components';
 import action from './action';
+import routes from '@/routes/index.js';
 
 const Layout = ({ children }) => {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Layout = ({ children }) => {
     return (
         <React.Fragment>
             {/* Left Panel */}
-            <Sidebar sidebarIsOpen={sidebarIsOpen} />
+            <Sidebar sidebarIsOpen={sidebarIsOpen} menus={routes.menus} />
 
             {/* Right Panel */}
             <Content sidebarIsOpen={sidebarIsOpen} onToggleSidebar={onToggleSidebar}>

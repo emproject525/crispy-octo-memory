@@ -35,7 +35,7 @@
         "start:server": "pm2 start ecosystem.config.js --watch",
         "start:client": "set PORT=3001 && react-app-rewired start",
         "stop": "pm2 stop ecosystem.config.js",
-        "build": "react-scripts build",
+        "build": "cross-env NODE_ENV=production react-app-rewired build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
@@ -59,6 +59,7 @@
     },
     "devDependencies": {
         "cors": "^2.8.5",
+        "cross-env": "^7.0.3",
         "eslint-config-prettier": "^8.1.0",
         "eslint-plugin-prettier": "^3.3.1",
         "http-proxy-middleware": "^1.0.6",
