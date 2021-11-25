@@ -19,9 +19,7 @@ const defaultProps = {
     sidebarIsOpen: false,
 };
 
-const Content = (props) => {
-    const { children, sidebarIsOpen, onToggleSidebar } = props;
-
+const Content = ({ children, sidebarIsOpen, onToggleSidebar }) => {
     return (
         <div id="right-panel" className={clsx('right-panel', { open: !sidebarIsOpen })}>
             <header id="header" className="header">

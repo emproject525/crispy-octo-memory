@@ -17,9 +17,7 @@ const defaultProps = {
     sidebarIsOpen: false,
 };
 
-const Sidebar = (props) => {
-    const { sidebarIsOpen, menus } = props;
-
+const Sidebar = ({ sidebarIsOpen, menus }) => {
     return (
         <aside id="left-panel" className={clsx('left-panel', { 's-close': !sidebarIsOpen })}>
             <Navbar expand="sm" className="px-0 flex-column">
