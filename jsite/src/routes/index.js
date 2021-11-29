@@ -1,4 +1,5 @@
 import Dashboard from '@views/dashboard';
+import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const menus = [
     {
@@ -8,6 +9,7 @@ const menus = [
         component: Dashboard,
         exact: true,
         strict: false,
+        icon: faTachometerAlt,
     },
 ];
 

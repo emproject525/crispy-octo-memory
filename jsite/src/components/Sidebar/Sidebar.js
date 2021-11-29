@@ -27,15 +27,15 @@ const Sidebar = ({ sidebarIsOpen, menus }) => {
                         <Icon icon={faBars} />
                     </Navbar.Toggle>
                 </div>
-                <Navbar.Collapse className="main-menu">
-                    <Nav className="nav" as="ul" defaultActiveKey="/">
-                        {/* {menus.map((menu) => (
+                <Navbar.Collapse className="main-menu w-100">
+                    <Nav className="nav w-100" as="ul" defaultActiveKey="/">
+                        {menus.map((menu) => (
                             <Nav.Item as="li" key={menu.path}>
-                                <Nav.Link as={NavLink} to={menu.path} exact={menu.exact} strict={menu.strict}>
-                                    {menu.title}
+                                <Nav.Link as={NavLink} to={menu.path} className="px-0">
+                                    <Icon icon={menu.icon} className="menu-icon" /> {menu.title}
                                 </Nav.Link>
                             </Nav.Item>
-                        ))} */}
+                        ))}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
