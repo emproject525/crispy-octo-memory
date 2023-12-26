@@ -1,0 +1,14 @@
+[
+  {
+    "depth": 1,
+    "menuId": "01",
+    "menuNm": "dashboard",
+    "menuKoNm": "대시보드"
+  },
+  {
+    "depth": 1,
+    "menuId": "02",
+    "menuNm": "article",
+    "menuKoNm": "기사"
+  }
+]

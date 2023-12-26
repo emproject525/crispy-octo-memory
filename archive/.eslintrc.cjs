@@ -63,6 +63,7 @@ module.exports = {
     'react/no-array-index-key': 0,
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-shadow': 0,
+    '@typescript-eslint/no-unused-vars': 1,
     'import/order': [
       'error',
       {

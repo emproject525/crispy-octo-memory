@@ -1,6 +1,6 @@
 /** craco */
 import type { CracoConfig } from '@craco/types';
-import { removeLoaders, loaderByName } from '@craco/craco';
+import { removeLoaders, loaderByName, whenProd } from '@craco/craco';
 
 /** esbuild */
 import { EsbuildPlugin } from 'esbuild-loader';
@@ -11,6 +11,8 @@ import { EsbuildPlugin } from 'esbuild-loader';
 import webpack, { Configuration as WebpackConfig } from 'webpack';
 
 let buildStartTime: Date | undefined = undefined;
+let progressMap: Record<string, string[]> = {};
+let progressKey: string = '';
 const getMsg = (msg: string, length?: number) => msg.padEnd(length || 25, ' ');
 
 export default {
@@ -29,42 +31,72 @@ export default {
   webpack: {
     alias: {},
     plugins: {
+      remove: ['DefinePlugin', ...whenProd(() => ['ProgressPlugin'], [])!],
       add: [
         new EsbuildPlugin({
           define: {
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
           },
         }),
-        new webpack.ProgressPlugin((percentage, message, ...args) => {
-          if (percentage === 0) {
-            buildStartTime = new Date();
-            console.log('-'.repeat(55));
-            console.log(
-              getMsg('🙄 Start webpack build'),
-              buildStartTime.toUTCString(),
-            );
-          } else if (percentage === 1) {
-            const buildEndTime = new Date();
-            const diff =
-              (buildEndTime.getTime() -
-                (buildStartTime || buildEndTime).getTime()) /
-              1000;
+        ...whenProd(
+          () => [
+            new webpack.ProgressPlugin((percentage, message, ...args) => {
+              if (percentage === 0) {
+                buildStartTime = new Date();
+                console.log('-'.repeat(55));
+                console.log(
+                  getMsg('🙄 Start webpack build'),
+                  buildStartTime.toUTCString(),
+                );
+              } else if (percentage === 1) {
+                const buildEndTime = new Date();
+                const diff =
+                  (buildEndTime.getTime() -
+                    (buildStartTime || buildEndTime).getTime()) /
+                  1000;
 
-            console.log(
-              getMsg('🎸 End webpack build'),
-              buildEndTime.toUTCString(),
-            );
-            console.log(
-              getMsg('⌛ Total build time', 24),
-              `${(diff / 60).toFixed(0)} min, ${(diff - diff / 60).toFixed(
-                2,
-              )} secs`,
-            );
-            console.log('-'.repeat(55));
-          }
-        }),
+                console.log(
+                  getMsg('🎸 End webpack build'),
+                  buildEndTime.toUTCString(),
+                );
+                console.log(
+                  getMsg('⌛ Total build time', 24),
+                  `${(diff / 60).toFixed(0)} min, ${(diff - diff / 60).toFixed(
+                    2,
+                  )} secs`,
+                );
+                console.log('-'.repeat(55));
+              } else {
+                const essence = `00${Math.floor(percentage * 100)}`.slice(-2);
+
+                if (args.length === 1 && progressKey !== args[0]) {
+                  // start
+                  progressKey = args[0];
+                } else if (args.length === 2) {
+                  if (progressMap[progressKey]) {
+                    progressMap[progressKey].push(args[1]);
+                  } else {
+                    progressMap[progressKey] = [args[1]];
+                  }
+                } else if (args.length === 1 && progressKey === args[0]) {
+                  // end
+                  console.groupCollapsed(`-- ${essence}% [${progressKey}]`);
+                  if (progressMap[progressKey]) {
+                    console.log(
+                      `\t%cplugin count = ${
+                        progressMap[progressKey]?.length || 0
+                      }`,
+                      'color: #1f8068',
+                    );
+                  }
+                  console.groupEnd();
+                }
+              }
+            }),
+          ],
+          [],
+        )!,
       ],
-      remove: ['DefinePlugin', 'ProgressPlugin'],
     },
     configure(config, { env, paths }) {
       const isProd = env === 'production';
@@ -96,9 +128,6 @@ export default {
           splitChunks: {
             chunks: 'all',
           },
-        }),
-        ...(!isProd && {
-          runtimeChunk: true,
         }),
       };
 
