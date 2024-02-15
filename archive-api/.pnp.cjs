@@ -34,6 +34,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-config-prettier", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:9.1.0"],\
           ["eslint-plugin-import", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:2.29.1"],\
           ["express", "npm:4.18.2"],\
+          ["moment", "npm:2.30.1"],\
           ["nodemon", "npm:3.0.3"],\
           ["prettier", "npm:3.2.5"],\
           ["ts-node", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:10.9.2"],\
@@ -868,6 +869,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-config-prettier", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:9.1.0"],\
           ["eslint-plugin-import", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:2.29.1"],\
           ["express", "npm:4.18.2"],\
+          ["moment", "npm:2.30.1"],\
           ["nodemon", "npm:3.0.3"],\
           ["prettier", "npm:3.2.5"],\
           ["ts-node", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:10.9.2"],\
@@ -3121,6 +3123,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/mkdirp-npm-1.0.4-37f6ef56b9-10c0.zip/node_modules/mkdirp/",\
         "packageDependencies": [\
           ["mkdirp", "npm:1.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["moment", [\
+      ["npm:2.30.1", {\
+        "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/moment-npm-2.30.1-1c51a5c631-10c0.zip/node_modules/moment/",\
+        "packageDependencies": [\
+          ["moment", "npm:2.30.1"]\
         ],\
         "linkType": "HARD"\
       }]\

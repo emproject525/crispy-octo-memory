@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 
-import { IArchiveResponse, ICd } from 'dto';
+import { IArchiveResponse, ICd, IContPhoto } from 'dto';
 import { removeNulls } from 'utils';
 
 import imgTypes from '@data/code/img_type.json';
@@ -69,14 +69,14 @@ app.get('/api/codes', (req: Request, res: Response) => {
  */
 app.get('/api/photos', (req: Request, res: Response) => {
   try {
-    const response: IArchiveResponse<any> = {
+    const response: IArchiveResponse<IContPhoto> = {
       header: {
         success: true,
         status: 200,
         message: '성공하였습니다'
       },
       body: {
-        list: photos,
+        list: photos.map((item) => removeNulls<IContPhoto>(item as IContPhoto)),
         totalCount: photos.length,
         keywords: []
       }

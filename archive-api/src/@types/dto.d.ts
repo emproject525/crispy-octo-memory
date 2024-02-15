@@ -44,17 +44,31 @@ declare module 'dto' {
   }
 
   /**
+   * 컨텐츠 타입
+   * - `P` PHOTO 사진
+   * - `G` GRAPHIC 그래픽
+   * - `T` TEXT 텍스트
+   * - `V` VIDEO 비디오
+   * - `A` AUDIO 오디오
+   */
+  export type ContType = 'P' | 'G' | 'T' | 'V' | 'A';
+
+  /**
    * 사진 컨텐츠
    */
   export interface IContPhoto {
     contId: null | number;
-    contType: null | string;
+    contType: null | ContType;
     /**
      * 이미지 종류
-     * - `01` 미정
-     * - `02` 미정
+     * - `00` 일반
+     * - `01` 만화
+     * - `02` 일러스트
+     * - `03` 지도
+     * - `99` 기타
+     * @default 00
      */
-    imgType?: null | '01' | '02';
+    imgType?: null | '00' | '01' | '02' | '03' | '99';
     /**
      * 컨텐츠의 서비스 상태
      * - `00` 중지됨
@@ -64,9 +78,9 @@ declare module 'dto' {
      */
     serviceStatus: null | '00' | '01' | '99';
     title: null | string;
-    mediaCode: null | string;
-    source: null | string;
-    departNo?: null | number;
+    media: null | number;
+    source: null | number;
+    department?: null | number;
     /**
      * 아카이빙 상태
      * - `00` : 아카이브 등록 전
@@ -81,14 +95,24 @@ declare module 'dto' {
     width: null | number;
     height: null | number;
     dpi: null | number;
+    meta?: string;
     /**
      * 촬영일
      */
     shootDt: null | string;
     /**
-     * 촬영장소
+     * 촬영 장소
      */
     shootPlace: null | string;
+    /**
+     * 촬영 유형
+     * - `00` 일반
+     * - `01` 위성
+     * - `02` 수중
+     * - `99` 기타
+     * @default 00
+     */
+    shootType?: null | '00' | '01' | '02' | '99';
     fileSize: null | number;
     fileName: null | string;
     filePath: null | string;
