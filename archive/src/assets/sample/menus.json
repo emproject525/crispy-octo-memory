@@ -3,12 +3,21 @@
     "depth": 1,
     "menuId": "01",
     "menuNm": "dashboard",
-    "menuKoNm": "대시보드"
+    "menuKoNm": "대시보드",
+    "path": "/"
   },
   {
     "depth": 1,
     "menuId": "02",
-    "menuNm": "article",
-    "menuKoNm": "기사"
+    "menuNm": "document",
+    "menuKoNm": "문서",
+    "path": "/document"
+  },
+  {
+    "depth": 2,
+    "menuId": "03",
+    "menuNm": "photo",
+    "menuKoNm": "사진",
+    "path": "/photos"
   }
 ]

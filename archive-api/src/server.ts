@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
 
 import { IArchiveResponse, ICd, IContPhoto } from 'dto';
 import { removeNulls } from 'utils';
@@ -11,6 +12,7 @@ import departments from '@data/code/department.json';
 import photos from '@data/photo/list.json';
 
 const app: Application = express();
+app.use(cors());
 
 const port: number = 8080;
 

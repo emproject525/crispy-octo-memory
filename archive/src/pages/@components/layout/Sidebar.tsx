@@ -1,11 +1,15 @@
+import { useNavigate } from 'react-router';
+
 import DashboardCustomizeRoundedIcon from '@mui/icons-material/DashboardCustomizeRounded';
 import FeedRoundedIcon from '@mui/icons-material/FeedRounded';
-import { Box, Tab, Tabs, tabClasses } from '@mui/material';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import { Box, IconButton } from '@mui/material';
 import menus from 'assets/sample/menus.json';
 import React from 'react';
 
 const Sidebar = ({ width }: { width: React.CSSProperties['width'] }) => {
   const [menuId, setMenuId] = React.useState(menus[0].menuId);
+  const navigate = useNavigate();
 
   return (
     <Box width={width} data-sidebar>
@@ -19,7 +23,35 @@ const Sidebar = ({ width }: { width: React.CSSProperties['width'] }) => {
       // }}
       >
         <Box height={250}></Box>
-        <Tabs
+        <Box
+          display="flex"
+          flexDirection="column"
+          gap={2}
+          alignItems="center"
+          px={2}
+        >
+          {menus.map((item) => (
+            <IconButton
+              key={`menu-icon-${item.menuId}`}
+              data-id={item.menuId}
+              title={item.menuKoNm}
+              sx={{
+                p: 2.5,
+              }}
+              onClick={() => navigate(item.path)}
+            >
+              {item.menuNm === 'dashboard' ? (
+                <DashboardCustomizeRoundedIcon fontSize="small" />
+              ) : item.menuNm === 'document' ? (
+                <FeedRoundedIcon fontSize="small" />
+              ) : item.menuNm === 'photo' ? (
+                <PhotoLibraryIcon fontSize="small" />
+              ) : undefined}
+            </IconButton>
+          ))}
+        </Box>
+
+        {/* <Tabs
           orientation="vertical"
           variant="scrollable"
           value={menuId}
@@ -35,6 +67,8 @@ const Sidebar = ({ width }: { width: React.CSSProperties['width'] }) => {
                   <DashboardCustomizeRoundedIcon />
                 ) : item.menuNm === 'article' ? (
                   <FeedRoundedIcon />
+                ) : item.menuNm === 'photo' ? (
+                  <PhotoLibraryIcon />
                 ) : undefined
               }
               sx={{
@@ -46,7 +80,7 @@ const Sidebar = ({ width }: { width: React.CSSProperties['width'] }) => {
               }}
             />
           ))}
-        </Tabs>
+        </Tabs> */}
       </Box>
     </Box>
   );

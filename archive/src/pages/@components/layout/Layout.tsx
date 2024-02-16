@@ -4,7 +4,7 @@ import React from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
-const swidth = 48;
+const swidth = 64;
 
 /**
  * Layout (sidebar + appbar + searchbar + ...children)

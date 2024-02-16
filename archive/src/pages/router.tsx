@@ -12,6 +12,7 @@ import Root from './Root';
 
 /** import pages */
 const Dashboard = React.lazy(() => import('pages/dashboard'));
+const Photos = React.lazy(() => import('pages/photo/Photos'));
 
 const getSuspensePages = (ele: JSX.Element) => (
   <Suspense fallback={<Fallback />}>{ele}</Suspense>
@@ -21,6 +22,7 @@ export default createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Root />} errorElement={<Error404 />}>
       <Route path={'/'} element={getSuspensePages(<Dashboard />)} />
+      <Route path="/photos" element={getSuspensePages(<Photos />)} />
     </Route>,
   ),
 );

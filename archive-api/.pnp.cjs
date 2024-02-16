@@ -26,10 +26,12 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@types/cors", "npm:2.8.17"],\
           ["@types/eslint", "npm:8.56.2"],\
           ["@types/express", "npm:4.17.21"],\
           ["@typescript-eslint/eslint-plugin", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:7.0.1"],\
           ["@typescript-eslint/parser", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:7.0.1"],\
+          ["cors", "npm:2.8.5"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:9.1.0"],\
           ["eslint-plugin-import", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:2.29.1"],\
@@ -335,6 +337,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/@types-connect-npm-3.4.38-a8a4c38337-10c0.zip/node_modules/@types/connect/",\
         "packageDependencies": [\
           ["@types/connect", "npm:3.4.38"],\
+          ["@types/node", "npm:20.11.17"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/cors", [\
+      ["npm:2.8.17", {\
+        "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/@types-cors-npm-2.8.17-2556d16051-10c0.zip/node_modules/@types/cors/",\
+        "packageDependencies": [\
+          ["@types/cors", "npm:2.8.17"],\
           ["@types/node", "npm:20.11.17"]\
         ],\
         "linkType": "HARD"\
@@ -861,10 +873,12 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["archive-api", "workspace:."],\
+          ["@types/cors", "npm:2.8.17"],\
           ["@types/eslint", "npm:8.56.2"],\
           ["@types/express", "npm:4.17.21"],\
           ["@typescript-eslint/eslint-plugin", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:7.0.1"],\
           ["@typescript-eslint/parser", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:7.0.1"],\
+          ["cors", "npm:2.8.5"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:9.1.0"],\
           ["eslint-plugin-import", "virtual:9bed7378ba79f2cb003fcb3ef4c57dc8be26b86724cc5602adbedf130bf1b37d63bdcbf8e57fdab41033b2117d575d59b75555ddb6c3f218ecbf774a13cb36dc#npm:2.29.1"],\
@@ -1259,6 +1273,17 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/cookie-signature-npm-1.0.6-93f325f7f0-10c0.zip/node_modules/cookie-signature/",\
         "packageDependencies": [\
           ["cookie-signature", "npm:1.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["cors", [\
+      ["npm:2.8.5", {\
+        "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/cors-npm-2.8.5-c9935a2d12-10c0.zip/node_modules/cors/",\
+        "packageDependencies": [\
+          ["cors", "npm:2.8.5"],\
+          ["object-assign", "npm:4.1.1"],\
+          ["vary", "npm:1.1.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3238,6 +3263,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/normalize-path-npm-3.0.0-658ba7d77f-10c0.zip/node_modules/normalize-path/",\
         "packageDependencies": [\
           ["normalize-path", "npm:3.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["object-assign", [\
+      ["npm:4.1.1", {\
+        "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/object-assign-npm-4.1.1-1004ad6dec-10c0.zip/node_modules/object-assign/",\
+        "packageDependencies": [\
+          ["object-assign", "npm:4.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\
