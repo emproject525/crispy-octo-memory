@@ -1,4 +1,4 @@
-import { Box, useTheme } from '@mui/material';
+import { Box, Container, CssBaseline, useTheme } from '@mui/material';
 import React from 'react';
 
 import Header from './Header';
@@ -22,11 +22,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       data-layout="default"
       display="flex"
     >
-      <Sidebar width={swidth} />
-      <Box flex={1}>
-        <Header />
-        {children}
-      </Box>
+      <CssBaseline />
+      <Container>
+        <Box position="relative">
+          <Sidebar width={swidth} />
+          <Header />
+          {children}
+        </Box>
+      </Container>
     </Box>
   );
 };

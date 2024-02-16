@@ -78,8 +78,10 @@ app.get('/api/photos', (req: Request, res: Response) => {
         message: '성공하였습니다'
       },
       body: {
-        list: photos.map((item) => removeNulls<IContPhoto>(item as IContPhoto)),
-        totalCount: photos.length,
+        list: photos
+          .map((item) => removeNulls<IContPhoto>(item as IContPhoto))
+          .slice(0, 20),
+        count: photos.length,
         keywords: []
       }
     };

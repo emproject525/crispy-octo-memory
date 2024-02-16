@@ -130,6 +130,16 @@ const theme = (mode: PaletteMode) =>
       },
     },
     palette: palette[mode],
+    components: {
+      MuiPaper: {
+        styleOverrides: {
+          rounded: {
+            borderRadius: 20,
+            padding: 20,
+          },
+        },
+      },
+    },
   });
 
 export default theme;

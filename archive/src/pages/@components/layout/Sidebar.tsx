@@ -3,16 +3,25 @@ import { useNavigate } from 'react-router';
 import DashboardCustomizeRoundedIcon from '@mui/icons-material/DashboardCustomizeRounded';
 import FeedRoundedIcon from '@mui/icons-material/FeedRounded';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, useTheme } from '@mui/material';
 import menus from 'assets/sample/menus.json';
 import React from 'react';
 
-const Sidebar = ({ width }: { width: React.CSSProperties['width'] }) => {
+const Sidebar = ({ width }: { width: number }) => {
   const [menuId, setMenuId] = React.useState(menus[0].menuId);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   return (
-    <Box width={width} data-sidebar>
+    <Box
+      width={width}
+      data-sidebar
+      position="absolute"
+      sx={{
+        zIndex: 1,
+        left: `-${width}px`,
+      }}
+    >
       <Box
       // position="fixed"
       // sx={{
@@ -37,6 +46,8 @@ const Sidebar = ({ width }: { width: React.CSSProperties['width'] }) => {
               title={item.menuKoNm}
               sx={{
                 p: 2.5,
+                bgcolor: theme.palette.background.paper,
+                color: theme.palette.grey[600],
               }}
               onClick={() => navigate(item.path)}
             >

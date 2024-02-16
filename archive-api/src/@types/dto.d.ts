@@ -13,9 +13,9 @@ declare module 'dto' {
     };
     body?: isListBody extends true
       ? {
-          totalCount: number;
-          keywords: string[];
           list: T[];
+          count: number;
+          keywords: string[];
         }
       : T;
   }

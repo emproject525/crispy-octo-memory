@@ -64,39 +64,39 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-shadow': 0,
     '@typescript-eslint/no-unused-vars': 1,
-    'import/order': [
-      'error',
-      {
-        groups: [
-          'builtin',
-          'type',
-          ['external', 'internal'],
-          'unknown',
-          ['sibling', 'parent', 'index'],
-        ],
-        'newlines-between': 'always',
-        pathGroups: [
-          {
-            pattern: 'react*',
-            group: 'builtin',
-            position: 'before',
-          },
-          {
-            pattern: '{wmsComponent,dto,highchart,param,sttsDto,wms}',
-            group: 'type',
-          },
-          {
-            pattern: '@{components,hooks,business,pages,assets,store,src}/**',
-            group: 'unknown',
-          },
-        ],
-        alphabetize: {
-          order:
-            'asc' /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
-          caseInsensitive: true /* ignore case. Options: [true, false] */,
-        },
-      },
-    ],
+    // 'import/order': [
+    //   'error',
+    //   {
+    //     groups: [
+    //       'builtin',
+    //       'type',
+    //       ['external', 'internal'],
+    //       'unknown',
+    //       ['sibling', 'parent', 'index'],
+    //     ],
+    //     'newlines-between': 'always',
+    //     pathGroups: [
+    //       {
+    //         pattern: 'react*',
+    //         group: 'builtin',
+    //         position: 'before',
+    //       },
+    //       {
+    //         pattern: '{wmsComponent,dto,highchart,param,sttsDto,wms}',
+    //         group: 'type',
+    //       },
+    //       {
+    //         pattern: '@{components,hooks,business,pages,assets,store,src}/**',
+    //         group: 'unknown',
+    //       },
+    //     ],
+    //     alphabetize: {
+    //       order:
+    //         'asc' /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
+    //       caseInsensitive: true /* ignore case. Options: [true, false] */,
+    //     },
+    //   },
+    // ],
   },
   ignorePatterns: [
     '/src/react-app-env.d.ts',

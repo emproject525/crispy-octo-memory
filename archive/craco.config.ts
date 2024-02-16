@@ -103,9 +103,7 @@ export default {
       const customized: WebpackConfig = config;
 
       // 소스맵 @see https://webpack.kr/configuration/devtool/#development
-      customized.devtool = !isProd
-        ? 'cheap-module-source-map'
-        : 'hidden-source-map';
+      customized.devtool = !isProd ? 'inline-source-map' : 'hidden-source-map';
 
       // 캐시 체계 @see https://webpack.kr/configuration/cache/
       if (!isProd) {
