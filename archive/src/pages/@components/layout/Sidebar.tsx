@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 import DashboardCustomizeRoundedIcon from '@mui/icons-material/DashboardCustomizeRounded';
 import FeedRoundedIcon from '@mui/icons-material/FeedRounded';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
-import { Box, IconButton, useTheme } from '@mui/material';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import { alpha, Box, IconButton, Typography, useTheme } from '@mui/material';
 import menus from 'assets/sample/menus.json';
 import React from 'react';
 
@@ -12,7 +13,6 @@ const mintop = 60;
 
 const Sidebar = ({ width }: { width: number }) => {
   const [menuId, setMenuId] = React.useState(menus[0].menuId);
-  const navigate = useNavigate();
   const theme = useTheme();
   const target = React.useRef<HTMLDivElement>(null);
 
@@ -36,6 +36,7 @@ const Sidebar = ({ width }: { width: number }) => {
           );
         } else if (bottom > window.scrollY + window.innerHeight - mintop) {
           // 스크롤의 끝에 bottom 걸린 경우
+          // window.scrollY + window.innerHeight = document 시작부터 현재 스크롤까지 높이
           target.current.style.setProperty(
             'top',
             `${window.scrollY + window.innerHeight - mintop - height}px`,
@@ -62,18 +63,7 @@ const Sidebar = ({ width }: { width: number }) => {
         left: `-${width}px`,
       }}
     >
-      <Box
-        position="relative"
-        width="100%"
-        height="100%"
-        // position="fixed"
-        // sx={{
-        //   left: 0,
-        //   top: 0,
-        //   bottom: 0,
-        //   width,
-        // }}
-      >
+      <Box position="relative" width="100%" height="100%">
         <Box
           ref={target}
           position="absolute"
@@ -88,26 +78,73 @@ const Sidebar = ({ width }: { width: number }) => {
           }}
         >
           {menus.map((item) => (
-            <IconButton
+            <NavLink
+              to={item.path || ''}
               key={`menu-icon-${item.menuId}`}
-              data-id={item.menuId}
-              title={item.menuKoNm}
-              sx={{
-                p: 2.5,
-                bgcolor: theme.palette.background.paper,
-                color: theme.palette.grey[600],
-              }}
-              onClick={() => navigate(item.path)}
+              preventScrollReset={false}
             >
-              {item.menuNm === 'dashboard' ? (
-                <DashboardCustomizeRoundedIcon fontSize="small" />
-              ) : item.menuNm === 'document' ? (
-                <FeedRoundedIcon fontSize="small" />
-              ) : item.menuNm === 'photo' ? (
-                <PhotoLibraryIcon fontSize="small" />
-              ) : undefined}
-            </IconButton>
+              {({ isActive }) => (
+                <IconButton
+                  id={`menuid-${item.menuId}`}
+                  title={item.menuKoNm}
+                  sx={{
+                    p: 2.5,
+                    bgcolor: alpha(
+                      isActive
+                        ? theme.palette.success.main
+                        : theme.palette.background.paper,
+                      0.8,
+                    ),
+                    color: isActive
+                      ? theme.palette.grey[800]
+                      : theme.palette.grey[600],
+                    '&:hover': {
+                      bgcolor: isActive
+                        ? theme.palette.success.main
+                        : theme.palette.background.paper,
+                    },
+                  }}
+                  onClick={() =>
+                    window.scrollTo({
+                      top: 0,
+                    })
+                  }
+                >
+                  {item.menuNm === 'dashboard' ? (
+                    <DashboardCustomizeRoundedIcon fontSize="small" />
+                  ) : item.menuNm === 'document' ? (
+                    <FeedRoundedIcon fontSize="small" />
+                  ) : item.menuNm === 'photo' ? (
+                    <PhotoLibraryIcon fontSize="small" />
+                  ) : null}
+                </IconButton>
+              )}
+            </NavLink>
           ))}
+          <IconButton
+            sx={{
+              p: 2.5,
+              bgcolor: theme.palette.background.paper,
+              color: theme.palette.grey[600],
+            }}
+            onClick={() =>
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+              })
+            }
+          >
+            <Typography
+              variant="fs11"
+              lineHeight="20px"
+              sx={{
+                height: 20,
+                width: 20,
+              }}
+            >
+              TOP
+            </Typography>
+          </IconButton>
         </Box>
 
         {/* <Tabs
