@@ -24,7 +24,7 @@ const Header = () => {
                 userSelect: 'none',
               }}
             >
-              Archive Management System
+              Data Archiving System
             </Typography>
           </Box>
         </Grid>

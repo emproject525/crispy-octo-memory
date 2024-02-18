@@ -21,6 +21,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       minHeight="100%"
       data-layout="default"
       display="flex"
+      pb={15}
     >
       <CssBaseline />
       <Container>
