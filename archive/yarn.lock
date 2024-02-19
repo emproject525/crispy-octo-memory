@@ -4851,6 +4851,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dev-utils: "npm:^12.0.1"
     react-dom: "npm:^18.2.0"
+    react-draggable: "npm:^4.4.6"
     react-photo-gallery: "npm:^8.0.0"
     react-router: "npm:^6.21.1"
     react-router-dom: "npm:^6.21.1"
@@ -5786,6 +5787,13 @@ __metadata:
     kind-of: "npm:^6.0.2"
     shallow-clone: "npm:^3.0.0"
   checksum: 10c0/637753615aa24adf0f2d505947a1bb75e63964309034a1cf56ba4b1f30af155201edd38d26ffe26911adaae267a3c138b344a4947d39f5fc1b6d6108125aa758
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^1.1.1":
+  version: 1.2.1
+  resolution: "clsx@npm:1.2.1"
+  checksum: 10c0/34dead8bee24f5e96f6e7937d711978380647e936a22e76380290e35486afd8634966ce300fc4b74a32f3762c7d4c0303f442c3e259f4ce02374eb0c82834f27
   languageName: node
   linkType: hard
 
@@ -13096,6 +13104,19 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 10c0/66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+  languageName: node
+  linkType: hard
+
+"react-draggable@npm:^4.4.6":
+  version: 4.4.6
+  resolution: "react-draggable@npm:4.4.6"
+  dependencies:
+    clsx: "npm:^1.1.1"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    react: ">= 16.3.0"
+    react-dom: ">= 16.3.0"
+  checksum: 10c0/1e8cf47414a8554caa68447e5f27749bc40e1eabb4806e2dadcb39ab081d263f517d6aaec5231677e6b425603037c7e3386d1549898f9ffcc98a86cabafb2b9a
   languageName: node
   linkType: hard
 
