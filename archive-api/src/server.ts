@@ -11,6 +11,10 @@ import departments from '@data/code/department.json';
 
 import photos from '@data/photo/list.json';
 
+const photosParsed = photos.map((item) =>
+  removeNulls<IContPhoto>(item as IContPhoto)
+);
+
 const app: Application = express();
 app.use(cors());
 
@@ -78,9 +82,7 @@ app.get('/api/photos', (req: Request, res: Response) => {
         message: '성공하였습니다'
       },
       body: {
-        list: photos
-          .map((item) => removeNulls<IContPhoto>(item as IContPhoto))
-          .slice(0, 20),
+        list: photosParsed.slice(0, 20),
         count: photos.length,
         keywords: []
       }
@@ -90,6 +92,36 @@ app.get('/api/photos', (req: Request, res: Response) => {
     res.status(500);
   }
 });
+
+/**
+ * 사진 상세 데이터
+ */
+app.get(
+  '/api/photos/:contId',
+  (
+    req: Request<{
+      // 캐스팅이 안되는듯? 그냥 string 타입임
+      contId?: number;
+    }>,
+    res: Response
+  ) => {
+    try {
+      const response: IArchiveResponse<IContPhoto, false> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: photosParsed.find(
+          (item) => String(item.contId) === String(req.params.contId)
+        )
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res.status(500);
+    }
+  }
+);
 
 /**
  * 정적 파일 서비스

@@ -5,7 +5,7 @@ import { Box, Typography, useTheme, alpha } from '@mui/material';
 import Archived from 'pages/@components/statusIcon/Archived';
 
 import Image from 'components/Image';
-import PhotoDetailDialog from '../DetailDialog';
+import PhotoDetailDialog from '../Detail/PhotoDetailDialog';
 
 const PhotoItem = (
   props: {

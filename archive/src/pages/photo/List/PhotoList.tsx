@@ -3,7 +3,7 @@ import React from 'react';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 
-import { asyncPhotoList } from './state';
+import { asyncPhotoList } from '../state';
 import PhotoItem from './PhotoItem';
 
 const Inner = () => {

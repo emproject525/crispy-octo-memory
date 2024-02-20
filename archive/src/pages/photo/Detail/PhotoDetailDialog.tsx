@@ -1,10 +1,11 @@
 import React from 'react';
-import { Typography } from '@mui/material';
 import DraggablePaper from 'components/DraggablePaper';
 import { IContPhoto } from 'dto';
 
+import PhotoDetail from '../Detail/PhotoDetail';
+
 /**
- * 사진 컨텐츠 클릭 시 연결 (PhotoItem과 연결)
+ * 사진 상세를 dialog 처럼 노출
  */
 const PhotoDetailDialog = (props: {
   contId?: IContPhoto['contId'];
@@ -26,7 +27,7 @@ const PhotoDetailDialog = (props: {
         width: 600,
       }}
     >
-      <Typography component="div">{contId}</Typography>
+      <PhotoDetail contId={contId} />
     </DraggablePaper>
   );
 };

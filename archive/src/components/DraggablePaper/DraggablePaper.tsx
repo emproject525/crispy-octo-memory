@@ -9,6 +9,7 @@ import {
   useTheme,
 } from '@mui/material';
 import Draggable from 'react-draggable';
+import StyledScrollBox from 'components/StyledScrollBox';
 
 const DraggablePaper = ({
   handleId,
@@ -26,7 +27,7 @@ const DraggablePaper = ({
         setBounds({
           top: 0,
           left: 0,
-          // 스크롤바 신경써야됨 킹에
+          // 스크롤바 신경써야됨 킹에바
           right: window.innerWidth - width - 40 * 2 - 16,
           bottom: window.innerHeight - height - 40 * 2,
         });
@@ -93,14 +94,15 @@ const DraggablePaper = ({
               <CloseIcon fontSize="small" />
             </IconButton>
           </Box>
-          <Box
+          <StyledScrollBox
             flex={1}
             sx={{
               overflowY: 'auto',
             }}
+            mb={5}
           >
             {children}
-          </Box>
+          </StyledScrollBox>
         </Paper>
       </Draggable>
     </Portal>

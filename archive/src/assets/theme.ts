@@ -58,8 +58,10 @@ declare module '@mui/material/Typography' {
 /**
  * Theme
  */
-const theme = (mode: PaletteMode) =>
-  createTheme({
+const theme = (mode: PaletteMode) => {
+  const color = palette[mode];
+
+  return createTheme({
     spacing: 4,
     breakpoints: {
       values: {
@@ -77,6 +79,9 @@ const theme = (mode: PaletteMode) =>
         '-apple-system',
         '맑은 고딕',
       ].join(','),
+      h3: {
+        fontSize: 16,
+      },
       fs10: {
         fontFamily: 'Pretendard',
         fontSize: 10,
@@ -133,6 +138,7 @@ const theme = (mode: PaletteMode) =>
     components: {
       MuiPaper: {
         styleOverrides: {
+          root: {},
           rounded: {
             borderRadius: 20,
             padding: 20,
@@ -141,5 +147,6 @@ const theme = (mode: PaletteMode) =>
       },
     },
   });
+};
 
 export default theme;

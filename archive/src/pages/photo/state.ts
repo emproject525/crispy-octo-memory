@@ -3,7 +3,7 @@ import { IRes } from 'http';
 import * as api from 'api/photo';
 import { IContPhoto } from 'dto';
 import { IContPhotoParams } from 'params';
-import { atom, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 
 export const photoListParams = atom<IContPhotoParams>({
   key: 'photoListParams',
@@ -42,4 +42,24 @@ export const asyncPhotoList = selector<IRes<IContPhoto>>({
   //     }
   //   }
   // },
+});
+
+/**
+ * 비동기로 사진 가져오기
+ */
+export const asyncPhoto = selectorFamily<IRes<IContPhoto, false>, number>({
+  key: 'asyncPhoto',
+  get: (contId) => async () => {
+    const response = await api.getPhoto(contId);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    if (response.data.header.success) {
+      const path = response.data.body!.filePath;
+      if (path) {
+        response.data.body!.filePath = `http://localhost:8080${path}`;
+      }
+    }
+
+    return response.data;
+  },
 });
