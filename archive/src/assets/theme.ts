@@ -81,6 +81,7 @@ const theme = (mode: PaletteMode) => {
       ].join(','),
       h3: {
         fontSize: 16,
+        lineHeight: 'normal',
       },
       fs10: {
         fontFamily: 'Pretendard',
@@ -142,6 +143,17 @@ const theme = (mode: PaletteMode) => {
           rounded: {
             borderRadius: 20,
             padding: 20,
+          },
+        },
+      },
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            ...(mode === 'dark' && {
+              '::selection': {
+                backgroundColor: '#c68146',
+              },
+            }),
           },
         },
       },

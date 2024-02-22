@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Skeleton } from '@mui/material';
+import { Box, IconButton, Skeleton } from '@mui/material';
+import CropFreeIcon from '@mui/icons-material/CropFree';
 
 const Image = React.forwardRef<
   HTMLDivElement,
@@ -50,6 +51,24 @@ const Image = React.forwardRef<
           setOnload(false);
         }}
       />
+      <Box
+        sx={{
+          position: 'absolute',
+          zIndex: 1,
+          top: 8,
+          right: 8,
+        }}
+      >
+        <IconButton
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            window.open(src);
+          }}
+        >
+          <CropFreeIcon fontSize="small" />
+        </IconButton>
+      </Box>
     </Box>
   );
 });

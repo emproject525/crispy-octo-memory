@@ -22,15 +22,19 @@ const DraggablePaper = ({
   const nodeRef = React.useRef<HTMLDivElement | null>(null);
   const nodeRefCallback = React.useCallback((ele: HTMLDivElement | null) => {
     if (ele) {
-      const { width, height } = ele.getBoundingClientRect();
-      const observer = new ResizeObserver(() => {
-        setBounds({
-          top: 0,
-          left: 0,
-          // 스크롤바 신경써야됨 킹에바
-          right: window.innerWidth - width - 40 * 2 - 16,
-          bottom: window.innerHeight - height - 40 * 2,
-        });
+      const observer = new ResizeObserver((entries) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        for (const _entry of entries) {
+          const { width, height } = ele.getBoundingClientRect();
+
+          setBounds({
+            top: 0,
+            left: 0,
+            // 스크롤바 신경써야됨 킹에바
+            right: window.innerWidth - width - 40 * 2 - 16,
+            bottom: window.innerHeight - height - 40 * 2,
+          });
+        }
       });
 
       observer.observe(document.body);
@@ -66,7 +70,7 @@ const DraggablePaper = ({
           sx={{
             position: 'fixed',
             maxHeight: `calc(100vh - ${theme.spacing(20)})`,
-            maxWidth: `calc(100vh - ${theme.spacing(20)})`,
+            maxWidth: `calc(100vw - ${theme.spacing(20)})`,
             overflow: 'hidden',
             zIndex: 1499,
             p: 0,

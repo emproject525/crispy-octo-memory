@@ -4,9 +4,11 @@ declare module 'http' {
     AxiosInstance,
     AxiosInterceptorManager,
     AxiosInterceptorOptions,
+    AxiosRequestConfig,
     AxiosResponse,
     InternalAxiosRequestConfig,
   } from 'axios';
+  import { ContType } from 'dto';
 
   /**
    * 서버 응답
@@ -55,5 +57,16 @@ declare module 'http' {
       url: string,
       config?: AxiosRequestConfig<D>,
     ): Promise<R>;
+    download<
+      D = {
+        contType: ContType;
+        contId: number;
+      },
+    >(
+      D,
+    ): Promise<{
+      success: boolean;
+      response: AxiosResponse<BlobPart | IRes<boolean, false>>;
+    }>;
   }
 }

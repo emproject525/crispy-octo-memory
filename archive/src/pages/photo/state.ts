@@ -51,7 +51,7 @@ export const asyncPhoto = selectorFamily<IRes<IContPhoto, false>, number>({
   key: 'asyncPhoto',
   get: (contId) => async () => {
     const response = await api.getPhoto(contId);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
 
     if (response.data.header.success) {
       const path = response.data.body!.filePath;

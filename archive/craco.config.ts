@@ -102,8 +102,10 @@ export default {
       const isProd = env === 'production';
       const customized: WebpackConfig = config;
 
+      console.log(isProd);
+
       // 소스맵 @see https://webpack.kr/configuration/devtool/#development
-      customized.devtool = !isProd ? 'inline-source-map' : 'hidden-source-map';
+      customized.devtool = !isProd ? 'eval-source-map' : 'hidden-source-map';
 
       // 캐시 체계 @see https://webpack.kr/configuration/cache/
       if (!isProd) {

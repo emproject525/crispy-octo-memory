@@ -8,7 +8,7 @@ import client from './client';
  * @returns axios
  */
 export const getPhotos = (params: IContPhotoParams) => {
-  return client.get<IContPhoto>('/photos');
+  return client.get<IContPhoto>('/api/photos');
 };
 
 /**
@@ -17,5 +17,5 @@ export const getPhotos = (params: IContPhotoParams) => {
  * @returns axios
  */
 export const getPhoto = (contId: number) => {
-  return client.get<IContPhoto, IContPhoto, false>(`/photos/${contId}`);
+  return client.get<IContPhoto, IContPhoto, false>(`/api/photos/${contId}`);
 };

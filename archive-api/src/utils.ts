@@ -1,3 +1,5 @@
+import { IArchiveResponse } from 'dto';
+
 export type RecursivelyReplaceNullWithUndefined<T> = T extends null
   ? undefined
   : T extends (infer U)[]
@@ -8,7 +10,7 @@ export type RecursivelyReplaceNullWithUndefined<T> = T extends null
 
 /**
  * null -> undefined
- * @param obj null도 있는 데이터
+ * @param obj null 있는 데이터
  * @returns null 없는 데이터
  */
 export function removeNulls<T>(obj: T): RecursivelyReplaceNullWithUndefined<T> {
@@ -22,4 +24,22 @@ export function removeNulls<T>(obj: T): RecursivelyReplaceNullWithUndefined<T> {
     }
   }
   return obj as any;
+}
+
+/**
+ * 500 응답 생성
+ * @param message header.message 내용
+ * @returns 500 응답 (body = false)
+ */
+export function make500Response(
+  message: string
+): IArchiveResponse<boolean, false> {
+  return {
+    header: {
+      success: false,
+      message,
+      status: 500
+    },
+    body: false
+  };
 }

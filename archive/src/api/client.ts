@@ -1,14 +1,13 @@
-import { IArchiveAxiosInstance } from 'http';
+import { IArchiveAxiosInstance, IRes } from 'http';
 
 import axios from 'axios';
 import qs from 'qs';
+import { ContType } from 'dto';
 
-/**
- * Create Axios instance
- */
-const client: IArchiveAxiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/api/',
+const base = axios.create({
+  baseURL: 'http://localhost:8080',
   withCredentials: false,
+  timeout: 1000 * 60 * 5,
   paramsSerializer: (params) =>
     qs.stringify(params, {
       allowDots: true,
@@ -21,6 +20,39 @@ const client: IArchiveAxiosInstance = axios.create({
   formSerializer: {
     dots: true,
     indexes: true,
+  },
+});
+
+/**
+ * Create Axios instance
+ */
+const client: IArchiveAxiosInstance = Object.assign({}, base, {
+  async download(contents: { contId: number; contType: ContType }) {
+    return base
+      .post<BlobPart | IRes<boolean, false>>(`/download`, contents, {
+        responseType: 'blob',
+      })
+      .then((response) => {
+        const success = response.headers['download-success'] === 'Y';
+
+        if (success) {
+          const disposition = response.headers['content-disposition'];
+          const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+          const matches = filenameRegex.exec(disposition);
+          const filename = (matches?.[1] || '').replace(/['"]/g, '');
+          const blob = new Blob([response.data as BlobPart]);
+
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = filename;
+          link.click();
+        }
+
+        return {
+          success,
+          response,
+        };
+      });
   },
 });
 
