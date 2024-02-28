@@ -137,6 +137,9 @@ const theme = (mode: PaletteMode) => {
     },
     palette: palette[mode],
     components: {
+      /**
+       * MuiPaper
+       */
       MuiPaper: {
         styleOverrides: {
           root: {},
@@ -146,6 +149,9 @@ const theme = (mode: PaletteMode) => {
           },
         },
       },
+      /**
+       * MuiTypography
+       */
       MuiTypography: {
         styleOverrides: {
           root: {
@@ -154,6 +160,36 @@ const theme = (mode: PaletteMode) => {
                 backgroundColor: '#c68146',
               },
             }),
+          },
+        },
+      },
+      /**
+       * MuiInputBase
+       */
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            fontSize: 13,
+          },
+        },
+      },
+      /**
+       * MuiFilledInput
+       */
+      MuiFilledInput: {
+        styleOverrides: {
+          root: {
+            lineHeight: '18px',
+          },
+        },
+      },
+      /**
+       * MuiInputLabel
+       */
+      MuiInputLabel: {
+        styleOverrides: {
+          filled: {
+            color: 'success.main',
           },
         },
       },

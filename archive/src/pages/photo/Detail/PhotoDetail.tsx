@@ -2,10 +2,15 @@ import React from 'react';
 import { Divider, Grid } from '@mui/material';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
 
-import PhotoTitle from './components/Title';
+import PhotoHeader from './components/Header';
 import PhotoRegDt from './components/RegDt';
 import PhotoArchStatus from './components/ArchStatus';
 import PhotoFileImage from './components/FileImage';
+import PhotoTitle from './components/Title';
+import PhotoCaption from './components/Caption';
+import PhotoMediaSource from './components/MediaSource';
+import PhotoDepartment from './components/Department';
+import PhotoCopyrt from './components/Copyrt';
 
 import { asyncPhoto } from '../state';
 
@@ -14,13 +19,18 @@ const Inner = ({ contId }: { contId: number }) => {
 
   return (
     <Grid container spacing={2}>
-      <PhotoTitle contId={contId} />
+      <PhotoHeader contId={contId} />
       <PhotoRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />
       </Grid>
       <PhotoArchStatus contId={contId} />
       <PhotoFileImage contId={contId} />
+      <PhotoTitle contId={contId} />
+      <PhotoCaption contId={contId} />
+      <PhotoMediaSource contId={contId} />
+      <PhotoDepartment contId={contId} />
+      <PhotoCopyrt contId={contId} />
     </Grid>
   );
 };

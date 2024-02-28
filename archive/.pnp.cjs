@@ -51,6 +51,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:6.15.0"],\
           ["@typescript-eslint/parser", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:6.15.0"],\
           ["axios", "npm:1.6.7"],\
+          ["clsx", "npm:2.1.0"],\
           ["date-fns", "npm:3.0.3"],\
           ["esbuild-loader", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:4.0.2"],\
           ["eslint", "npm:8.56.0"],\
@@ -7371,6 +7372,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:6.15.0"],\
           ["@typescript-eslint/parser", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:6.15.0"],\
           ["axios", "npm:1.6.7"],\
+          ["clsx", "npm:2.1.0"],\
           ["date-fns", "npm:3.0.3"],\
           ["esbuild-loader", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:4.0.2"],\
           ["eslint", "npm:8.56.0"],\
@@ -8602,6 +8604,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/clsx-npm-2.0.0-afafbbe44a-10c0.zip/node_modules/clsx/",\
         "packageDependencies": [\
           ["clsx", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.1.0", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/clsx-npm-2.1.0-29d286e1de-10c0.zip/node_modules/clsx/",\
+        "packageDependencies": [\
+          ["clsx", "npm:2.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\

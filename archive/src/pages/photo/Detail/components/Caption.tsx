@@ -1,10 +1,10 @@
 import React from 'react';
+import { Box, Grid, Skeleton, TextField } from '@mui/material';
 import { asyncPhoto } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
-import { Box, Grid, Skeleton, TextField } from '@mui/material';
 import AutosizeBox from 'components/Input/AutosizeBox';
 
-const PhotoTitle = ({ contId }: { contId: number }) => {
+const PhotoCaption = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
 
   switch (state) {
@@ -31,9 +31,9 @@ const PhotoTitle = ({ contId }: { contId: number }) => {
           <Box px={4}>
             <AutosizeBox
               variant="filled"
-              id={`content-${contId}-title`}
-              label="제목"
-              value={body!.title || ''}
+              id={`content-${contId}-caption`}
+              label="설명"
+              value={body!.caption || ''}
             />
           </Box>
         </Grid>
@@ -45,4 +45,4 @@ const PhotoTitle = ({ contId }: { contId: number }) => {
   }
 };
 
-export default PhotoTitle;
+export default PhotoCaption;
