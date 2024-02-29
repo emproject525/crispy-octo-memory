@@ -190,6 +190,32 @@ const theme = (mode: PaletteMode) => {
         styleOverrides: {
           filled: {
             color: 'success.main',
+            ':not(.MuiInputLabel-shrink)': {
+              fontSize: '13px',
+            },
+          },
+        },
+      },
+      /**
+       * MuiFormControlLabel
+       */
+      MuiFormControlLabel: {
+        styleOverrides: {
+          root: {
+            marginLeft: 0,
+          },
+          label: {
+            fontSize: 13,
+          },
+        },
+      },
+      /**
+       * MuiCheckbox
+       */
+      MuiCheckbox: {
+        styleOverrides: {
+          sizeSmall: {
+            padding: 6,
           },
         },
       },

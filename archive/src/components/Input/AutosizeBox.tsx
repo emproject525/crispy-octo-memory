@@ -106,7 +106,7 @@ const AutosizeBox = ({
             whiteSpace: 'pre-wrap',
           }}
           dangerouslySetInnerHTML={{
-            __html: value || '',
+            __html: value || `&nbsp;`,
           }}
         />
       </Box>

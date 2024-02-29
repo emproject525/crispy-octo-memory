@@ -4,6 +4,9 @@ import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
 import AutosizeBox from 'components/Input/AutosizeBox';
 
+/**
+ * 사진 제목
+ */
 const PhotoTitle = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
 

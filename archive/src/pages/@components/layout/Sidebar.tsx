@@ -5,6 +5,7 @@ import FeedRoundedIcon from '@mui/icons-material/FeedRounded';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
   alpha,
@@ -124,6 +125,8 @@ const Sidebar = ({ width }: { width: number }) => {
                     <FeedRoundedIcon fontSize="small" />
                   ) : item.menuNm === 'photo' ? (
                     <PhotoLibraryIcon fontSize="small" />
+                  ) : item.menuNm === 'video' ? (
+                    <VideoLibraryIcon fontSize="small" />
                   ) : null}
                 </IconButton>
               )}

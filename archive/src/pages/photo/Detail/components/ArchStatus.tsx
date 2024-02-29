@@ -1,7 +1,9 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
+import copy from 'copy-to-clipboard';
 import { Box, Grid, IconButton, Skeleton, Typography } from '@mui/material';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import { asyncPhoto } from 'pages/photo/state';
 import Archived from 'pages/@components/statusIcon/Archived';
@@ -47,26 +49,45 @@ const PhotoArchStatus = ({ contId }: { contId: number }) => {
             </Box>
           </Grid>
           <Grid item xs={6}>
-            <Box px={4} display="flex" gap={4} justifyContent="flex-end">
+            <Box px={4} display="flex" gap={1} justifyContent="flex-end">
               <IconButton
-                color="info"
                 sx={{
-                  p: 0.5,
+                  width: 20,
+                  height: 20,
+                  p: 0.6,
                 }}
-                title="이미지 다운로드"
+                title="URL 복사"
                 onClick={() => {
-                  download({
-                    contType: 'P',
-                    contId,
-                  }).then(({ success, response }) => {});
+                  copy(`${window.location.origin}/photos/${contId}`);
                 }}
               >
-                <DownloadRoundedIcon
+                <ContentCopyIcon
                   sx={{
-                    fontSize: 16,
+                    fontSize: 14,
                   }}
                 />
               </IconButton>
+              {body!.permissionYn === 'Y' && (
+                <IconButton
+                  color="info"
+                  sx={{
+                    p: 0.5,
+                  }}
+                  title="이미지 다운로드"
+                  onClick={() => {
+                    download({
+                      contType: 'P',
+                      contId,
+                    }).then(() => {});
+                  }}
+                >
+                  <DownloadRoundedIcon
+                    sx={{
+                      fontSize: 16,
+                    }}
+                  />
+                </IconButton>
+              )}
             </Box>
           </Grid>
         </>

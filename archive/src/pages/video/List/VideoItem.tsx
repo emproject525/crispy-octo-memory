@@ -1,20 +1,28 @@
-import { IContPhoto } from 'dto';
 import React from 'react';
+import { IContVideo } from 'dto';
 import { RenderImageProps } from 'react-photo-gallery';
-import { Box, Typography, useTheme, alpha, Divider } from '@mui/material';
+import { alpha, Box, Typography, useTheme } from '@mui/material';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+
+import Image from 'components/Image';
 import Archived from 'pages/@components/statusIcon/Archived';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 
-import Image from 'components/Image';
-import PhotoDetailDialog from '../Detail/PhotoDetailDialog';
-
-const PhotoItem = (
+const VideoItem = (
   props: {
-    renderImageProps: RenderImageProps;
-  } & IContPhoto,
+    targetProps: RenderImageProps;
+  } & IContVideo,
 ) => {
-  const { contId, title, width, height, dpi, archStatus, permissionYn } = props;
-  const { index, margin, photo, left, top } = props.renderImageProps;
+  const {
+    contId,
+    title,
+    mediaType,
+    format,
+    archStatus,
+    permissionYn,
+    thumbFilePath,
+  } = props;
+  const { index, margin, photo } = props.targetProps;
   const theme = useTheme();
 
   //  hover 체크
@@ -35,10 +43,7 @@ const PhotoItem = (
       <Box
         id={`item${index}`}
         style={{
-          position: 'absolute',
           margin,
-          left,
-          top,
           height: photo.height,
           width: photo.width,
         }}
@@ -59,12 +64,29 @@ const PhotoItem = (
           height="calc(100% - 46px)"
           position="relative"
           id={`item${index}-image`}
-          // border={`1px solid ${theme.palette.divider}`}
         >
+          {mediaType === '01' && (
+            <Box
+              position="absolute"
+              sx={{
+                top: 8,
+                right: 8,
+                zIndex: 1,
+              }}
+            >
+              <YouTubeIcon
+                sx={{
+                  color: '#c4302b',
+                }}
+              />
+            </Box>
+          )}
           <Image
             width="100%"
             height="100%"
-            src={photo.src}
+            absolute
+            supressZoom
+            src={thumbFilePath}
             alt={photo.alt || title || ''}
           />
         </Box>
@@ -90,35 +112,13 @@ const PhotoItem = (
             justifyContent="space-between"
             alignItems="center"
           >
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              gap={1}
-              height={16}
-            >
-              <Typography
-                variant="fs12"
-                color="grey.600"
-                sx={{
-                  userSelect: 'none',
-                }}
-              >{`${width || 0}x${height || 0}`}</Typography>
-              <Divider
-                flexItem
-                orientation="vertical"
-                sx={{
-                  height: 14,
-                }}
-              />
-              <Typography
-                variant="fs12"
-                color="grey.600"
-                sx={{
-                  userSelect: 'none',
-                }}
-              >
-                {`${dpi || 72}dpi`}
+            <Box>
+              <Typography variant="fs12" color="grey.600">
+                {mediaType === '00'
+                  ? format?.toLocaleUpperCase() || ''
+                  : mediaType === '01'
+                    ? '유튜브'
+                    : ''}
               </Typography>
             </Box>
             <Box display="flex" justifyContent="center" gap={1}>
@@ -129,13 +129,13 @@ const PhotoItem = (
         </Box>
       </Box>
 
-      <PhotoDetailDialog
+      {/* <PhotoDetailDialog
         open={openDetail}
         contId={contId}
         onClose={() => setOpenDetail(false)}
-      />
+      /> */}
     </React.Fragment>
   );
 };
 
-export default PhotoItem;
+export default VideoItem;

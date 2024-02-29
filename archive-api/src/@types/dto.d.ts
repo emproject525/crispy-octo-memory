@@ -158,7 +158,101 @@ declare module 'dto' {
   }
 
   /**
-   * 기사 컨텐츠
+   * 영상 컨텐츠
    */
-  export interface IContArticle {}
+  export interface IContVideo {
+    contId: null | number;
+    contType: null | ContType;
+    /**
+     * 컨텐츠의 서비스 상태
+     * - `00` 중지됨
+     * - `01` 서비스 중
+     * - `99` 삭제됨
+     * @default 00
+     */
+    serviceStatus: null | '00' | '01' | '99';
+    title: null | string;
+    media: null | number;
+    source: null | number;
+    department?: null | number;
+    /**
+     * 아카이빙 상태
+     * - `00` : 아카이브 등록 전
+     * - `01` : 검토 중
+     * - `99` : 아카이브 등록 완료
+     * @default 00
+     */
+    archStatus: null | '00' | '01' | '99';
+    caption?: null | string;
+    keyword?: null | string;
+    /**
+     * 촬영일
+     */
+    shootDt: null | string;
+    /**
+     * 촬영 장소
+     */
+    shootPlace: null | string;
+    /**
+     * 촬영 유형
+     * - `00` 일반
+     * - `01` 위성
+     * - `02` 수중
+     * - `99` 기타
+     * @default 00
+     */
+    shootType?: null | '00' | '01' | '02' | '99';
+    /**
+     * 결제해야 볼 수 있는 컨텐츠인지
+     */
+    payYn: null | 'Y' | 'N';
+    /**
+     * 성인 컨텐츠 여부
+     */
+    adultYn: null | 'Y' | 'N';
+    /**
+     * 사용 허가 여부
+     * - `Y` 허가 받았음 (바로 사용 가능)
+     * - `N` 허가받지 않았음. 사용하려면 저작권자에게 허가 받아야함.
+     * @default N 허가받지 않은 상태
+     */
+    permissionYn: null | 'Y' | 'N';
+    /**
+     * 저작권자
+     */
+    copyrt?: null | string;
+    regId: null | string;
+    regDt: null | string;
+    modId?: null | string;
+    modDt?: null | string;
+    delId?: null | string;
+    delDt?: null | string;
+    /**
+     * 영상 타입
+     * - `00` 자체 영상
+     * - `01` 유튜브 영상
+     * @default 00
+     */
+    mediaType: null | '00' | '01';
+    /**
+     * 영상 포맷
+     */
+    format?: null | string;
+    fileSize: null | number;
+    fileName: null | string;
+    /**
+     * 영상 재생 경로, 유튜브 영상인 경우 유튜브 iframe src
+     */
+    filePath: null | string;
+    orgFileName: null | string;
+    /**
+     * 영상 썸네일 경로
+     */
+    thumbFilePath: null | string;
+  }
+
+  /**
+   * 문서 컨텐츠
+   */
+  export interface IContText {}
 }

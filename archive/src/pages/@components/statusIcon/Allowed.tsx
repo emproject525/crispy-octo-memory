@@ -1,16 +1,16 @@
-import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveTwoTone';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Box, useTheme } from '@mui/material';
 
 /**
- * 아카이브됨
+ * 허가 O
  * @returns JSX.Element
  */
-const Archived = () => {
+const Allowed = () => {
   const theme = useTheme();
 
   return (
     <Box display="flex" alignItems="center" color={theme.palette.success.main}>
-      <ArchiveTwoToneIcon
+      <TaskAltIcon
         sx={{
           color: theme.palette.success.main,
           fontSize: 16,
@@ -20,4 +20,4 @@ const Archived = () => {
   );
 };
 
-export default Archived;
+export default Allowed;

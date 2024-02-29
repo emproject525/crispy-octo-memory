@@ -14,10 +14,17 @@
     "path": "/document"
   },
   {
-    "depth": 2,
+    "depth": 1,
     "menuId": "03",
     "menuNm": "photo",
     "menuKoNm": "사진",
     "path": "/photos"
+  },
+  {
+    "depth": 1,
+    "menuId": "04",
+    "menuNm": "video",
+    "menuKoNm": "영상",
+    "path": "/videos"
   }
 ]

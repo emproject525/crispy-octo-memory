@@ -1,21 +1,42 @@
 import React from 'react';
-import { Box, IconButton, Skeleton } from '@mui/material';
+import { Box, IconButton, Skeleton, useTheme } from '@mui/material';
 import CropFreeIcon from '@mui/icons-material/CropFree';
 
+/**
+ * <img /> 대체 컴포넌트
+ */
 const Image = React.forwardRef<
   HTMLDivElement,
   {
     // 도메인 붙은 전체 경로
     src: string;
     alt: string;
+    // 이미지를 absolute로 영역에 맞출지
+    absolute?: boolean;
     width?: React.CSSProperties['width'];
     height?: React.CSSProperties['height'];
+    // 확대 기능 막기
+    supressZoom?: boolean;
   }
->(({ src, alt, width, height }, ref) => {
+>(({ absolute, src, alt, width, height, supressZoom }, ref) => {
   const [onload, setOnload] = React.useState(true);
+  const { palette, spacing } = useTheme();
 
   return (
-    <Box ref={ref} position="relative" width={width} height={height}>
+    <Box
+      ref={ref}
+      position="relative"
+      width={width}
+      height={height}
+      sx={{
+        background: `linear-gradient(90deg, ${palette.grey[600]} ${spacing(
+          3,
+        )}, transparent 1%) center, linear-gradient(${
+          palette.grey[600]
+        }  ${spacing(3)}, transparent 1%) center, ${palette.grey[500]};`,
+        backgroundSize: `${spacing(4)} ${spacing(4)}`,
+      }}
+    >
       {onload && (
         <Skeleton
           animation="wave"
@@ -47,28 +68,44 @@ const Image = React.forwardRef<
             }, 3000);
           }
         }}
+        style={{
+          display: 'block',
+          margin: 0,
+          padding: 0,
+          ...(absolute && {
+            position: 'absolute',
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            margin: 'auto',
+            inset: 0,
+          }),
+        }}
         onError={() => {
           setOnload(false);
         }}
       />
-      <Box
-        sx={{
-          position: 'absolute',
-          zIndex: 1,
-          top: 8,
-          right: 8,
-        }}
-      >
-        <IconButton
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            window.open(src);
+      {!supressZoom && (
+        <Box
+          sx={{
+            position: 'absolute',
+            zIndex: 1,
+            top: 8,
+            right: 8,
           }}
         >
-          <CropFreeIcon fontSize="small" />
-        </IconButton>
-      </Box>
+          <IconButton
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              window.open(src);
+            }}
+          >
+            <CropFreeIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      )}
     </Box>
   );
 });

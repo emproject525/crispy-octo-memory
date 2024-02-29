@@ -33,12 +33,28 @@ const PhotoRegDt = ({ contId }: { contId: number }) => {
           <>
             <Grid item xs={6}>
               <Box px={4}>
-                <Typography variant="fs12">등록일 {body!.regDt}</Typography>
+                <Typography
+                  variant="fs12"
+                  sx={{
+                    userSelect: 'none',
+                    cursor: 'default',
+                  }}
+                >
+                  등록일 {body!.regDt}
+                </Typography>
               </Box>
             </Grid>
             <Grid item xs={6}>
               <Box px={4} textAlign="right">
-                <Typography variant="fs12">수정일 {body!.modDt}</Typography>
+                <Typography
+                  variant="fs12"
+                  sx={{
+                    userSelect: 'none',
+                    cursor: 'default',
+                  }}
+                >
+                  수정일 {body!.modDt}
+                </Typography>
               </Box>
             </Grid>
           </>
@@ -48,7 +64,15 @@ const PhotoRegDt = ({ contId }: { contId: number }) => {
       return (
         <Grid item xs={12}>
           <Box px={4}>
-            <Typography variant="fs12">등록일 {body!.regDt}</Typography>
+            <Typography
+              variant="fs12"
+              sx={{
+                userSelect: 'none',
+                cursor: 'default',
+              }}
+            >
+              등록일 {body!.regDt}
+            </Typography>
           </Box>
         </Grid>
       );

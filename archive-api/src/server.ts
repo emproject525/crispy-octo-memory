@@ -3,7 +3,7 @@ import cors from 'cors';
 import debug from 'debug';
 import path from 'path';
 
-import { ContType, IArchiveResponse, ICd, IContPhoto } from 'dto';
+import { ContType, IArchiveResponse, ICd, IContPhoto, IContVideo } from 'dto';
 import { removeNulls, make500Response } from 'utils';
 
 import imgTypes from '@data/code/img_type.json';
@@ -12,9 +12,13 @@ import medias from '@data/code/media.json';
 import departments from '@data/code/department.json';
 
 import photos from '@data/photo/list.json';
+import videos from '@data/video/list.json';
 
 const photosParsed = photos.map((item) =>
   removeNulls<IContPhoto>(item as IContPhoto)
+);
+const vidoesParsed = videos.map((item) =>
+  removeNulls<IContVideo>(item as IContVideo)
 );
 
 const app: Application = express();
@@ -99,7 +103,7 @@ app.get('/api/photos', (req: Request, res: Response) => {
         message: '성공하였습니다'
       },
       body: {
-        list: photosParsed.slice(0, 20),
+        list: photosParsed.slice(0, 40),
         count: photos.length,
         keywords: []
       }
@@ -196,6 +200,31 @@ app.post(
     }
   }
 );
+
+/**
+ * 영상 목록 조회
+ */
+app.get('/api/videos', (req: Request, res: Response) => {
+  try {
+    const response: IArchiveResponse<IContVideo> = {
+      header: {
+        success: true,
+        status: 200,
+        message: '성공하였습니다'
+      },
+      body: {
+        list: vidoesParsed.slice(0, 40),
+        count: videos.length,
+        keywords: []
+      }
+    };
+    res.status(200).type('application/json').send(response);
+  } catch (e) {
+    res
+      .status(200)
+      .send(make500Response(e instanceof Error ? e.message : String(e)));
+  }
+});
 
 app.listen(port, function () {
   console.log(`App is listening on port ${port} !`);
