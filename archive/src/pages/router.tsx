@@ -17,6 +17,9 @@ const PhotoDetailRoute = React.lazy(
   () => import('pages/photo/Detail/PhotoDetailRoute'),
 );
 const Videos = React.lazy(() => import('pages/video/Videos'));
+const VideoDetailRoute = React.lazy(
+  () => import('pages/video/Detail/VideoDetailRoute'),
+);
 
 const getSuspensePages = (ele: JSX.Element) => (
   <Suspense fallback={<Fallback />}>{ele}</Suspense>
@@ -35,6 +38,10 @@ export default createBrowserRouter(
       </Route>
       <Route path="/videos">
         <Route index element={getSuspensePages(<Videos />)} />
+        <Route
+          path=":contId"
+          element={getSuspensePages(<VideoDetailRoute />)}
+        />
       </Route>
     </Route>,
   ),

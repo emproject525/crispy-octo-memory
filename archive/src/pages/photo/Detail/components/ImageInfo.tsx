@@ -4,6 +4,7 @@ import { useRecoilValueLoadable } from 'recoil';
 import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
 import Allowed from 'pages/@components/statusIcon/Allowed';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
+import { formatBytes } from 'utils/utils';
 
 /**
  * 이미지 정보
@@ -32,7 +33,7 @@ const PhotoImageInfo = ({ contId }: { contId: number }) => {
 
       return (
         <>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <Box px={4} display="flex" alignItems="center" gap={2}>
               <Typography variant="fs12">{`${body!.width || 0}x${
                 body!.height || 0
@@ -46,12 +47,12 @@ const PhotoImageInfo = ({ contId }: { contId: number }) => {
               <Divider flexItem orientation="vertical" />
               <Typography variant="fs12">{body!.orgFileName || ''}</Typography>
               <Divider flexItem orientation="vertical" />
-              <Typography variant="fs12">{`${(
-                body!.fileSize || 0
-              ).toLocaleString()}KB`}</Typography>
+              <Typography variant="fs12">
+                {formatBytes(body!.fileSize || 0, 2)}
+              </Typography>
             </Box>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <Box
               px={4}
               display="flex"

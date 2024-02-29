@@ -53,7 +53,7 @@ function replaceDt(before, fillToday) {
 // 영상
 t.map((item) => {
   var newItem = {};
-  var idx = Math.floor(Math.random() * 5) + 1;
+  var idx = Math.floor(Math.random() * 13) + 1;
 
   var info = meta[idx - 1];
   newItem.mediaType = info.mediaType;

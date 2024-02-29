@@ -7,21 +7,14 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import Image from 'components/Image';
 import Archived from 'pages/@components/statusIcon/Archived';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
+import VideoDetailDialog from '../Detail/VideoDetailDialog';
 
 const VideoItem = (
   props: {
     targetProps: RenderImageProps;
   } & IContVideo,
 ) => {
-  const {
-    contId,
-    title,
-    mediaType,
-    format,
-    archStatus,
-    permissionYn,
-    thumbFilePath,
-  } = props;
+  const { contId, title, mediaType, format, archStatus, permissionYn } = props;
   const { index, margin, photo } = props.targetProps;
   const theme = useTheme();
 
@@ -86,7 +79,7 @@ const VideoItem = (
             height="100%"
             absolute
             supressZoom
-            src={thumbFilePath}
+            src={photo.src}
             alt={photo.alt || title || ''}
           />
         </Box>
@@ -129,11 +122,11 @@ const VideoItem = (
         </Box>
       </Box>
 
-      {/* <PhotoDetailDialog
+      <VideoDetailDialog
         open={openDetail}
         contId={contId}
         onClose={() => setOpenDetail(false)}
-      /> */}
+      />
     </React.Fragment>
   );
 };

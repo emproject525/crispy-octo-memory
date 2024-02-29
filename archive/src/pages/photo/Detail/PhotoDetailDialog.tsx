@@ -1,6 +1,5 @@
 import React from 'react';
 import DraggablePaper from 'components/DraggablePaper';
-import { IContPhoto } from 'dto';
 
 import PhotoDetail from '../Detail/PhotoDetail';
 
@@ -8,7 +7,7 @@ import PhotoDetail from '../Detail/PhotoDetail';
  * 사진 상세를 dialog 처럼 노출
  */
 const PhotoDetailDialog = (props: {
-  contId?: IContPhoto['contId'];
+  contId?: number;
   open: boolean;
   onClose: () => void;
 }) => {

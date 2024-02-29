@@ -256,3 +256,9 @@ declare module 'dto' {
    */
   export interface IContText {}
 }
+
+declare module 'hls-server' {
+  import * as hlsserver from 'hls-server';
+
+  export = hlsserver;
+}

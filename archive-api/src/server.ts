@@ -1,7 +1,8 @@
+import fs from 'fs';
 import express, { Application, Request, Response } from 'express';
+import path from 'path';
 import cors from 'cors';
 import debug from 'debug';
-import path from 'path';
 
 import { ContType, IArchiveResponse, ICd, IContPhoto, IContVideo } from 'dto';
 import { removeNulls, make500Response } from 'utils';
@@ -170,10 +171,10 @@ app.post(
     res: Response
   ) => {
     try {
-      if (req.body.contType === 'P') {
-        const target = photosParsed.find(
-          (item) => item.contId === req.body.contId
-        );
+      if (req.body.contType === 'P' || req.body.contType === 'V') {
+        const target = (
+          req.body.contType === 'V' ? vidoesParsed : photosParsed
+        ).find((item) => item.contId === req.body.contId);
 
         if (target && target.filePath) {
           res
@@ -185,13 +186,13 @@ app.post(
                 'Content-Disposition'
               ]
             })
-            .attachment(target.fileName || target.filePath)
+            .attachment(target.orgFileName || target.filePath)
             .download(path.join(__dirname, '..', target.filePath));
         } else {
           res.status(200).send(make500Response('다운로드 이미지가 없습니다.'));
         }
       } else {
-        res.status(200).send(make500Response('컨텐츠 타입 확인'));
+        res.status(200).send(make500Response('컨텐츠 타입을 확인하세요.'));
       }
     } catch (e) {
       res
@@ -225,6 +226,91 @@ app.get('/api/videos', (req: Request, res: Response) => {
       .send(make500Response(e instanceof Error ? e.message : String(e)));
   }
 });
+
+/**
+ * 영상 상세
+ */
+app.get(
+  '/api/videos/:contId',
+  (
+    req: Request<{
+      contId?: string;
+    }>,
+    res: Response
+  ) => {
+    try {
+      const response: IArchiveResponse<IContVideo, false> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: vidoesParsed.find(
+          (item) => String(item.contId) === req.params.contId
+        )
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
+    }
+  }
+);
+
+/**
+ * 영상 서비스 제공??? 테스트 중
+ * https://www.thisdot.co/blog/building-a-multi-response-streaming-api-with-node-js-express-and-react
+ */
+app.get(
+  '/stream/:contId',
+  (
+    req: Request<{
+      contId: string;
+    }>,
+    res: Response
+  ) => {
+    const video = vidoesParsed.find(
+      (item) => String(item.contId) === req.params.contId
+    );
+
+    if (video) {
+      const absolutePath = path.join(
+        __dirname,
+        '../videos/',
+        video.orgFileName || ''
+      );
+      const stat = fs.statSync(absolutePath);
+      const fileSize = stat.size;
+      const range = req.headers.range;
+      if (range) {
+        const parts = range.replace(/bytes=/, '').split('-');
+        const start = parseInt(parts[0], 10);
+        const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+
+        const chunksize = end - start + 1;
+        const file = fs.createReadStream(absolutePath, { start, end });
+        const head = {
+          'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+          'Accept-Ranges': 'bytes',
+          'Content-Length': chunksize,
+          'Content-Type': 'video/mp4'
+        };
+
+        res.writeHead(206, head);
+        file.pipe(res);
+      } else {
+        const head = {
+          'Content-Length': fileSize,
+          'Content-Type': 'video/mp4'
+        };
+
+        res.writeHead(200, head);
+        fs.createReadStream(absolutePath).pipe(res);
+      }
+    }
+  }
+);
 
 app.listen(port, function () {
   console.log(`App is listening on port ${port} !`);
