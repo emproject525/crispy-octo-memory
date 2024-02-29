@@ -70,7 +70,7 @@ const VideoItem = (
               position="absolute"
               sx={{
                 top: 8,
-                right: 8,
+                right: 12,
                 zIndex: 1,
               }}
             >

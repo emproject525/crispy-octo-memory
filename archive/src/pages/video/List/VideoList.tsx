@@ -35,8 +35,9 @@ const Inner = () => {
   switch (state) {
     case 'hasValue': {
       const galleryPics = (contents.body?.list || []).map((item) => ({
-        width: 16,
-        height: 9,
+        width: 1280,
+        // height: 720
+        height: 900,
         src:
           item.mediaType === '00'
             ? `http://localhost:8080${item.thumbFilePath}`
