@@ -1,5 +1,5 @@
 import DoNotDisturbAltOutlinedIcon from '@mui/icons-material/DoNotDisturbAltOutlined';
-import { Box, Typography, useTheme } from '@mui/material';
+import { alpha, Box, Typography, useTheme } from '@mui/material';
 
 /**
  * 허가 X
@@ -15,6 +15,22 @@ const Disallowed = ({ showText }: { showText?: boolean }) => {
       alignItems="center"
       color={theme.palette.error.main}
     >
+      {/* <Tooltip
+          arrow
+          title="사용 시 저작권자에게 허가 요청"
+          slotProps={{
+            popper: {
+              modifiers: [
+                {
+                  name: 'offset',
+                  options: {
+                    offset: [0, -5],
+                  },
+                },
+              ],
+            },
+          }}
+        ></Tooltip> */}
       {showText && (
         <Typography
           variant="fs12"
@@ -29,6 +45,8 @@ const Disallowed = ({ showText }: { showText?: boolean }) => {
       )}
       <DoNotDisturbAltOutlinedIcon
         sx={{
+          borderRadius: '50%',
+          bgcolor: alpha(theme.palette.error.main, 0.3),
           color: theme.palette.error.main,
           fontSize: 16,
         }}

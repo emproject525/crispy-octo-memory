@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Skeleton, useTheme } from '@mui/material';
+import { Box, IconButton, Skeleton } from '@mui/material';
 import CropFreeIcon from '@mui/icons-material/CropFree';
 
 /**
@@ -20,7 +20,6 @@ const Image = React.forwardRef<
   }
 >(({ absolute, src, alt, width, height, supressZoom }, ref) => {
   const [onload, setOnload] = React.useState(true);
-  const { palette, spacing } = useTheme();
 
   return (
     <Box
@@ -29,12 +28,12 @@ const Image = React.forwardRef<
       width={width}
       height={height}
       sx={{
-        background: `linear-gradient(90deg, ${palette.grey[600]} ${spacing(
-          3,
-        )}, transparent 1%) center, linear-gradient(${
-          palette.grey[600]
-        }  ${spacing(3)}, transparent 1%) center, ${palette.grey[500]};`,
-        backgroundSize: `${spacing(4)} ${spacing(4)}`,
+        // background: `linear-gradient(90deg, #47516b 14px, transparent 1%) center, linear-gradient(#47516b 14px, transparent 1%) center, #505050;`,
+        // backgroundSize: `${spacing(4)} ${spacing(4)}`,
+        // background: 'linear-gradient(to right, #47516b, #323846)',
+        // background: `url(${bgimg})`,
+        // backgroundSize: 'cover',
+        backgroundColor: '#141414',
       }}
     >
       {onload && (

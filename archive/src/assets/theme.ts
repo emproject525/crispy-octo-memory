@@ -219,6 +219,21 @@ const theme = (mode: PaletteMode) => {
           },
         },
       },
+      /**
+       * MuiTooltip
+       */
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            fontSize: 12,
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            color: 'white',
+          },
+          arrow: {
+            color: 'rgba(0, 0, 0, 0.65)',
+          },
+        },
+      },
     },
   });
 };

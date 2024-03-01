@@ -121,7 +121,7 @@ const PhotoItem = (
                 {`${dpi || 72}dpi`}
               </Typography>
             </Box>
-            <Box display="flex" justifyContent="center" gap={1}>
+            <Box display="flex" justifyContent="center" gap={0.5}>
               {archStatus === '99' && <Archived />}
               {permissionYn === 'N' && <Disallowed />}
             </Box>

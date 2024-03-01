@@ -3,6 +3,7 @@ import { IContVideo } from 'dto';
 import { RenderImageProps } from 'react-photo-gallery';
 import { alpha, Box, Typography, useTheme } from '@mui/material';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
 
 import Image from 'components/Image';
 import Archived from 'pages/@components/statusIcon/Archived';
@@ -74,6 +75,18 @@ const VideoItem = (
               />
             </Box>
           )}
+          {mediaType === '00' && (
+            <Box
+              position="absolute"
+              sx={{
+                top: 8,
+                right: 12,
+                zIndex: 1,
+              }}
+            >
+              <PlayCircleRoundedIcon />
+            </Box>
+          )}
           <Image
             width="100%"
             height="100%"
@@ -114,7 +127,7 @@ const VideoItem = (
                     : ''}
               </Typography>
             </Box>
-            <Box display="flex" justifyContent="center" gap={1}>
+            <Box display="flex" justifyContent="center" gap={0.5}>
               {archStatus === '99' && <Archived />}
               {permissionYn === 'N' && <Disallowed />}
             </Box>
