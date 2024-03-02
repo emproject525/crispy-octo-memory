@@ -255,6 +255,26 @@ declare module 'dto' {
    * 문서 컨텐츠
    */
   export interface IContText {}
+
+  /**
+   * 컨텐츠 간의 관련 정보
+   */
+  export interface IRelation {
+    seq: number;
+    contType: ContType;
+    contId: number;
+    relContType: ContType;
+    relContId: number;
+  }
+
+  /**
+   * 컨텐츠의 관련 데이터 상세
+   */
+  export interface IRelationCont {
+    contType: ContType;
+    contId: number;
+    relations: (IContVideo | IContPhoto)[];
+  }
 }
 
 declare module 'hls-server' {

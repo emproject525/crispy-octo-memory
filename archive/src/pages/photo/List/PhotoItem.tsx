@@ -10,12 +10,23 @@ import PhotoDetailDialog from '../Detail/PhotoDetailDialog';
 
 const PhotoItem = (
   props: {
-    renderImageProps: RenderImageProps;
+    targetProps: RenderImageProps;
+    direction: 'row' | 'column';
   } & IContPhoto,
 ) => {
-  const { contId, title, width, height, dpi, archStatus, permissionYn } = props;
-  const { index, margin, photo, left, top } = props.renderImageProps;
+  const {
+    direction,
+    contId,
+    title,
+    width,
+    height,
+    dpi,
+    archStatus,
+    permissionYn,
+  } = props;
+  const { index, margin, photo, left, top } = props.targetProps;
   const theme = useTheme();
+  const isColumnPic = React.useMemo(() => direction === 'column', [direction]);
 
   //  hover 체크
   const [hovered, setHovered] = React.useState(false);
@@ -35,12 +46,14 @@ const PhotoItem = (
       <Box
         id={`item${index}`}
         style={{
-          position: 'absolute',
           margin,
-          left,
-          top,
-          height: photo.height,
           width: photo.width,
+          height: photo.height,
+          ...(isColumnPic && {
+            position: 'absolute',
+            left,
+            top,
+          }),
         }}
         sx={{
           caretColor: 'transparent',
@@ -66,6 +79,7 @@ const PhotoItem = (
             height="100%"
             src={photo.src}
             alt={photo.alt || title || ''}
+            absolute={!isColumnPic}
           />
         </Box>
         <Box height={46} pt={1} px={1}>

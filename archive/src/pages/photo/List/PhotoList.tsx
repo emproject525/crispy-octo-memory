@@ -18,7 +18,8 @@ const Inner = () => {
           return (
             <PhotoItem
               key={`photo-${renderImageProps.index}`}
-              renderImageProps={renderImageProps}
+              direction="column"
+              targetProps={renderImageProps}
               {...originPhoto}
             />
           );

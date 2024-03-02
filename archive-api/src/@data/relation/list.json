@@ -1,0 +1,86 @@
+[
+  {
+    "seq": 1,
+    "contType": "P",
+    "contId": 5837630,
+    "relContType": "V",
+    "relContId": 1486
+  },
+  {
+    "seq": 2,
+    "contType": "P",
+    "contId": 5837630,
+    "relContType": "P",
+    "relContId": 5837629
+  },
+  {
+    "seq": 3,
+    "contType": "P",
+    "contId": 5837630,
+    "relContType": "P",
+    "relContId": 5838512
+  },
+  {
+    "seq": 4,
+    "contType": "P",
+    "contId": 5837630,
+    "relContType": "P",
+    "relContId": 5838493
+  },
+  {
+    "seq": 5,
+    "contType": "P",
+    "contId": 5837630,
+    "relContType": "V",
+    "relContId": 1415
+  },
+  {
+    "seq": 6,
+    "contType": "P",
+    "contId": 5837630,
+    "relContType": "V",
+    "relContId": 1398
+  },
+  {
+    "seq": 7,
+    "contType": "V",
+    "contId": 1485,
+    "relContType": "V",
+    "relContId": 1398
+  },
+  {
+    "seq": 8,
+    "contType": "V",
+    "contId": 1485,
+    "relContType": "V",
+    "relContId": 1444
+  },
+  {
+    "seq": 9,
+    "contType": "V",
+    "contId": 1485,
+    "relContType": "V",
+    "relContId": 1443
+  },
+  {
+    "seq": 10,
+    "contType": "V",
+    "contId": 1485,
+    "relContType": "P",
+    "relContId": 5838492
+  },
+  {
+    "seq": 11,
+    "contType": "V",
+    "contId": 1485,
+    "relContType": "P",
+    "relContId": 5837626
+  },
+  {
+    "seq": 12,
+    "contType": "V",
+    "contId": 1485,
+    "relContType": "P",
+    "relContId": 5838431
+  }
+]

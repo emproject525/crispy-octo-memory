@@ -225,4 +225,9 @@ declare module 'dto' {
      */
     thumbFilePath: string;
   }
+
+  /**
+   * 관련 타입
+   */
+  export type RelationType = IContPhoto | IContVideo;
 }

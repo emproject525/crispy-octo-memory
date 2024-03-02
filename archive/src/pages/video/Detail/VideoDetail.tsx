@@ -17,6 +17,7 @@ import VideoShootTypeShootDt from './components/ShootTypeShootDt';
 import VideoShootPlace from './components/ShootPlace';
 import VideoPayYnAdultYn from './components/PayYnAdultYn';
 import MiniTitle from 'components/Text/MiniTitle';
+import VideoRelations from './components/Relations';
 
 const Inner = ({ contId }: { contId: number }) => {
   useRecoilValueLoadable(asyncVideo(contId));
@@ -50,6 +51,7 @@ const Inner = ({ contId }: { contId: number }) => {
           <MiniTitle text="관련 컨텐츠" />
         </Box>
       </Grid>
+      <VideoRelations contId={contId} />
     </Grid>
   );
 };

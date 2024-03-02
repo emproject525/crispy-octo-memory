@@ -43,3 +43,12 @@ export function make500Response(
     body: false
   };
 }
+
+/**
+ * filter(Boolean) => filter(isNonNullable) 대체 사용
+ */
+export function isNonNullable<T>(
+  value?: T | undefined | null | false
+): value is T {
+  return !!value;
+}

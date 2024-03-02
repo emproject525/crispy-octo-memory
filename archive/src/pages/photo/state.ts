@@ -1,7 +1,8 @@
 import { IRes } from 'http';
 
 import * as api from 'api/photo';
-import { IContPhoto } from 'dto';
+import { getRelations } from 'api/content';
+import { IContPhoto, RelationType } from 'dto';
 import { IContPhotoParams } from 'params';
 import { atom, selector, selectorFamily } from 'recoil';
 
@@ -47,19 +48,44 @@ export const asyncPhotoList = selector<IRes<IContPhoto>>({
 /**
  * 비동기로 사진 가져오기
  */
-export const asyncPhoto = selectorFamily<IRes<IContPhoto, false>, number>({
+export const asyncPhoto = selectorFamily<
+  IRes<
+    {
+      relations: RelationType[];
+    } & IContPhoto,
+    false
+  >,
+  number
+>({
   key: 'asyncPhoto',
   get: (contId) => async () => {
     const response = await api.getPhoto(contId);
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    const relations = await getRelations({
+      contType: 'P',
+      contId,
+    });
+    // await new Promise((resolve) => setTimeout(resolve, 500));
+
+    let returnBody:
+      | undefined
+      | (IContPhoto & {
+          relations: RelationType[];
+        }) = undefined;
 
     if (response.data.header.success) {
-      const path = response.data.body!.filePath;
+      returnBody = {
+        ...response.data.body!,
+        relations: relations.data.body?.list || [],
+      };
+      const path = returnBody.filePath;
       if (path) {
-        response.data.body!.filePath = `http://localhost:8080${path}`;
+        returnBody.filePath = `http://localhost:8080${path}`;
       }
     }
 
-    return response.data;
+    return {
+      header: response.data.header,
+      body: returnBody,
+    };
   },
 });

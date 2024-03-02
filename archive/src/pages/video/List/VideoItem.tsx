@@ -13,11 +13,21 @@ import VideoDetailDialog from '../Detail/VideoDetailDialog';
 const VideoItem = (
   props: {
     targetProps: RenderImageProps;
+    direction: 'row' | 'column';
   } & IContVideo,
 ) => {
-  const { contId, title, mediaType, format, archStatus, permissionYn } = props;
-  const { index, margin, photo } = props.targetProps;
+  const {
+    direction,
+    contId,
+    title,
+    mediaType,
+    format,
+    archStatus,
+    permissionYn,
+  } = props;
+  const { index, margin, photo, left, top } = props.targetProps;
   const theme = useTheme();
+  const isColumnPic = React.useMemo(() => direction === 'column', [direction]);
 
   //  hover 체크
   const [hovered, setHovered] = React.useState(false);
@@ -40,6 +50,11 @@ const VideoItem = (
           margin,
           height: photo.height,
           width: photo.width,
+          ...(isColumnPic && {
+            position: 'absolute',
+            left,
+            top,
+          }),
         }}
         sx={{
           caretColor: 'transparent',
@@ -63,7 +78,7 @@ const VideoItem = (
             <Box
               position="absolute"
               sx={{
-                top: 8,
+                top: 12,
                 right: 12,
                 zIndex: 1,
               }}
@@ -90,7 +105,7 @@ const VideoItem = (
           <Image
             width="100%"
             height="100%"
-            absolute
+            absolute={!isColumnPic}
             supressZoom
             src={photo.src}
             alt={photo.alt || title || ''}

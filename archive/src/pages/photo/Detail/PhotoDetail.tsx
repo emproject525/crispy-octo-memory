@@ -18,6 +18,7 @@ import PhotoShootTypeShootDt from './components/ShootTypeShootDt';
 import PhotoShootPlace from './components/ShootPlace';
 import PhotoPayYnAdultYn from './components/PayYnAdultYn';
 import PhotoPeopleType from './components/PeopleType';
+import PhotoRelations from './components/Relations';
 
 import { asyncPhoto } from '../state';
 
@@ -55,6 +56,7 @@ const Inner = ({ contId }: { contId: number }) => {
           <MiniTitle text="관련 컨텐츠" />
         </Box>
       </Grid>
+      <PhotoRelations contId={contId} />
     </Grid>
   );
 };

@@ -1,5 +1,5 @@
-import { Paper } from '@mui/material';
 import React from 'react';
+import { Paper } from '@mui/material';
 import { useParams } from 'react-router';
 import PhotoDetail from './PhotoDetail';
 

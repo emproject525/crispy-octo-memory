@@ -17,7 +17,8 @@ const Inner = () => {
         if (origin) {
           return (
             <VideoItem
-              key={`photo-${targetProps.index}`}
+              key={`video-${targetProps.index}`}
+              direction="row"
               targetProps={targetProps}
               {...origin}
             />

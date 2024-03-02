@@ -4,8 +4,16 @@ import path from 'path';
 import cors from 'cors';
 import debug from 'debug';
 
-import { ContType, IArchiveResponse, ICd, IContPhoto, IContVideo } from 'dto';
-import { removeNulls, make500Response } from 'utils';
+import {
+  ContType,
+  IArchiveResponse,
+  ICd,
+  IContPhoto,
+  IContVideo,
+  IRelation,
+  IRelationCont
+} from 'dto';
+import { removeNulls, make500Response, isNonNullable } from 'utils';
 
 import imgTypes from '@data/code/img_type.json';
 import sources from '@data/code/source.json';
@@ -14,12 +22,16 @@ import departments from '@data/code/department.json';
 
 import photos from '@data/photo/list.json';
 import videos from '@data/video/list.json';
+import relations from '@data/relation/list.json';
 
 const photosParsed = photos.map((item) =>
   removeNulls<IContPhoto>(item as IContPhoto)
 );
 const vidoesParsed = videos.map((item) =>
   removeNulls<IContVideo>(item as IContVideo)
+);
+const relationsParsed = relations.map((item) =>
+  removeNulls<IRelation>(item as IRelation)
 );
 
 const app: Application = express();
@@ -262,33 +274,39 @@ app.get(
 /**
  * 영상 재생하는 html 제공
  */
-app.get('/html/stream/:contId', (
-  req: Request<{
-    contId: string;
-  }>,
-  res: Response
-) => {
-  try {
-    const video = vidoesParsed.find(
-      (item) => String(item.contId) === req.params.contId
-    );
-  
-    if (video) {
-      const playerHTML = fs.readFileSync(path.join(
-        __dirname,
-        '../videos/player.html'
-      ), 'utf8').replace('{{id}}', video.fileName || '').replace('{{fileName}}', video.fileName || '');
+app.get(
+  '/html/stream/:contId',
+  (
+    req: Request<{
+      contId: string;
+    }>,
+    res: Response
+  ) => {
+    try {
+      const video = vidoesParsed.find(
+        (item) => String(item.contId) === req.params.contId
+      );
 
-      res.status(200).type('html').send(playerHTML);
-    } else {
-      res.status(200).type('application/json').send(make500Response('영상 없음'));
+      if (video) {
+        const playerHTML = fs
+          .readFileSync(path.join(__dirname, '../videos/player.html'), 'utf8')
+          .replace('{{id}}', video.fileName || '')
+          .replace('{{fileName}}', video.fileName || '');
+
+        res.status(200).type('html').send(playerHTML);
+      } else {
+        res
+          .status(200)
+          .type('application/json')
+          .send(make500Response('영상 없음'));
+      }
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
     }
-  } catch (e) {
-    res
-      .status(200)
-      .send(make500Response(e instanceof Error ? e.message : String(e)));
   }
-});
+);
 
 /**
  * 영상 서비스 제공??? 테스트 중
@@ -315,7 +333,7 @@ app.get(
       const stat = fs.statSync(absolutePath);
       const fileSize = stat.size;
       const range = req.headers.range;
-      
+
       if (range) {
         const parts = range.replace(/bytes=/, '').split('-');
         const start = parseInt(parts[0], 10);
@@ -341,6 +359,79 @@ app.get(
         res.writeHead(200, head);
         fs.createReadStream(absolutePath).pipe(res);
       }
+    }
+  }
+);
+
+const findCont = (
+  contType: ContType,
+  contId: number
+): IContPhoto | IContVideo | undefined => {
+  if (contType === 'P') {
+    return photosParsed.find((item) => item.contId === contId);
+  } else if (contType === 'V') {
+    return vidoesParsed.find((item) => item.contId === contId);
+  }
+
+  return undefined;
+};
+
+/**
+ * 관련 컨텐츠 조회
+ */
+app.get(
+  '/api/relations',
+  (
+    req: Request<
+      undefined,
+      {},
+      undefined,
+      {
+        contType: ContType;
+        contId: number;
+      }
+    >,
+    res
+  ) => {
+    try {
+      // contId인 경우
+      const f1 = relationsParsed
+        .filter(
+          (item) =>
+            item.contType === req.query.contType &&
+            String(item.contId) === String(req.query.contId)
+        )
+        .map((item) => findCont(item.relContType, item.relContId))
+        .filter(isNonNullable);
+      // relContId인 경우
+      const f2 = relationsParsed
+        .filter(
+          (item) =>
+            item.relContType === req.query.contType &&
+            String(item.relContId) === String(req.query.contId)
+        )
+        .map((item) => findCont(item.contType, item.contId))
+        .filter(isNonNullable);
+
+      const relations: IRelationCont['relations'] = [...f1, ...f2];
+
+      const response: IArchiveResponse<IRelationCont['relations'][0]> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: {
+          count: relations.length,
+          keywords: [],
+          list: relations
+        }
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
     }
   }
 );
