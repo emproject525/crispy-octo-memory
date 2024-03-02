@@ -394,26 +394,21 @@ app.get(
     res
   ) => {
     try {
-      // contId인 경우
-      const f1 = relationsParsed
+      const relations: IRelationCont['relations'] = relationsParsed
         .filter(
           (item) =>
-            item.contType === req.query.contType &&
-            String(item.contId) === String(req.query.contId)
+            (req.query.contType === item.contType &&
+              String(req.query.contId) === String(item.contId)) ||
+            (req.query.contType === item.relContType &&
+              String(req.query.contId) === String(item.relContId))
         )
-        .map((item) => findCont(item.relContType, item.relContId))
-        .filter(isNonNullable);
-      // relContId인 경우
-      const f2 = relationsParsed
-        .filter(
-          (item) =>
-            item.relContType === req.query.contType &&
-            String(item.relContId) === String(req.query.contId)
+        .map((item) =>
+          req.query.contType === item.contType &&
+          String(req.query.contId) === String(item.contId)
+            ? findCont(item.relContType, item.relContId)
+            : findCont(item.contType, item.contId)
         )
-        .map((item) => findCont(item.contType, item.contId))
         .filter(isNonNullable);
-
-      const relations: IRelationCont['relations'] = [...f1, ...f2];
 
       const response: IArchiveResponse<IRelationCont['relations'][0]> = {
         header: {
