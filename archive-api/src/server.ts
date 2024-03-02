@@ -314,9 +314,8 @@ app.get(
       );
       const stat = fs.statSync(absolutePath);
       const fileSize = stat.size;
-
-
       const range = req.headers.range;
+      
       if (range) {
         const parts = range.replace(/bytes=/, '').split('-');
         const start = parseInt(parts[0], 10);
