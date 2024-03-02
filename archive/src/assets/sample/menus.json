@@ -26,5 +26,12 @@
     "menuNm": "video",
     "menuKoNm": "영상",
     "path": "/videos"
+  },
+  {
+    "depth": 1,
+    "menuId": "05",
+    "menuNm": "audio",
+    "menuKoNm": "오디오",
+    "path": "/audio"
   }
 ]

@@ -6,6 +6,7 @@ import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
   alpha,
@@ -127,6 +128,8 @@ const Sidebar = ({ width }: { width: number }) => {
                     <PhotoLibraryIcon fontSize="small" />
                   ) : item.menuNm === 'video' ? (
                     <VideoLibraryIcon fontSize="small" />
+                  ) : item.menuNm === 'audio' ? (
+                    <LibraryMusicIcon fontSize="small" />
                   ) : null}
                 </IconButton>
               )}
