@@ -153,6 +153,7 @@ app.get(
  * 정적 파일 서비스
  */
 app.use('/images', express.static('images'));
+app.use('/videos/stream', express.static('videos/stream'));
 
 /**
  * 정적 파일 다운로드
@@ -259,6 +260,37 @@ app.get(
 );
 
 /**
+ * 영상 재생하는 html 제공
+ */
+app.get('/html/stream/:contId', (
+  req: Request<{
+    contId: string;
+  }>,
+  res: Response
+) => {
+  try {
+    const video = vidoesParsed.find(
+      (item) => String(item.contId) === req.params.contId
+    );
+  
+    if (video) {
+      const playerHTML = fs.readFileSync(path.join(
+        __dirname,
+        '../videos/player.html'
+      ), 'utf8').replace('{{id}}', video.fileName || '').replace('{{fileName}}', video.fileName || '');
+
+      res.status(200).type('html').send(playerHTML);
+    } else {
+      res.status(200).type('application/json').send(make500Response('영상 없음'));
+    }
+  } catch (e) {
+    res
+      .status(200)
+      .send(make500Response(e instanceof Error ? e.message : String(e)));
+  }
+});
+
+/**
  * 영상 서비스 제공??? 테스트 중
  * https://www.thisdot.co/blog/building-a-multi-response-streaming-api-with-node-js-express-and-react
  */
@@ -282,6 +314,8 @@ app.get(
       );
       const stat = fs.statSync(absolutePath);
       const fileSize = stat.size;
+
+
       const range = req.headers.range;
       if (range) {
         const parts = range.replace(/bytes=/, '').split('-');

@@ -1,17 +1,20 @@
 <!doctype html>
 <html>
   <head>
-    <title>HLS Player</title>
+    <title>{{fileName}}</title>
+    <style>
+      body { margin: 0; padding: 0; }
+      video { display: block; background-color: #141414; margin: 0; padding: 0; width: 100%; aspect-ratio: 16 / 9; }
+    </style>
   </head>
   <body>
-    <video id="video" width="1280" height="720" controls></video>
+    <video id="video" controls></video>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
       const video = document.getElementById('video');
-      const videoSrc = 'video/playlist.m3u8';
+      const videoSrc = 'http://localhost:8080/videos/stream/{{id}}/output.m3u8';
 
       if (Hls.isSupported()) {
-        alert('Hls supported');
         const hls = new Hls();
         hls.loadSource(videoSrc);
         hls.attachMedia(video);

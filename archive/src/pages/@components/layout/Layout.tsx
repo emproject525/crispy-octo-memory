@@ -1,4 +1,10 @@
-import { Box, Container, CssBaseline, useTheme } from '@mui/material';
+import {
+  Box,
+  Container,
+  CssBaseline,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material';
 import React from 'react';
 
 import Header from './Header';
@@ -13,6 +19,7 @@ const swidth = 64;
  */
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
+  const isSmallerThanLg = useMediaQuery(theme.breakpoints.down('xl'));
 
   return (
     <Box
@@ -24,7 +31,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       pb={15}
     >
       <CssBaseline />
-      <Container>
+      <Container
+        maxWidth={isSmallerThanLg ? false : undefined}
+        sx={{
+          maxWidth: isSmallerThanLg ? 'calc(100% - 188px)' : undefined,
+        }}
+      >
         <Box position="relative">
           <Sidebar width={swidth} />
           <Header />

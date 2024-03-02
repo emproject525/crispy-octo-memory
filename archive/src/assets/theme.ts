@@ -59,7 +59,7 @@ declare module '@mui/material/Typography' {
  * Theme
  */
 const theme = (mode: PaletteMode) => {
-  const color = palette[mode];
+  // const color = palette[mode];
 
   return createTheme({
     spacing: 4,

@@ -64,20 +64,37 @@ const PlayVideo = ({ contId }: { contId: number }) => {
                 ></iframe>
               );
             } else if (body!.mediaType === '00') {
+              // return (
+              //   <video
+              //     controls
+              //     width={width}
+              //     height={height}
+              //     style={{
+              //       backgroundColor: '#141414',
+              //       display: 'block',
+              //       margin: 0,
+              //       padding: 0,
+              //     }}
+              //   >
+              //     <source src={body!.filePath} type={`video/${body!.format}`} />
+              //   </video>
+              // );
+
               return (
-                <video
-                  controls
+                <iframe
+                  src={`http://localhost:8080/html/stream/${contId}`}
+                  title={body!.fileName || ''}
+                  frameBorder="0"
                   width={width}
                   height={height}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
                   style={{
-                    backgroundColor: '#141414',
                     display: 'block',
                     margin: 0,
                     padding: 0,
                   }}
-                >
-                  <source src={body!.filePath} type={`video/${body!.format}`} />
-                </video>
+                ></iframe>
               );
             }
 
