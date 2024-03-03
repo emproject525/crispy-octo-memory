@@ -9,6 +9,7 @@ import {
   ContType,
   IArchiveResponse,
   ICd,
+  IContAudio,
   IContPhoto,
   IContVideo,
   IRelation,
@@ -404,6 +405,31 @@ app.get(
     }
   }
 );
+
+/**
+ * 오디오 목록 조회
+ */
+app.get('/api/aduios', (req: Request, res: Response) => {
+  try {
+    const response: IArchiveResponse<IContAudio> = {
+      header: {
+        success: true,
+        status: 200,
+        message: '성공하였습니다'
+      },
+      body: {
+        list: [].slice(0, 40),
+        count: 0,
+        keywords: []
+      }
+    };
+    res.status(200).type('application/json').send(response);
+  } catch (e) {
+    res
+      .status(200)
+      .send(make500Response(e instanceof Error ? e.message : String(e)));
+  }
+});
 
 const findCont = (
   contType: ContType,
