@@ -9,6 +9,7 @@ import Image from 'components/Image';
 import Archived from 'pages/@components/statusIcon/Archived';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 import VideoDetailDialog from '../Detail/VideoDetailDialog';
+import { secondsToTimeText } from 'utils/utils';
 
 const VideoItem = (
   props: {
@@ -24,6 +25,7 @@ const VideoItem = (
     format,
     archStatus,
     permissionYn,
+    duration,
   } = props;
   const { index, margin, photo, left, top } = props.targetProps;
   const theme = useTheme();
@@ -94,13 +96,31 @@ const VideoItem = (
             <Box
               position="absolute"
               sx={{
-                top: 8,
+                top: 12,
                 right: 12,
                 zIndex: 1,
               }}
             >
               <PlayCircleRoundedIcon />
             </Box>
+          )}
+          {mediaType === '00' && (
+            <Typography
+              variant="fs11"
+              component="div"
+              sx={{
+                position: 'absolute',
+                left: 12,
+                bottom: 8,
+                zIndex: 1,
+                borderRadius: 2,
+                bgcolor: 'rgba(0, 0, 0, 0.35)',
+                px: 2,
+                lineHeight: '18px',
+              }}
+            >
+              {secondsToTimeText(duration || 0)}
+            </Typography>
           )}
           <Image
             width="100%"

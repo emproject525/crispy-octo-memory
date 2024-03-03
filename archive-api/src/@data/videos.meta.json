@@ -51,7 +51,8 @@
     "fileName": "video_1",
     "filePath": "/videos/video_1.mp4",
     "orgFileName": "video_1.mp4",
-    "thumbFilePath": "/images/video_thumb_1.PNG"
+    "thumbFilePath": "/images/video_thumb_1.PNG",
+    "duration": 12
   },
   {
     "mediaType": "00",
@@ -60,7 +61,8 @@
     "fileName": "video_2",
     "filePath": "/videos/video_2.mp4",
     "orgFileName": "video_2.mp4",
-    "thumbFilePath": "/images/video_thumb_2.PNG"
+    "thumbFilePath": "/images/video_thumb_2.PNG",
+    "duration": 4
   },
   {
     "mediaType": "00",
@@ -69,7 +71,8 @@
     "fileName": "video_3",
     "filePath": "/videos/video_3.mp4",
     "orgFileName": "video_3.mp4",
-    "thumbFilePath": "/images/video_thumb_3.PNG"
+    "thumbFilePath": "/images/video_thumb_3.PNG",
+    "duration": 15
   },
   {
     "mediaType": "00",
@@ -78,7 +81,8 @@
     "fileName": "video_4",
     "filePath": "/videos/video_4.mp4",
     "orgFileName": "video_4.mp4",
-    "thumbFilePath": "/images/video_thumb_4.PNG"
+    "thumbFilePath": "/images/video_thumb_4.PNG",
+    "duration": 12
   },
   {
     "mediaType": "00",
@@ -87,7 +91,8 @@
     "fileName": "video_5",
     "filePath": "/videos/video_5.mp4",
     "orgFileName": "video_5.mp4",
-    "thumbFilePath": "/images/video_thumb_5.PNG"
+    "thumbFilePath": "/images/video_thumb_5.PNG",
+    "duration": 23
   },
   {
     "mediaType": "00",
@@ -96,7 +101,8 @@
     "fileName": "video_6",
     "filePath": "/videos/video_6.mp4",
     "orgFileName": "video_6.mp4",
-    "thumbFilePath": "/images/video_thumb_6.PNG"
+    "thumbFilePath": "/images/video_thumb_6.PNG",
+    "duration": 8
   },
   {
     "mediaType": "00",
@@ -105,7 +111,8 @@
     "fileName": "video_7",
     "filePath": "/videos/video_7.mp4",
     "orgFileName": "video_7.mp4",
-    "thumbFilePath": "/images/video_thumb_7.PNG"
+    "thumbFilePath": "/images/video_thumb_7.PNG",
+    "duration": 10
   },
   {
     "mediaType": "00",
@@ -114,6 +121,7 @@
     "fileName": "video_8",
     "filePath": "/videos/video_8.mp4",
     "orgFileName": "video_8.mp4",
-    "thumbFilePath": "/images/video_thumb_8.PNG"
+    "thumbFilePath": "/images/video_thumb_8.PNG",
+    "duration": 34
   }
 ]

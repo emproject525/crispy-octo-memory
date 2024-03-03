@@ -7,11 +7,13 @@
   "license": "MIT",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@types/throttle": "^1.0.4",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fluent-ffmpeg": "^2.1.2",
     "hls-server": "^1.5.0",
     "moment": "^2.30.1",
+    "throttle": "^1.0.3",
     "typescript": "^5.3.3"
   },
   "packageManager": "yarn@4.1.0",

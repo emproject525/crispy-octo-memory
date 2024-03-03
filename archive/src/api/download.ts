@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios';
 import { ContType } from 'dto';
 import client from './client';
 
@@ -6,6 +7,9 @@ import client from './client';
  * @param params contType, contId
  * @returns axios
  */
-export const download = (params: { contType: ContType; contId: number }) => {
-  return client.download(params);
+export const download = (
+  params: { contType: ContType; contId: number },
+  config: undefined | AxiosRequestConfig,
+) => {
+  return client.download(params, config);
 };

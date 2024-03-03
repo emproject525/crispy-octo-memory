@@ -249,6 +249,10 @@ declare module 'dto' {
      * 영상 썸네일 경로
      */
     thumbFilePath: null | string;
+    /**
+     * 재생 시간을 초 단위로 입력
+     */
+    duration?: number;
   }
 
   /**

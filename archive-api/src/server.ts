@@ -3,6 +3,7 @@ import express, { Application, Request, Response } from 'express';
 import path from 'path';
 import cors from 'cors';
 import debug from 'debug';
+import Throttle from 'throttle';
 
 import {
   ContType,
@@ -184,11 +185,11 @@ app.post(
     res: Response
   ) => {
     try {
-      if (req.body.contType === 'P' || req.body.contType === 'V') {
-        const target = (
-          req.body.contType === 'V' ? vidoesParsed : photosParsed
-        ).find((item) => item.contId === req.body.contId);
-
+      if (req.body.contType === 'P') {
+        // 사진 다운로드
+        const target = photosParsed.find(
+          (item) => item.contId === req.body.contId
+        );
         if (target && target.filePath) {
           res
             .status(200)
@@ -203,6 +204,47 @@ app.post(
             .download(path.join(__dirname, '..', target.filePath));
         } else {
           res.status(200).send(make500Response('다운로드 이미지가 없습니다.'));
+        }
+      } else if (req.body.contType === 'V') {
+        // 영상 다운로드
+        const target = vidoesParsed.find(
+          (item) => item.contId === req.body.contId
+        );
+        if (target && target.mediaType === '00' && target.filePath) {
+          const videoPath = path.join(__dirname, '..', target.filePath);
+          const stat = fs.statSync(videoPath);
+          const fileSize = stat.size;
+
+          res
+            .header({
+              'Download-Success': 'Y',
+              'Access-Control-Expose-Headers': [
+                'Download-Success',
+                'Content-Disposition'
+              ]
+            })
+            .writeHead(200, {
+              'Content-Type': 'video/mp4',
+              'Content-Disposition': `attachment; filename=${target.orgFileName}`,
+              'Content-Length': fileSize
+            });
+
+          const readStream = fs.createReadStream(videoPath);
+          const throttle = new Throttle(1024 * 1024 * 5); // throttle to 5MB/sec - simulate lower speed
+
+          readStream.pipe(throttle);
+
+          throttle.on('data', (chunk) => {
+            console.log(`Sent ${chunk.length} bytes to client.`);
+            res.write(chunk);
+          });
+
+          throttle.on('end', () => {
+            console.log('File fully sent to client.');
+            res.end();
+          });
+        } else {
+          res.status(200).send(make500Response('다운로드 영상이 없습니다.'));
         }
       } else {
         res.status(200).send(make500Response('컨텐츠 타입을 확인하세요.'));

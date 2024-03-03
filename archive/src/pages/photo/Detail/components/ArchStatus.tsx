@@ -2,12 +2,11 @@ import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import copy from 'copy-to-clipboard';
 import { Box, Grid, IconButton, Skeleton, Typography } from '@mui/material';
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import { asyncPhoto } from 'pages/photo/state';
 import Archived from 'pages/@components/statusIcon/Archived';
-import { download } from 'api/download';
+import DownloadContButton from 'pages/@components/button/DownloadContButton';
 
 /**
  * 상태
@@ -68,25 +67,11 @@ const PhotoArchStatus = ({ contId }: { contId: number }) => {
                 />
               </IconButton>
               {body!.permissionYn === 'Y' && (
-                <IconButton
-                  color="info"
-                  sx={{
-                    p: 0.5,
-                  }}
+                <DownloadContButton
+                  contType="P"
+                  contId={contId}
                   title="이미지 다운로드"
-                  onClick={() => {
-                    download({
-                      contType: 'P',
-                      contId,
-                    }).then(() => {});
-                  }}
-                >
-                  <DownloadRoundedIcon
-                    sx={{
-                      fontSize: 16,
-                    }}
-                  />
-                </IconButton>
+                />
               )}
             </Box>
           </Grid>

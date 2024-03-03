@@ -3,7 +3,7 @@ import { useRecoilValueLoadable } from 'recoil';
 import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
 import Allowed from 'pages/@components/statusIcon/Allowed';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
-import { formatBytes } from 'utils/utils';
+import { formatBytes, secondsToTimeText } from 'utils/utils';
 import { asyncVideo } from 'pages/video/state';
 
 const VideoInfo = ({ contId }: { contId: number }) => {
@@ -51,6 +51,10 @@ const VideoInfo = ({ contId }: { contId: number }) => {
                 <>
                   <Typography variant="fs12">
                     {body!.format?.toLocaleUpperCase() || ''}
+                  </Typography>
+                  <Divider flexItem orientation="vertical" />
+                  <Typography variant="fs12">
+                    {secondsToTimeText(body!.duration || 0)}
                   </Typography>
                   <Divider flexItem orientation="vertical" />
                   <Typography variant="fs12">

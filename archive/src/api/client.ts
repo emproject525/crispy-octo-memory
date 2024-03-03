@@ -1,6 +1,6 @@
 import { IArchiveAxiosInstance, IRes } from 'http';
 
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import { ContType } from 'dto';
 
@@ -27,9 +27,13 @@ const base = axios.create({
  * Create Axios instance
  */
 const client: IArchiveAxiosInstance = Object.assign({}, base, {
-  async download(contents: { contId: number; contType: ContType }) {
+  async download(
+    contents: { contId: number; contType: ContType },
+    config: undefined | AxiosRequestConfig,
+  ) {
     return base
       .post<BlobPart | IRes<boolean, false>>(`/download`, contents, {
+        ...config,
         responseType: 'blob',
       })
       .then((response) => {

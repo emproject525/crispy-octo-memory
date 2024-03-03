@@ -63,6 +63,7 @@ t.map((item) => {
   newItem.filePath = info.filePath;
   newItem.orgFileName = info.orgFileName;
   newItem.thumbFilePath = info.thumbFilePath;
+  newItem.duration = info.duration || 0;
 
   newItem.contId = Number(item.contId);
   newItem.contType = 'V';
@@ -83,8 +84,8 @@ t.map((item) => {
   newItem.copyrt = item.copyrt;
   newItem.regId = 'test01';
   newItem.regDt = replaceDt(item.regDt, true);
-  newItem.modDt = replaceDt(item.modDt);
-  newItem.modDt = item.modDt ? 'test01' : null;
+  newItem.modId = item.modDt ? 'test01' : null;
+  newItem.modDt = replaceDt(undefined, true);
   newItem.delId = item.delId ? 'test01' : null;
   newItem.delDt = replaceDt(item.delDt);
 

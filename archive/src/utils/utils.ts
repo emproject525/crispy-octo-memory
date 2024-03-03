@@ -15,3 +15,31 @@ export function formatBytes(bytes: number, decimals: number = 2): string {
 
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
+
+/**
+ * 초 -> 00:00:00 포맷으로 변경경
+ * @param seconds 초
+ * @returns 파싱 텍스트
+ */
+export function secondsToTimeText(seconds: number): string {
+  let digit: number = seconds;
+  let text = '';
+
+  if (digit >= 60 * 24) {
+    text += `00${Math.floor(digit / (60 * 24))}`.slice(-2) + ':';
+    digit = digit % (60 * 24);
+  } else {
+    text += '00:';
+  }
+
+  if (digit >= 60) {
+    text += `00${Math.floor(digit / 60)}`.slice(-2) + ':';
+    digit = digit % 60;
+  } else {
+    text += '00:';
+  }
+
+  text += `00${digit}`.slice(-2);
+
+  return text;
+}

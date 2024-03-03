@@ -64,6 +64,7 @@ declare module 'http' {
       },
     >(
       D,
+      config?: AxiosRequestConfig,
     ): Promise<{
       success: boolean;
       response: AxiosResponse<BlobPart | IRes<boolean, false>>;
