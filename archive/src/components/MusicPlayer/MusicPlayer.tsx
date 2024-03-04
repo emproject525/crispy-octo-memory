@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -97,7 +98,9 @@ const MusicPlayer = ({
   title: string;
   subTitle: string;
   duration: number;
+  // 이전곡
   onPressForward?: () => void;
+  // 다음곡
   onPressNext?: () => void;
 }) => {
   const theme = useTheme();
@@ -107,7 +110,47 @@ const MusicPlayer = ({
   const [paused, setPaused] = React.useState(true);
   // 음악 load 상태
   const [loaded, setLoaded] = React.useState(false);
+  const [titleWidth, setTitleWidth] = React.useState(0);
+  const [ratio, setRatio] = React.useState(0);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
+  const audioRefCallback = React.useCallback((ele: HTMLAudioElement | null) => {
+    if (ele) {
+      // eslint-disable-next-line no-param-reassign
+      ele.volume = 0.3;
+      audioRef.current = ele;
+    }
+  }, []);
+  const titleRefCallback = React.useCallback((ele: HTMLSpanElement | null) => {
+    if (ele) {
+      const observer = new ResizeObserver((entires) => {
+        for (const _entry of entires) {
+          const { width } = ele.getBoundingClientRect();
+          setTitleWidth(width);
+        }
+      });
+      observer.observe(ele);
+    }
+  }, []);
+  const titleWrapperRefCallback = React.useCallback(
+    (ele: HTMLDivElement | null) => {
+      if (ele) {
+        const observer = new ResizeObserver((entires) => {
+          for (const _entry of entires) {
+            const { width } = ele.getBoundingClientRect();
+
+            if (titleWidth > width) {
+              setRatio(Math.floor((titleWidth / width) * 100 - 100));
+            } else {
+              setRatio(0);
+            }
+          }
+        });
+
+        observer.observe(ele);
+      }
+    },
+    [titleWidth],
+  );
 
   function formatDuration(seconds: number) {
     const minute = Math.floor(seconds / 60);
@@ -130,19 +173,17 @@ const MusicPlayer = ({
   return (
     <Box width="100%" overflow="hidden">
       <audio
-        ref={(ele) => {
-          if (ele) {
-            // eslint-disable-next-line no-param-reassign
-            ele.volume = 0.3;
-            audioRef.current = ele;
-          }
-        }}
+        ref={audioRefCallback}
         autoPlay={false}
         controls
         style={{ display: 'none' }}
         onCanPlay={() => setLoaded(true)}
         onTimeUpdate={(evt) => {
           setPosition(Math.floor(evt.currentTarget.currentTime));
+        }}
+        onEnded={() => {
+          setPaused(true);
+          setPosition(0);
         }}
       >
         <source src={src} />
@@ -163,7 +204,7 @@ const MusicPlayer = ({
               }}
             />
           </CoverImage>
-          <Box ml={3} minWidth={0}>
+          <Box ml={3} minWidth={0} width="100%">
             <Typography
               variant="caption"
               color="text.secondary"
@@ -171,10 +212,42 @@ const MusicPlayer = ({
             >
               {infoTitle || ''}
             </Typography>
-            <Typography noWrap fontWeight="bold">
-              {title || ''}
-            </Typography>
-            <Typography noWrap letterSpacing={-0.25}>
+            <Box
+              ref={titleWrapperRefCallback}
+              width="100%"
+              overflow="hidden"
+              sx={{
+                verticalAlign: 'middle',
+                '@keyframes backandforth': {
+                  '0%': { left: '0%' },
+                  '50%': { left: `-${ratio}%` },
+                  '100%': { left: '0%' },
+                  // '100%': { tranform: 'translateX(-100%)' },
+                },
+              }}
+            >
+              <Typography
+                ref={titleRefCallback}
+                component="span"
+                noWrap
+                fontWeight="bold"
+                title={title}
+                sx={{
+                  position: 'relative',
+                  // animation: 'infinite backandforth 10s linear',
+                  // transform: 'translateX(0)',
+                  animation:
+                    ratio !== 0
+                      ? `backandforth ${Math.ceil(
+                          (ratio * 4) / 10,
+                        )}s infinite linear`
+                      : undefined,
+                }}
+              >
+                {title || ''}
+              </Typography>
+            </Box>
+            <Typography noWrap letterSpacing={-0.25} title={subTitle}>
               {subTitle || ''}
             </Typography>
           </Box>
@@ -278,7 +351,7 @@ const MusicPlayer = ({
           )}
         </Box>
         <Stack
-          spacing={2}
+          spacing={3}
           direction="row"
           sx={{ mb: 1, px: 1 }}
           alignItems="center"
@@ -289,7 +362,12 @@ const MusicPlayer = ({
             defaultValue={30}
             onChange={(_, newValue) => {
               if (audioRef.current?.volume) {
-                audioRef.current.volume = (newValue as number) / 100;
+                if (newValue === 0) {
+                  audioRef.current.muted = true;
+                } else {
+                  audioRef.current.muted = false;
+                  audioRef.current.volume = (newValue as number) / 100;
+                }
               }
             }}
             sx={{
