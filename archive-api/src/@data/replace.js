@@ -91,3 +91,45 @@ t.map((item) => {
 
   return newItem;
 });
+
+// 오디오
+t.map((item) => {
+  var newItem = {};
+  var idx = Math.floor(Math.random() * 10) + 1;
+
+  var info = meta[idx - 1];
+  newItem.mediaType = info.mediaType || '99';
+  newItem.format = info.format;
+  newItem.fileSize = info.fileSize;
+  newItem.fileName = info.fileName;
+  newItem.filePath = info.filePath;
+  newItem.orgFileName = info.orgFileName;
+  newItem.thumbFilePath = info.thumbFilePath;
+  newItem.duration = info.duration || 0;
+
+  newItem.contId = Number(item.contId);
+  newItem.contType = 'V';
+  newItem.serviceStatus = '01';
+  newItem.title = newItem.fileName;
+  newItem.media = 1;
+  newItem.source = 1;
+  newItem.department = 1;
+  newItem.archStatus = '99';
+  newItem.caption = item.caption;
+  newItem.keyword = item.keywords;
+  newItem.shootDt = item.shootDt || null;
+  newItem.shootPlace = item.shootPlace || null;
+  newItem.shootType = '00';
+  newItem.payYn = item.payYn;
+  newItem.adultYn = item.adultYn;
+  newItem.permissionYn = info.permissionYn || 'Y';
+  newItem.copyrt = info.copyrt;
+  newItem.regId = 'test01';
+  newItem.regDt = replaceDt(item.regDt, true);
+  newItem.modId = item.modDt ? 'test01' : null;
+  newItem.modDt = replaceDt(undefined, true);
+  newItem.delId = item.delId ? 'test01' : null;
+  newItem.delDt = replaceDt(item.delDt);
+
+  return newItem;
+});

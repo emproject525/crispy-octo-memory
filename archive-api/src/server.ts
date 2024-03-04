@@ -24,6 +24,7 @@ import departments from '@data/code/department.json';
 
 import photos from '@data/photo/list.json';
 import videos from '@data/video/list.json';
+import audios from '@data/audio/list.json';
 import relations from '@data/relation/list.json';
 
 const photosParsed = photos.map((item) =>
@@ -31,6 +32,9 @@ const photosParsed = photos.map((item) =>
 );
 const vidoesParsed = videos.map((item) =>
   removeNulls<IContVideo>(item as IContVideo)
+);
+const audioParsed = audios.map((item) =>
+  removeNulls<IContAudio>(item as IContAudio)
 );
 const relationsParsed = relations.map((item) =>
   removeNulls<IRelation>(item as IRelation)
@@ -168,6 +172,7 @@ app.get(
  */
 app.use('/images', express.static('images'));
 app.use('/videos/stream', express.static('videos/stream'));
+app.use('/audios', express.static('audios'));
 
 /**
  * 정적 파일 다운로드
@@ -245,7 +250,52 @@ app.post(
             res.end();
           });
         } else {
-          res.status(200).send(make500Response('다운로드 영상이 없습니다.'));
+          res
+            .status(200)
+            .send(make500Response('다운로드할 영상 파일이 없습니다.'));
+        }
+      } else if (req.body.contType === 'A') {
+        // 오디오 다운로드
+        const target = audioParsed.find(
+          (item) => item.contId === req.body.contId
+        );
+        if (target && target.filePath) {
+          const audioPath = path.join(__dirname, '..', target.filePath);
+          const stat = fs.statSync(audioPath);
+          const fileSize = stat.size;
+
+          res
+            .header({
+              'Download-Success': 'Y',
+              'Access-Control-Expose-Headers': [
+                'Download-Success',
+                'Content-Disposition'
+              ]
+            })
+            .writeHead(200, {
+              'Content-Type': `audio/${target.format || 'mp3'}`,
+              'Content-Disposition': `attachment; filename=${target.orgFileName}`,
+              'Content-Length': fileSize
+            });
+
+          const readStream = fs.createReadStream(audioPath);
+          const throttle = new Throttle(1024 * 1024 * 5); // throttle to 5MB/sec - simulate lower speed
+
+          readStream.pipe(throttle);
+
+          throttle.on('data', (chunk) => {
+            console.log(`Sent ${chunk.length} bytes to client.`);
+            res.write(chunk);
+          });
+
+          throttle.on('end', () => {
+            console.log('File fully sent to client.');
+            res.end();
+          });
+        } else {
+          res
+            .status(200)
+            .send(make500Response('다운로드할 오디오 파일이 없습니다.'));
         }
       } else {
         res.status(200).send(make500Response('컨텐츠 타입을 확인하세요.'));
@@ -352,27 +402,23 @@ app.get(
 );
 
 /**
- * 영상 서비스 제공??? 테스트 중
+ * 오디오 스트리밍
  * https://www.thisdot.co/blog/building-a-multi-response-streaming-api-with-node-js-express-and-react
  */
 app.get(
-  '/stream/:contId',
+  '/stream/audio/:contId',
   (
     req: Request<{
       contId: string;
     }>,
     res: Response
   ) => {
-    const video = vidoesParsed.find(
+    const audio = audioParsed.find(
       (item) => String(item.contId) === req.params.contId
     );
 
-    if (video) {
-      const absolutePath = path.join(
-        __dirname,
-        '../videos/',
-        video.orgFileName || ''
-      );
+    if (audio) {
+      const absolutePath = path.join(__dirname, '..', audio.filePath || '');
       const stat = fs.statSync(absolutePath);
       const fileSize = stat.size;
       const range = req.headers.range;
@@ -388,7 +434,7 @@ app.get(
           'Content-Range': `bytes ${start}-${end}/${fileSize}`,
           'Accept-Ranges': 'bytes',
           'Content-Length': chunksize,
-          'Content-Type': 'video/mp4'
+          'Content-Type': `audio/${audio.format || 'mp3'}`
         };
 
         res.writeHead(206, head);
@@ -396,7 +442,7 @@ app.get(
       } else {
         const head = {
           'Content-Length': fileSize,
-          'Content-Type': 'video/mp4'
+          'Content-Type': `audio/${audio.format || 'mp3'}`
         };
 
         res.writeHead(200, head);
@@ -409,7 +455,7 @@ app.get(
 /**
  * 오디오 목록 조회
  */
-app.get('/api/aduios', (req: Request, res: Response) => {
+app.get('/api/audios', (req: Request, res: Response) => {
   try {
     const response: IArchiveResponse<IContAudio> = {
       header: {
@@ -418,8 +464,8 @@ app.get('/api/aduios', (req: Request, res: Response) => {
         message: '성공하였습니다'
       },
       body: {
-        list: [].slice(0, 40),
-        count: 0,
+        list: audioParsed.slice(0, 40),
+        count: audioParsed.length,
         keywords: []
       }
     };
@@ -430,6 +476,37 @@ app.get('/api/aduios', (req: Request, res: Response) => {
       .send(make500Response(e instanceof Error ? e.message : String(e)));
   }
 });
+
+/**
+ * 오디오 상세
+ */
+app.get(
+  '/api/audios/:contId',
+  (
+    req: Request<{
+      contId?: string;
+    }>,
+    res: Response
+  ) => {
+    try {
+      const response: IArchiveResponse<IContAudio, false> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: audioParsed.find(
+          (item) => String(item.contId) === req.params.contId
+        )
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
+    }
+  }
+);
 
 const findCont = (
   contType: ContType,

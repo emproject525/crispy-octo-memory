@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Skeleton } from '@mui/material';
+import { Box, BoxProps, IconButton, Skeleton } from '@mui/material';
 import CropFreeIcon from '@mui/icons-material/CropFree';
 
 /**
@@ -17,8 +17,9 @@ const Image = React.forwardRef<
     height?: React.CSSProperties['height'];
     // 확대 기능 막기
     supressZoom?: boolean;
+    boxSx?: BoxProps['sx'];
   }
->(({ absolute, src, alt, width, height, supressZoom }, ref) => {
+>(({ absolute, src, alt, width, height, supressZoom, boxSx }, ref) => {
   const [onload, setOnload] = React.useState(true);
 
   return (
@@ -34,6 +35,7 @@ const Image = React.forwardRef<
         // background: `url(${bgimg})`,
         // backgroundSize: 'cover',
         backgroundColor: '#141414',
+        ...boxSx,
       }}
     >
       {onload && (

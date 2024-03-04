@@ -42,6 +42,11 @@ export const constantsState = atom({
       '01': '전신',
       '02': '하반신',
     },
+    AUDIO_MEDIA_TYPE: {
+      '00': '음악',
+      '01': '인터뷰',
+      '99': '기타',
+    },
   },
 });
 

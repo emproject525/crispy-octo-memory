@@ -21,6 +21,9 @@ const VideoDetailRoute = React.lazy(
   () => import('pages/video/Detail/VideoDetailRoute'),
 );
 const Audios = React.lazy(() => import('pages/audio/Audios'));
+const AudiosDetailRoute = React.lazy(
+  () => import('pages/audio/Detail/AudioDetailRoute'),
+);
 
 const getSuspensePages = (ele: JSX.Element) => (
   <Suspense fallback={<Fallback />}>{ele}</Suspense>
@@ -46,6 +49,10 @@ export default createBrowserRouter(
       </Route>
       <Route path="/audios">
         <Route index element={getSuspensePages(<Audios />)} />
+        <Route
+          path=":contId"
+          element={getSuspensePages(<AudiosDetailRoute />)}
+        />
       </Route>
     </Route>,
   ),

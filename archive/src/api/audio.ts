@@ -10,11 +10,11 @@ export const getAudios = () => {
   return client.get<IContAudio>('/api/audios');
 };
 
-// /**
-//  * 영상 상세
-//  * @param contId 컨텐츠ID
-//  * @returns axios
-//  */
-// export const getVideo = (contId: number) => {
-//   return client.get<IContAudio, IContAudio, false>(`/api/videos/${contId}`);
-// };
+/**
+ * 오디오 상세
+ * @param contId 컨텐츠ID
+ * @returns axios
+ */
+export const getAudio = (contId: number) => {
+  return client.get<IContAudio, IContAudio, false>(`/api/audios/${contId}`);
+};

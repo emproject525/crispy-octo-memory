@@ -3,46 +3,42 @@ import React from 'react';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
 
-// import VideoItem from './VideoItem';
+import AudioItem from './AudioItem';
 import { asyncAudioList } from '../state';
 
 const Inner = () => {
   const { contents, state } = useRecoilValueLoadable(asyncAudioList);
 
-  // const renderItem = React.useCallback(
-  //   (targetProps: RenderImageProps) => {
-  //     if (state === 'hasValue') {
-  //       const origin = contents.body?.list?.[targetProps.index];
+  const renderItem = React.useCallback(
+    (targetProps: RenderImageProps) => {
+      if (state === 'hasValue') {
+        const origin = contents.body?.list?.[targetProps.index];
 
-  //       if (origin) {
-  //         return (
-  //           <VideoItem
-  //             key={`video-${targetProps.index}`}
-  //             direction="row"
-  //             targetProps={targetProps}
-  //             {...origin}
-  //           />
-  //         );
-  //       }
+        if (origin) {
+          return (
+            <AudioItem
+              key={`audio-${targetProps.index}`}
+              direction="row"
+              targetProps={targetProps}
+              {...origin}
+            />
+          );
+        }
 
-  //       return null;
-  //     }
+        return null;
+      }
 
-  //     return null;
-  //   },
-  //   [state, contents],
-  // );
+      return null;
+    },
+    [state, contents],
+  );
 
   switch (state) {
     case 'hasValue': {
       const galleryPics = (contents.body?.list || []).map((item) => ({
         width: 1280,
-        // height: 720
         height: 900,
-        src:
-          item.mediaType === '00'
-            ? `http://localhost:8080${item.thumbFilePath}`
-            : item.thumbFilePath,
+        src: item.thumbFilePath,
         key: `${item.contType}-${item.contId}`,
       }));
 
@@ -54,14 +50,14 @@ const Inner = () => {
                 px: 4,
               }}
             >
-              {/* <Gallery
+              <Gallery
                 margin={6}
                 photos={galleryPics}
                 direction="row"
                 renderImage={renderItem}
                 limitNodeSearch={4}
                 targetRowHeight={4}
-              /> */}
+              />
             </Paper>
           </Grid>
         </Grid>

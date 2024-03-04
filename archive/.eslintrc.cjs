@@ -56,7 +56,7 @@ module.exports = {
       2,
       {
         props: true,
-        ignorePropertyModificationsFor: ['state', 'draft', 'lang'],
+        ignorePropertyModificationsFor: ['current', 'state', 'draft', 'lang'],
       },
     ],
     'react/jsx-props-no-spreading': 0,

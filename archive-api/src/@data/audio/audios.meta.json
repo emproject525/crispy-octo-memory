@@ -1,0 +1,108 @@
+[
+  {
+    "mediaType": "99",
+    "format": "mp3",
+    "fileSize": 154062,
+    "fileName": "audio_1",
+    "filePath": "/audios/audio_1.mp3",
+    "orgFileName": "audio_1.mp3",
+    "thumbFilePath": "/images/audio_thumb_1.jpg",
+    "duration": 9
+  },
+  {
+    "mediaType": "99",
+    "format": "mp3",
+    "fileSize": 205470,
+    "fileName": "audio_2",
+    "filePath": "/audios/audio_2.mp3",
+    "orgFileName": "audio_2.mp3",
+    "thumbFilePath": "/images/audio_thumb_2.jpg",
+    "duration": 13
+  },
+  {
+    "mediaType": "00",
+    "format": "mp3",
+    "fileSize": 307453,
+    "fileName": "audio_3",
+    "filePath": "/audios/audio_3.mp3",
+    "orgFileName": "audio_3.mp3",
+    "thumbFilePath": "/images/audio_thumb_3.jpg",
+    "duration": 19
+  },
+  {
+    "mediaType": "00",
+    "format": "wav",
+    "fileSize": 5289194,
+    "fileName": "audio_4",
+    "filePath": "/audios/audio_4.wav",
+    "orgFileName": "audio_4.wav",
+    "thumbFilePath": "/images/audio_thumb_4.jpg",
+    "duration": 29
+  },
+  {
+    "mediaType": "00",
+    "format": "wav",
+    "fileSize": 1048558,
+    "fileName": "audio_5",
+    "filePath": "/audios/audio_5.wav",
+    "orgFileName": "audio_5.wav",
+    "thumbFilePath": "/images/audio_thumb_5.jpg",
+    "duration": 5
+  },
+  {
+    "mediaType": "00",
+    "format": "mp3",
+    "fileSize": 1051422,
+    "fileName": "audio_6",
+    "filePath": "/audios/audio_6.mp3",
+    "orgFileName": "audio_6.mp3",
+    "thumbFilePath": "/images/audio_thumb_6.jpg",
+    "duration": 43
+  },
+  {
+    "mediaType": "00",
+    "format": "mp3",
+    "fileSize": 10494922,
+    "fileName": "audio_7",
+    "filePath": "/audios/audio_7.mp3",
+    "orgFileName": "audio_7.mp3",
+    "thumbFilePath": "/images/audio_thumb_7.jpg",
+    "duration": 443
+  },
+  {
+    "mediaType": "01",
+    "format": "mp3",
+    "fileSize": 30738318,
+    "fileName": "Elon Musk (Full Interview) | Real Time with Bill Maher (HBO)",
+    "filePath": "/audios/audio_8.mp3",
+    "orgFileName": "audio_8.mp3",
+    "thumbFilePath": "https://img.youtube.com/vi/oO8w6XcXJUs/maxresdefault.jpg",
+    "duration": 1280,
+    "copyrt": "https://www.youtube.com/watch?v=oO8w6XcXJUs",
+    "permissionYn": "N"
+  },
+  {
+    "mediaType": "01",
+    "format": "mp3",
+    "fileSize": 3112888,
+    "fileName": "Interviewing for a Job - Everyday English Dialogues",
+    "filePath": "/audios/audio_9.mp3",
+    "orgFileName": "audio_9.mp3",
+    "thumbFilePath": "https://img.youtube.com/vi/w0YQwglgtTM/maxresdefault.jpg",
+    "duration": 129,
+    "copyrt": "https://www.youtube.com/watch?v=w0YQwglgtTM",
+    "permissionYn": "N"
+  },
+  {
+    "mediaType": "00",
+    "format": "mp3",
+    "fileSize": 4456417,
+    "fileName": "엔시티 위시 (NCT WISH) 'WISH (Korean Ver.)' Official Audio",
+    "filePath": "/audios/audio_10.mp3",
+    "orgFileName": "audio_10.mp3",
+    "thumbFilePath": "/images/audio_thumb_10.png",
+    "duration": 185,
+    "copyrt": "SM Entertainment",
+    "permissionYn": "N"
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "width": 640,
+    "height": 850,
+    "dpi": 72,
+    "format": "jpg",
+    "fileSize": 196780
+  },
+  {
+    "width": 1440,
+    "height": 970,
+    "dpi": 72,
+    "format": "png",
+    "fileSize": 2888491
+  },
+  {
+    "width": 1440,
+    "height": 970,
+    "dpi": 72,
+    "format": "png",
+    "fileSize": 3139607
+  },
+  {
+    "width": 1170,
+    "height": 1699,
+    "dpi": 72,
+    "format": "png",
+    "fileSize": 2558070
+  },
+  {
+    "width": 1200,
+    "height": 1800,
+    "dpi": 72,
+    "format": "png",
+    "fileSize": 3118082
+  },
+  {
+    "width": 1440,
+    "height": 696,
+    "dpi": 72,
+    "format": "png",
+    "fileSize": 2499711
+  },
+  {
+    "width": 1200,
+    "height": 1800,
+    "dpi": 72,
+    "format": "png",
+    "fileSize": 3630039
+  },
+  {
+    "width": 1440,
+    "height": 970,
+    "dpi": 72,
+    "format": "png",
+    "fileSize": 2742198
+  },
+  {
+    "width": 1000,
+    "height": 1000,
+    "dpi": 72,
+    "format": "png",
+    "fileSize": 1882981
+  },
+  {
+    "width": 1440,
+    "height": 1799,
+    "dpi": 96,
+    "format": "jpg",
+    "fileSize": 297592
+  },
+  {
+    "width": 1440,
+    "height": 970,
+    "dpi": 96,
+    "format": "jpg",
+    "fileSize": 165431
+  }
+]

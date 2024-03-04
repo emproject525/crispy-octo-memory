@@ -21,7 +21,7 @@ const VideoDetailDialog = (props: {
     <DraggablePaper
       open={open}
       onClose={onClose}
-      handleId={`photo-${contId}`}
+      handleId={`video-${contId}`}
       sx={{
         width: 600,
       }}

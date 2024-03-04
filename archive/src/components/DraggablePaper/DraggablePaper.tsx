@@ -102,6 +102,7 @@ const DraggablePaper = ({
             flex={1}
             sx={{
               overflowY: 'auto',
+              overscrollBehavior: 'contain',
             }}
             mb={5}
           >
