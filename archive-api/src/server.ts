@@ -511,11 +511,13 @@ app.get(
 const findCont = (
   contType: ContType,
   contId: number
-): IContPhoto | IContVideo | undefined => {
+): IContPhoto | IContVideo | IContAudio | undefined => {
   if (contType === 'P') {
     return photosParsed.find((item) => item.contId === contId);
   } else if (contType === 'V') {
     return vidoesParsed.find((item) => item.contId === contId);
+  } else if (contType === 'A') {
+    return audioParsed.find((item) => item.contId === contId);
   }
 
   return undefined;

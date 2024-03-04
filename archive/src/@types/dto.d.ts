@@ -332,5 +332,5 @@ declare module 'dto' {
   /**
    * 관련 타입
    */
-  export type RelationType = IContPhoto | IContVideo;
+  export type RelationType = IContPhoto | IContVideo | IContAudio;
 }

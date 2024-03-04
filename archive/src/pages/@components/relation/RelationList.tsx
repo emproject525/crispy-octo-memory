@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material';
-import { IContPhoto, IContVideo, RelationType } from 'dto';
+import { IContAudio, IContPhoto, IContVideo, RelationType } from 'dto';
 import PhotoItem from 'pages/photo/List/PhotoItem';
 import VideoItem from 'pages/video/List/VideoItem';
+import AudioItem from 'pages/audio/List/AudioItem';
 import React from 'react';
 import Gallery, { PhotoProps, RenderImageProps } from 'react-photo-gallery';
 
@@ -22,6 +23,15 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
               parsed.mediaType === '00'
                 ? `http://localhost:8080${parsed.thumbFilePath}`
                 : parsed.thumbFilePath,
+            key: `${item.contType}-${item.contId}`,
+          };
+        } else if (item.contType === 'A') {
+          const parsed = item as IContAudio;
+          return {
+            width: 1280,
+            height: 900,
+            alt: parsed.fileName,
+            src: parsed.thumbFilePath,
             key: `${item.contType}-${item.contId}`,
           };
         } else {
@@ -50,6 +60,17 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
         return (
           <VideoItem
             key={`video-${targetProps.index}`}
+            direction="row"
+            targetProps={targetProps}
+            {...parsed}
+          />
+        );
+      } else if (origin.contType === 'A') {
+        const parsed = origin as IContAudio;
+
+        return (
+          <AudioItem
+            key={`audio-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
             {...parsed}
@@ -93,8 +114,8 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       margin={4}
       photos={galleryPics}
       direction="row"
-      targetRowHeight={4}
-      limitNodeSearch={4}
+      targetRowHeight={3}
+      limitNodeSearch={3}
       renderImage={renderItem}
     />
   );

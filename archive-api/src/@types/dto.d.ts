@@ -376,7 +376,7 @@ declare module 'dto' {
   export interface IRelationCont {
     contType: ContType;
     contId: number;
-    relations: (IContVideo | IContPhoto)[];
+    relations: (IContVideo | IContPhoto | IContAudio)[];
   }
 }
 
