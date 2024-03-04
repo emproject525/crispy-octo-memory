@@ -80,14 +80,17 @@ const VideoItem = (
             <Box
               position="absolute"
               sx={{
-                top: 12,
-                right: 12,
+                inset: 0,
                 zIndex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <YouTubeIcon
                 sx={{
                   color: '#c4302b',
+                  fontSize: '2.5rem',
                 }}
               />
             </Box>
@@ -96,12 +99,18 @@ const VideoItem = (
             <Box
               position="absolute"
               sx={{
-                top: 12,
-                right: 12,
+                inset: 0,
                 zIndex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              <PlayCircleRoundedIcon />
+              <PlayCircleRoundedIcon
+                sx={{
+                  fontSize: '2.5rem',
+                }}
+              />
             </Box>
           )}
           {mediaType === '00' && (

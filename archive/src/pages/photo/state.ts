@@ -27,8 +27,20 @@ export const asyncPhotoList = selector<IRes<IContPhoto>>({
   get: async ({ get }) => {
     const response = await api.getPhotos(get(photoListParams));
 
-    if (response.status === 200) {
-      return response.data!;
+    if (response.status === 200 && response.data.header.success) {
+      return {
+        header: response.data.header,
+        body: {
+          count: response.data.body!.count,
+          keywords: response.data.body!.keywords,
+          list: response.data.body!.list.map((item) => ({
+            ...item,
+            filePath: !item.filePath?.startsWith('http')
+              ? `http://localhost:8080${item.filePath}`
+              : item.filePath,
+          })),
+        },
+      };
     }
 
     throw true;

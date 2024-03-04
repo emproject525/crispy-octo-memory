@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Divider, Grid } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
 import { asyncAudio } from '../state';
 
@@ -16,7 +16,6 @@ import AudioCopyrt from './components/Copyrt';
 import AudioShootTypeShootDt from './components/ShootTypeShootDt';
 import AudioShootPlace from './components/ShootPlace';
 import AudioPayYnAdultYn from './components/PayYnAdultYn';
-import MiniTitle from 'components/Text/MiniTitle';
 import AudioRelations from './components/Relations';
 
 const Inner = ({ contId }: { contId: number }) => {
@@ -45,11 +44,6 @@ const Inner = ({ contId }: { contId: number }) => {
       <AudioPayYnAdultYn contId={contId} />
       <Grid item xs={12}>
         <Divider />
-      </Grid>
-      <Grid item xs={12}>
-        <Box px={4}>
-          <MiniTitle text="관련 컨텐츠" />
-        </Box>
       </Grid>
       <AudioRelations contId={contId} />
     </Grid>

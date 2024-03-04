@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
@@ -8,6 +8,9 @@ import { asyncVideoList } from '../state';
 
 const Inner = () => {
   const { contents, state } = useRecoilValueLoadable(asyncVideoList);
+  const { breakpoints } = useTheme();
+  const isDownXs = useMediaQuery(breakpoints.down('xs'));
+  const isUpLg = useMediaQuery(breakpoints.up('lg'));
 
   const renderItem = React.useCallback(
     (targetProps: RenderImageProps) => {
@@ -39,10 +42,7 @@ const Inner = () => {
         width: 1280,
         // height: 720
         height: 900,
-        src:
-          item.mediaType === '00'
-            ? `http://localhost:8080${item.thumbFilePath}`
-            : item.thumbFilePath,
+        src: item.thumbFilePath,
         key: `${item.contType}-${item.contId}`,
       }));
 
@@ -59,8 +59,8 @@ const Inner = () => {
                 photos={galleryPics}
                 direction="row"
                 renderImage={renderItem}
-                limitNodeSearch={4}
-                targetRowHeight={4}
+                targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
+                limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
               />
             </Paper>
           </Grid>

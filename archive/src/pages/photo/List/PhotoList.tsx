@@ -38,7 +38,7 @@ const Inner = () => {
       const galleryPics = (contents.body?.list || []).map((item) => ({
         width: item.width || 1,
         height: item.height ? item.height + 46 : item.height || 1,
-        src: `http://localhost:8080${item.filePath}`,
+        src: item.filePath || '',
         key: `${item.contType}-${item.contId}`,
       }));
 

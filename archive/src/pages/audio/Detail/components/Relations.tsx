@@ -30,13 +30,7 @@ const AudioRelations = ({ contId }: { contId: number }) => {
         return null;
       }
 
-      return (
-        <Grid item xs={12}>
-          <Box px={4}>
-            <RelationList relations={body!.relations} />
-          </Box>
-        </Grid>
-      );
+      return <RelationList relations={body!.relations} />;
     }
 
     default:

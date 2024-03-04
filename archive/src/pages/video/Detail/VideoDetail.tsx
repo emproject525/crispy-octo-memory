@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Divider, Grid } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
 import { asyncVideo } from '../state';
 
@@ -16,7 +16,6 @@ import VideoCopyrt from './components/Copyrt';
 import VideoShootTypeShootDt from './components/ShootTypeShootDt';
 import VideoShootPlace from './components/ShootPlace';
 import VideoPayYnAdultYn from './components/PayYnAdultYn';
-import MiniTitle from 'components/Text/MiniTitle';
 import VideoRelations from './components/Relations';
 
 const Inner = ({ contId }: { contId: number }) => {
@@ -45,11 +44,6 @@ const Inner = ({ contId }: { contId: number }) => {
       <VideoPayYnAdultYn contId={contId} />
       <Grid item xs={12}>
         <Divider />
-      </Grid>
-      <Grid item xs={12}>
-        <Box px={4}>
-          <MiniTitle text="관련 컨텐츠" />
-        </Box>
       </Grid>
       <VideoRelations contId={contId} />
     </Grid>

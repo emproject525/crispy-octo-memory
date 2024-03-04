@@ -13,8 +13,20 @@ export const asyncVideoList = selector<IRes<IContVideo>>({
   get: async () => {
     const response = await api.getVideos();
 
-    if (response.status === 200) {
-      return response.data!;
+    if (response.status === 200 && response.data.header.success) {
+      return {
+        header: response.data.header,
+        body: {
+          count: response.data.body!.count,
+          keywords: response.data.body!.keywords,
+          list: response.data.body!.list.map((item) => ({
+            ...item,
+            thumbFilePath: !item.thumbFilePath?.startsWith('http')
+              ? `http://localhost:8080${item.thumbFilePath}`
+              : item.thumbFilePath,
+          })),
+        },
+      };
     }
 
     throw true;
@@ -58,6 +70,9 @@ export const asyncVideo = selectorFamily<
 
       if (mediaType === '00') {
         returnBody.filePath = `http://localhost:8080/videos/${contId}`;
+        returnBody.thumbFilePath = returnBody.thumbFilePath
+          ? `http://localhost:8080${returnBody.thumbFilePath}`
+          : returnBody.thumbFilePath;
       } else if (path && mediaType === '01') {
         returnBody.filePath = `https://www.youtube.com/embed${returnBody.filePath.replace(
           /(.*)(\/.*)/,

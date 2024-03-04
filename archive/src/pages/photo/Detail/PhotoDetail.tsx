@@ -1,8 +1,7 @@
 import React from 'react';
-import { Box, Divider, Grid } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
 
-import MiniTitle from 'components/Text/MiniTitle';
 import PhotoHeader from './components/Header';
 import PhotoRegDt from './components/RegDt';
 import PhotoArchStatus from './components/ArchStatus';
@@ -50,11 +49,6 @@ const Inner = ({ contId }: { contId: number }) => {
       <PhotoPeopleType contId={contId} />
       <Grid item xs={12}>
         <Divider />
-      </Grid>
-      <Grid item xs={12}>
-        <Box px={4}>
-          <MiniTitle text="관련 컨텐츠" />
-        </Box>
       </Grid>
       <PhotoRelations contId={contId} />
     </Grid>

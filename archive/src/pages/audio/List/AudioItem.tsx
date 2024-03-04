@@ -20,6 +20,7 @@ const AudioItem = (
 ) => {
   const {
     direction,
+    contType,
     contId,
     title,
     mediaType,
@@ -76,7 +77,7 @@ const AudioItem = (
         <Box
           height="calc(100% - 46px)"
           position="relative"
-          id={`item${index}-image`}
+          id={`${contType}-item${index}-image`}
         >
           <Typography
             variant="fs11"
@@ -108,7 +109,7 @@ const AudioItem = (
               sx={{
                 bgcolor: 'rgba(0, 0, 0, .45)',
                 borderRadius: '50%',
-                fontSize: '35px',
+                fontSize: '2.5rem',
                 color: 'white',
                 p: 2,
               }}

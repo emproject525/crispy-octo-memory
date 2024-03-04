@@ -1,5 +1,5 @@
-import { Box, Grid, Paper } from '@mui/material';
 import React from 'react';
+import { Box, Grid, Paper, useTheme, useMediaQuery } from '@mui/material';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
 
@@ -8,6 +8,9 @@ import { asyncAudioList } from '../state';
 
 const Inner = () => {
   const { contents, state } = useRecoilValueLoadable(asyncAudioList);
+  const { breakpoints } = useTheme();
+  const isDownXs = useMediaQuery(breakpoints.down('xs'));
+  const isUpLg = useMediaQuery(breakpoints.up('lg'));
 
   const renderItem = React.useCallback(
     (targetProps: RenderImageProps) => {
@@ -55,8 +58,8 @@ const Inner = () => {
                 photos={galleryPics}
                 direction="row"
                 renderImage={renderItem}
-                limitNodeSearch={4}
-                targetRowHeight={4}
+                targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
+                limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
               />
             </Paper>
           </Grid>
