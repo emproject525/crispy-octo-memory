@@ -6,13 +6,13 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import Archived from 'pages/@components/statusIcon/Archived';
 import DownloadContButton from 'pages/@components/button/DownloadContButton';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 
 /**
  * 상태
  */
 const AudioArchStatus = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
 
   switch (state) {
     case 'loading':

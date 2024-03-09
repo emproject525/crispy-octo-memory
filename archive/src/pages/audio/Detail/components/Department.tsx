@@ -3,13 +3,13 @@ import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { asyncCodeMap } from 'pages/rootState';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 
 /**
  * 부서
  */
 const AudioDepartment = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
   const code = useRecoilValue(asyncCodeMap);
 
   switch (state) {

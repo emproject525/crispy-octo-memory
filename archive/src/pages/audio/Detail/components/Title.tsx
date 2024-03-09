@@ -2,13 +2,13 @@ import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
 import AutosizeBox from 'components/Input/AutosizeBox';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 
 /**
  * 제목
  */
 const AudioTitle = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
 
   switch (state) {
     case 'loading':

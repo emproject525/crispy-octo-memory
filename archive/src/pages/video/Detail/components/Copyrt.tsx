@@ -1,13 +1,13 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
-import { asyncVideo } from 'pages/video/state';
+import { videoSelector } from 'pages/video/state';
 
 /**
  * 저작권
  */
 const VideoCopyrt = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncVideo(contId));
+  const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
 
   switch (state) {
     case 'loading':

@@ -2,41 +2,62 @@ import { IRes } from 'http';
 
 import * as api from 'api/video';
 import { IContVideo, RelationType } from 'dto';
-import { selector, selectorFamily } from 'recoil';
+import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
 import { getRelations } from 'api/content';
+import { IContVideoParams } from 'params';
+
+export const videoListParams = atom<IContVideoParams>({
+  key: 'videoListParams',
+  default: {
+    size: 20,
+    page: 1,
+  },
+});
+
+export const videoListState = atom<IContVideo[]>({
+  key: 'videoListState',
+  default: [],
+});
 
 /**
  * 비동기 영상 목록
  */
-export const asyncVideoList = selector<IRes<IContVideo>>({
-  key: 'asyncVideoList',
-  get: async () => {
-    const response = await api.getVideos();
+export const videoListSelector = selector<IRes<IContVideo>>({
+  key: 'videoListSelector',
+  get: async ({ get }) => {
+    const params = get(videoListParams);
+    const response = await api.getVideos(params);
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (response.status === 200 && response.data.header.success) {
-      return {
-        header: response.data.header,
-        body: {
-          count: response.data.body!.count,
-          keywords: response.data.body!.keywords,
-          list: response.data.body!.list.map((item) => ({
-            ...item,
-            thumbFilePath: !item.thumbFilePath?.startsWith('http')
-              ? `http://localhost:8080${item.thumbFilePath}`
-              : item.thumbFilePath,
-          })),
-        },
-      };
+      return response.data;
     }
 
     throw true;
+  },
+  set: ({ set, get }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+    } else if (newValue.header.success) {
+      const before = get(videoListState);
+      const params = get(videoListParams);
+      const newList = newValue.body!.list.map((item) => ({
+        ...item,
+        thumbFilePath: !item.thumbFilePath?.startsWith('http')
+          ? `http://localhost:8080${item.thumbFilePath}`
+          : item.thumbFilePath,
+      }));
+      set(
+        videoListState,
+        params.page === 1 ? newList : [...before, ...newList],
+      );
+    }
   },
 });
 
 /**
  * 비동기 영상 1개
  */
-export const asyncVideo = selectorFamily<
+export const videoSelector = selectorFamily<
   IRes<
     IContVideo & {
       relations: RelationType[];
@@ -45,7 +66,7 @@ export const asyncVideo = selectorFamily<
   >,
   number
 >({
-  key: 'asyncVideo',
+  key: 'videoSelector',
   get: (contId) => async () => {
     const response = await api.getVideo(contId);
     const relations = await getRelations({

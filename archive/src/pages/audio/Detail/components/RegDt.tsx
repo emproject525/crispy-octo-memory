@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 
 /**
  * 등록일, 수정일
  */
 const AudioRegDt = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
 
   switch (state) {
     case 'loading':

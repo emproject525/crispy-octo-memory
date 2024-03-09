@@ -4,12 +4,12 @@ import * as api from 'api/photo';
 import { getRelations } from 'api/content';
 import { IContPhoto, RelationType } from 'dto';
 import { IContPhotoParams } from 'params';
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
 
 export const photoListParams = atom<IContPhotoParams>({
   key: 'photoListParams',
   default: {
-    size: 40,
+    size: 30,
     page: 1,
   },
 });
@@ -22,45 +22,42 @@ export const photoListState = atom<IContPhoto[]>({
 /**
  * 비동기로 사진 목록 가져오기 (???)
  */
-export const asyncPhotoList = selector<IRes<IContPhoto>>({
-  key: 'asyncPhotoList',
+export const photoListSelector = selector<IRes<IContPhoto>>({
+  key: 'photoListSelector',
   get: async ({ get }) => {
-    const response = await api.getPhotos(get(photoListParams));
+    const params = get(photoListParams);
+    const response = await api.getPhotos(params);
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (response.status === 200 && response.data.header.success) {
-      return {
-        header: response.data.header,
-        body: {
-          count: response.data.body!.count,
-          keywords: response.data.body!.keywords,
-          list: response.data.body!.list.map((item) => ({
-            ...item,
-            filePath: !item.filePath?.startsWith('http')
-              ? `http://localhost:8080${item.filePath}`
-              : item.filePath,
-          })),
-        },
-      };
+      return response.data;
     }
 
     throw true;
   },
-  // set({ set }, newValue) {
-  //   debugger;
-  //   if (newValue instanceof DefaultValue) {
-  //     console.log('이게 뭐임??');
-  //   } else {
-  //     if (newValue.header.success) {
-  //       set(photoListState, newValue.body!.list);
-  //     }
-  //   }
-  // },
+  set: ({ set, get }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+    } else if (newValue.header.success) {
+      const before = get(photoListState);
+      const params = get(photoListParams);
+      const newList = (newValue.body!.list || []).map((item) => ({
+        ...item,
+        filePath: !item.filePath?.startsWith('http')
+          ? `http://localhost:8080${item.filePath}`
+          : item.filePath,
+      }));
+      set(
+        photoListState,
+        params.page === 1 ? newList : [...before, ...newList],
+      );
+    }
+  },
 });
 
 /**
  * 비동기로 사진 가져오기
  */
-export const asyncPhoto = selectorFamily<
+export const photoSelector = selectorFamily<
   IRes<
     {
       relations: RelationType[];
@@ -69,7 +66,7 @@ export const asyncPhoto = selectorFamily<
   >,
   number
 >({
-  key: 'asyncPhoto',
+  key: 'photoSelector',
   get: (contId) => async () => {
     const response = await api.getPhoto(contId);
     const relations = await getRelations({

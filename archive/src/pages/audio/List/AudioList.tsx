@@ -1,82 +1,106 @@
 import React from 'react';
-import { Box, Grid, Paper, useTheme, useMediaQuery } from '@mui/material';
+import { Grid, Paper, useTheme, useMediaQuery } from '@mui/material';
+import {
+  RecoilRoot,
+  useRecoilState,
+  useRecoilStateLoadable,
+  useRecoilValue,
+} from 'recoil';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
-import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
+import MoreButton from 'pages/@components/button/MoreButton';
 
 import AudioItem from './AudioItem';
-import { asyncAudioList } from '../state';
+import { audioListParams, audioListSelector, audioListState } from '../state';
 
 const Inner = () => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudioList);
+  const [params, setParams] = useRecoilState(audioListParams);
+  const [loadable, setAudioList] = useRecoilStateLoadable(audioListSelector);
+  const audios = useRecoilValue(audioListState);
   const { breakpoints } = useTheme();
   const isDownXs = useMediaQuery(breakpoints.down('xs'));
   const isUpLg = useMediaQuery(breakpoints.up('lg'));
 
-  const renderItem = React.useCallback(
-    (targetProps: RenderImageProps) => {
-      if (state === 'hasValue') {
-        const origin = contents.body?.list?.[targetProps.index];
+  React.useEffect(() => {
+    if (loadable.state === 'hasValue') {
+      setAudioList((cur) => cur);
+    }
+  }, [loadable.state, setAudioList]);
 
-        if (origin) {
-          return (
-            <AudioItem
-              key={`audio-${targetProps.index}`}
-              direction="row"
-              targetProps={targetProps}
-              {...origin}
-            />
-          );
-        }
-
-        return null;
-      }
-
-      return null;
-    },
-    [state, contents],
-  );
-
-  switch (state) {
-    case 'hasValue': {
-      const galleryPics = (contents.body?.list || []).map((item) => ({
+  const galleryPics = React.useMemo(
+    () =>
+      audios.map((item) => ({
         width: 1280,
         height: 900,
         src: item.thumbFilePath,
         key: `${item.contType}-${item.contId}`,
-      }));
+      })),
+    [audios],
+  );
 
-      return (
-        <Grid container spacing={4}>
-          <Grid item xs={12}>
-            <Paper
-              sx={{
-                px: 4,
-              }}
-            >
-              <Gallery
-                margin={6}
-                photos={galleryPics}
-                direction="row"
-                renderImage={renderItem}
-                targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
-                limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
-              />
-            </Paper>
-          </Grid>
-        </Grid>
-      );
-    }
+  const renderItem = React.useCallback(
+    (targetProps: RenderImageProps) => {
+      const origin = audios[targetProps.index];
 
-    default:
+      if (origin) {
+        return (
+          <AudioItem
+            key={`audio-${targetProps.index}`}
+            direction="row"
+            targetProps={targetProps}
+            {...origin}
+          />
+        );
+      }
+
       return null;
-  }
+    },
+    [audios],
+  );
+
+  return (
+    <Grid container spacing={4}>
+      <Grid item xs={12}>
+        <Paper
+          sx={{
+            px: 4,
+          }}
+        >
+          {galleryPics.length > 0 && (
+            <Gallery
+              margin={6}
+              photos={galleryPics}
+              direction="row"
+              renderImage={renderItem}
+              targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
+              limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
+            />
+          )}
+
+          <MoreButton
+            loading={loadable.state === 'loading'}
+            count={
+              loadable.state === 'hasValue'
+                ? loadable.contents.body?.count || 0
+                : 0
+            }
+            size={params.size}
+            page={params.page}
+            onClick={(nextPage) =>
+              setParams((p) => ({
+                ...p,
+                page: nextPage,
+              }))
+            }
+          />
+        </Paper>
+      </Grid>
+    </Grid>
+  );
 };
 
 const AudioList = () => (
   <RecoilRoot>
-    <React.Suspense fallback={<Box>Loading...</Box>}>
-      <Inner />
-    </React.Suspense>
+    <Inner />
   </RecoilRoot>
 );
 

@@ -10,13 +10,13 @@ import {
 import { asyncCodeMap } from 'pages/rootState';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 
 /**
  * 매체, 출처
  */
 const AudioMediaSource = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
   const code = useRecoilValue(asyncCodeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));

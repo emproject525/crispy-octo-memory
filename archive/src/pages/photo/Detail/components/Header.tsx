@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
 
 /**
  * 사진명
  */
 const PhotoHeader = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
 
   switch (state) {
     case 'loading':

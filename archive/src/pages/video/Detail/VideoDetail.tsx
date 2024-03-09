@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, Grid } from '@mui/material';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
-import { asyncVideo } from '../state';
+import { videoSelector } from '../state';
 
 import VideoHeader from './components/Header';
 import VideoRegDt from './components/RegDt';
@@ -19,7 +19,7 @@ import VideoPayYnAdultYn from './components/PayYnAdultYn';
 import VideoRelations from './components/Relations';
 
 const Inner = ({ contId }: { contId: number }) => {
-  useRecoilValueLoadable(asyncVideo(contId));
+  useRecoilValueLoadable(videoSelector(contId));
 
   return (
     <Grid container spacing={2}>

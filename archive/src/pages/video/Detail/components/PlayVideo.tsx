@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Grid, Skeleton } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { asyncVideo } from 'pages/video/state';
+import { videoSelector } from 'pages/video/state';
 
 const PlayVideo = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncVideo(contId));
+  const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
   const [width, setWidth] = React.useState(560);
   const [height, setHeight] = React.useState(315);
 

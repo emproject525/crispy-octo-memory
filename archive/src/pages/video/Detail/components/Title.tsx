@@ -2,13 +2,13 @@ import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
 import AutosizeBox from 'components/Input/AutosizeBox';
-import { asyncVideo } from 'pages/video/state';
+import { videoSelector } from 'pages/video/state';
 
 /**
  * 제목
  */
 const VideoTitle = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncVideo(contId));
+  const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
 
   switch (state) {
     case 'loading':

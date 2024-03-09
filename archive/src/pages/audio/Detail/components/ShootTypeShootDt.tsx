@@ -11,13 +11,13 @@ import {
 import { constantsState } from 'pages/rootState';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 
 /**
  * 촬영 유형, 촬영일
  */
 const AudioShootTypeShootDt = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
   const constants = useRecoilValue(constantsState);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));

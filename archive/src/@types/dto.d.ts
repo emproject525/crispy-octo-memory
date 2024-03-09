@@ -2,12 +2,11 @@ declare module 'dto' {
   /**
    * 컨텐츠 타입
    * - `P` PHOTO 사진
-   * - `G` GRAPHIC 그래픽
    * - `T` TEXT 텍스트
    * - `V` VIDEO 비디오
    * - `A` AUDIO 오디오
    */
-  export type ContType = 'P' | 'G' | 'T' | 'V' | 'A';
+  export type ContType = 'P' | 'T' | 'V' | 'A';
 
   /**
    * 코드 그룹

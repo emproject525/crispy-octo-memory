@@ -52,3 +52,31 @@ export function isNonNullable<T>(
 ): value is T {
   return !!value;
 }
+
+/**
+ * 시작 종료 count 계산
+ * @param count 전체 건수
+ * @param size 한 페이지 크기
+ * @param page 요청 페이지
+ * @returns number[]
+ */
+export function getStartEnd(
+  count: number,
+  size: number,
+  page: number
+): number[] {
+  let start = 0;
+  let end = 0;
+
+  const totalPage = Math.ceil(count / size);
+  if (page > totalPage) {
+    start = 0;
+    end = 0 + size;
+  } else {
+    start = (page - 1) * size + 1;
+    end = start + size - 1;
+    end = end > count ? count : end;
+  }
+
+  return [start, end];
+}

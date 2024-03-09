@@ -1,5 +1,5 @@
 import React from 'react';
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
 import AutosizeBox from 'components/Input/AutosizeBox';
@@ -8,7 +8,7 @@ import AutosizeBox from 'components/Input/AutosizeBox';
  * 사진 제목
  */
 const PhotoTitle = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
 
   switch (state) {
     case 'loading':

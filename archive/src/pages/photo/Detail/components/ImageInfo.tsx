@@ -1,5 +1,5 @@
 import React from 'react';
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
 import Allowed from 'pages/@components/statusIcon/Allowed';
@@ -10,7 +10,7 @@ import { formatBytes } from 'utils/utils';
  * 이미지 정보
  */
 const PhotoImageInfo = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
 
   switch (state) {
     case 'loading':

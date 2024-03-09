@@ -1,4 +1,5 @@
 import { IContVideo } from 'dto';
+import { IContVideoParams } from 'params';
 
 import client from './client';
 
@@ -6,8 +7,10 @@ import client from './client';
  * 영상 목록
  * @returns axios
  */
-export const getVideos = () => {
-  return client.get<IContVideo>('/api/videos');
+export const getVideos = (params: IContVideoParams) => {
+  return client.get<IContVideo>('/api/videos', {
+    params,
+  });
 };
 
 /**

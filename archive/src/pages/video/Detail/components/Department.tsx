@@ -3,13 +3,13 @@ import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { asyncCodeMap } from 'pages/rootState';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
-import { asyncVideo } from 'pages/video/state';
+import { videoSelector } from 'pages/video/state';
 
 /**
  * 부서
  */
 const VideoDepartment = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncVideo(contId));
+  const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
   const code = useRecoilValue(asyncCodeMap);
 
   switch (state) {

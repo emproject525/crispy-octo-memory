@@ -8,13 +8,13 @@ import {
   Skeleton,
 } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { asyncVideo } from 'pages/video/state';
+import { videoSelector } from 'pages/video/state';
 
 /**
  * 결제
  */
 const VideoPayYnAdultYn = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncVideo(contId));
+  const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
 
   switch (state) {
     case 'loading':

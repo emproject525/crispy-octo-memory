@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { asyncCodeMap } from 'pages/rootState';
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
 
@@ -9,7 +9,7 @@ import FormSelect from 'components/Input/FormSelect';
  * 부서
  */
 const PhotoDepartment = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
   const code = useRecoilValue(asyncCodeMap);
 
   switch (state) {

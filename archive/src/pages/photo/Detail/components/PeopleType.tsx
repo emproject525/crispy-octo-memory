@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
 import { constantsState } from 'pages/rootState';
@@ -9,7 +9,7 @@ import { constantsState } from 'pages/rootState';
  * 인물 유형
  */
 const PhotoPeopleType = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
   const constants = useRecoilValue(constantsState);
 
   switch (state) {

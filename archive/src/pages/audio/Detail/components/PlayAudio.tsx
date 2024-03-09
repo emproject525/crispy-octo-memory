@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton } from '@mui/material';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 import { constantsState } from 'pages/rootState';
 import MusicPlayer from 'components/MusicPlayer';
 
@@ -11,7 +11,7 @@ import MusicPlayer from 'components/MusicPlayer';
  * @returns JSX.Element
  */
 const PlayAudio = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
   const constants = useRecoilValue(constantsState);
   const [width, setWidth] = React.useState(560);
   const [height, setHeight] = React.useState(315);

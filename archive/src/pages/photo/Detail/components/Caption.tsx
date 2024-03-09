@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
 import AutosizeBox from 'components/Input/AutosizeBox';
 
 const PhotoCaption = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
 
   switch (state) {
     case 'loading':

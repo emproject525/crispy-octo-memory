@@ -4,11 +4,11 @@ import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
 import Allowed from 'pages/@components/statusIcon/Allowed';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 import { formatBytes, secondsToTimeText } from 'utils/utils';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 import { constantsState } from 'pages/rootState';
 
 const AudioInfo = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
   const constants = useRecoilValue(constantsState);
 
   switch (state) {

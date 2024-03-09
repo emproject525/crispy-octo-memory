@@ -1,78 +1,104 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 import React from 'react';
-import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
+import {
+  RecoilRoot,
+  useRecoilState,
+  useRecoilStateLoadable,
+  useRecoilValue,
+} from 'recoil';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
+import MoreButton from 'pages/@components/button/MoreButton';
 
-import { asyncPhotoList } from '../state';
+import { photoListSelector, photoListParams, photoListState } from '../state';
 import PhotoItem from './PhotoItem';
 
 const Inner = () => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhotoList);
+  const [params, setParams] = useRecoilState(photoListParams);
+  const [loadable, setPhotoList] = useRecoilStateLoadable(photoListSelector);
+  const photos = useRecoilValue(photoListState);
 
-  const renderImage = React.useCallback(
-    (renderImageProps: RenderImageProps) => {
-      if (state === 'hasValue') {
-        const originPhoto = contents.body?.list?.[renderImageProps.index];
+  React.useEffect(() => {
+    if (loadable.state === 'hasValue') {
+      setPhotoList((cur) => cur);
+    }
+  }, [loadable.state, setPhotoList]);
 
-        if (originPhoto) {
-          return (
-            <PhotoItem
-              key={`photo-${renderImageProps.index}`}
-              direction="column"
-              targetProps={renderImageProps}
-              {...originPhoto}
-            />
-          );
-        }
-
-        return null;
-      }
-
-      return null;
-    },
-    [state, contents],
-  );
-
-  switch (state) {
-    case 'hasValue': {
-      const galleryPics = (contents.body?.list || []).map((item) => ({
+  const galleryPics = React.useMemo(
+    () =>
+      photos.map((item) => ({
         width: item.width || 1,
         height: item.height ? item.height + 46 : item.height || 1,
         src: item.filePath || '',
         key: `${item.contType}-${item.contId}`,
-      }));
+      })),
+    [photos],
+  );
 
-      return (
-        <Grid container spacing={4}>
-          <Grid item xs={12}>
-            <Paper>상태 검색</Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper
-              sx={{
-                px: 4,
-              }}
-            >
-              <Gallery
-                margin={6}
-                photos={galleryPics}
-                direction="column"
-                renderImage={renderImage}
-              />
-            </Paper>
-          </Grid>
-        </Grid>
-      );
-    }
+  const renderImage = React.useCallback(
+    (renderImageProps: RenderImageProps) => {
+      const originPhoto = photos[renderImageProps.index];
 
-    default:
+      if (originPhoto) {
+        return (
+          <PhotoItem
+            key={`photo-${renderImageProps.index}`}
+            direction="column"
+            targetProps={renderImageProps}
+            {...originPhoto}
+          />
+        );
+      }
+
       return null;
-  }
+    },
+    [photos],
+  );
+
+  return (
+    <Grid container spacing={4}>
+      <Grid item xs={12}>
+        <Paper>상태 검색</Paper>
+      </Grid>
+      <Grid item xs={12}>
+        <Paper
+          sx={{
+            px: 4,
+          }}
+        >
+          {galleryPics.length > 0 && (
+            <Gallery
+              margin={6}
+              photos={galleryPics}
+              direction="column"
+              renderImage={renderImage}
+            />
+          )}
+
+          <MoreButton
+            loading={loadable.state === 'loading'}
+            count={
+              loadable.state === 'hasValue'
+                ? loadable.contents.body?.count || 0
+                : 0
+            }
+            size={params.size}
+            page={params.page}
+            onClick={(nextPage) =>
+              setParams((p) => ({
+                ...p,
+                page: nextPage,
+              }))
+            }
+          />
+        </Paper>
+      </Grid>
+    </Grid>
+  );
 };
 
 const PhotoList = () => (
   <RecoilRoot>
-    <React.Suspense fallback={<Box>Loading...</Box>}>
+    <React.Suspense fallback={<>Loading...</>}>
       <Inner />
     </React.Suspense>
   </RecoilRoot>

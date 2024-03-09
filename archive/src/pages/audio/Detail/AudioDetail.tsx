@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, Grid } from '@mui/material';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
-import { asyncAudio } from '../state';
+import { audioSelector } from '../state';
 
 import AudioHeader from './components/Header';
 import AudioRegDt from './components/RegDt';
@@ -19,7 +19,7 @@ import AudioPayYnAdultYn from './components/PayYnAdultYn';
 import AudioRelations from './components/Relations';
 
 const Inner = ({ contId }: { contId: number }) => {
-  useRecoilValueLoadable(asyncAudio(contId));
+  useRecoilValueLoadable(audioSelector(contId));
 
   return (
     <Grid container spacing={2}>

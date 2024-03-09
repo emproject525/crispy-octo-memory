@@ -3,13 +3,13 @@ import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton } from '@mui/material';
 
 import RelationList from 'pages/@components/relation/RelationList';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 
 /**
  * 관련 컨텐츠
  */
 const AudioRelations = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
 
   switch (state) {
     case 'loading':

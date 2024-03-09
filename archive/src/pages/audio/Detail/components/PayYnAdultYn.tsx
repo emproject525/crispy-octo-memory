@@ -8,13 +8,13 @@ import {
   Skeleton,
 } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { asyncAudio } from 'pages/audio/state';
+import { audioSelector } from 'pages/audio/state';
 
 /**
  * 결제
  */
 const AudioPayYnAdultYn = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncAudio(contId));
+  const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
 
   switch (state) {
     case 'loading':

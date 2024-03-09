@@ -15,7 +15,12 @@ import {
   IRelation,
   IRelationCont
 } from 'dto';
-import { removeNulls, make500Response, isNonNullable } from 'utils';
+import {
+  removeNulls,
+  make500Response,
+  isNonNullable,
+  getStartEnd
+} from 'utils';
 
 import imgTypes from '@data/code/img_type.json';
 import sources from '@data/code/source.json';
@@ -26,6 +31,7 @@ import photos from '@data/photo/list.json';
 import videos from '@data/video/list.json';
 import audios from '@data/audio/list.json';
 import relations from '@data/relation/list.json';
+import { IContAudioParams, IContPhotoParams, IContVideoParams } from 'params';
 
 const photosParsed = photos.map((item) =>
   removeNulls<IContPhoto>(item as IContPhoto)
@@ -113,27 +119,34 @@ app.get('/api/codes', (req: Request, res: Response) => {
 /**
  * 사진 목록 조회
  */
-app.get('/api/photos', (req: Request, res: Response) => {
-  try {
-    const response: IArchiveResponse<IContPhoto> = {
-      header: {
-        success: true,
-        status: 200,
-        message: '성공하였습니다'
-      },
-      body: {
-        list: photosParsed.slice(0, 40),
-        count: photos.length,
-        keywords: []
-      }
-    };
-    res.status(200).type('application/json').send(response);
-  } catch (e) {
-    res
-      .status(200)
-      .send(make500Response(e instanceof Error ? e.message : String(e)));
+app.get(
+  '/api/photos',
+  (req: Request<{}, {}, {}, IContPhotoParams>, res: Response) => {
+    try {
+      const { page, size, keyword } = req.query;
+      const count = photos.length;
+      const sliceIdx = getStartEnd(count, Number(size), Number(page));
+
+      const response: IArchiveResponse<IContPhoto> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: {
+          list: photosParsed.slice(sliceIdx[0] - 1, sliceIdx[1]),
+          count,
+          keywords: []
+        }
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
+    }
   }
-});
+);
 
 /**
  * 사진 상세 데이터
@@ -311,27 +324,34 @@ app.post(
 /**
  * 영상 목록 조회
  */
-app.get('/api/videos', (req: Request, res: Response) => {
-  try {
-    const response: IArchiveResponse<IContVideo> = {
-      header: {
-        success: true,
-        status: 200,
-        message: '성공하였습니다'
-      },
-      body: {
-        list: vidoesParsed.slice(0, 40),
-        count: videos.length,
-        keywords: []
-      }
-    };
-    res.status(200).type('application/json').send(response);
-  } catch (e) {
-    res
-      .status(200)
-      .send(make500Response(e instanceof Error ? e.message : String(e)));
+app.get(
+  '/api/videos',
+  (req: Request<{}, {}, {}, IContVideoParams>, res: Response) => {
+    try {
+      const { page, size, keyword } = req.query;
+      const count = videos.length;
+      const sliceIdx = getStartEnd(count, Number(size), Number(page));
+
+      const response: IArchiveResponse<IContVideo> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: {
+          list: vidoesParsed.slice(sliceIdx[0] - 1, sliceIdx[1]),
+          count,
+          keywords: []
+        }
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
+    }
   }
-});
+);
 
 /**
  * 영상 상세
@@ -455,27 +475,34 @@ app.get(
 /**
  * 오디오 목록 조회
  */
-app.get('/api/audios', (req: Request, res: Response) => {
-  try {
-    const response: IArchiveResponse<IContAudio> = {
-      header: {
-        success: true,
-        status: 200,
-        message: '성공하였습니다'
-      },
-      body: {
-        list: audioParsed.slice(0, 40),
-        count: audioParsed.length,
-        keywords: []
-      }
-    };
-    res.status(200).type('application/json').send(response);
-  } catch (e) {
-    res
-      .status(200)
-      .send(make500Response(e instanceof Error ? e.message : String(e)));
+app.get(
+  '/api/audios',
+  (req: Request<{}, {}, {}, IContAudioParams>, res: Response) => {
+    try {
+      const { page, size, keyword } = req.query;
+      const count = audioParsed.length;
+      const sliceIdx = getStartEnd(count, Number(size), Number(page));
+
+      const response: IArchiveResponse<IContAudio> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: {
+          list: audioParsed.slice(sliceIdx[0] - 1, sliceIdx[1]),
+          count,
+          keywords: []
+        }
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
+    }
   }
-});
+);
 
 /**
  * 오디오 상세

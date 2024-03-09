@@ -1,5 +1,5 @@
 import React from 'react';
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
 
@@ -7,7 +7,7 @@ import { Box, Grid, Skeleton, TextField } from '@mui/material';
  * 저작권
  */
 const PhotoCopyrt = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
 
   switch (state) {
     case 'loading':

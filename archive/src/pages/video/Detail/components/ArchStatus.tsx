@@ -4,7 +4,7 @@ import copy from 'copy-to-clipboard';
 import { Box, Grid, IconButton, Skeleton, Typography } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-import { asyncVideo } from 'pages/video/state';
+import { videoSelector } from 'pages/video/state';
 import Archived from 'pages/@components/statusIcon/Archived';
 import DownloadContButton from 'pages/@components/button/DownloadContButton';
 
@@ -12,7 +12,7 @@ import DownloadContButton from 'pages/@components/button/DownloadContButton';
  * 상태
  */
 const VideoArchStatus = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncVideo(contId));
+  const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
 
   switch (state) {
     case 'loading':

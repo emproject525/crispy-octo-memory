@@ -4,7 +4,7 @@ import copy from 'copy-to-clipboard';
 import { Box, Grid, IconButton, Skeleton, Typography } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import Archived from 'pages/@components/statusIcon/Archived';
 import DownloadContButton from 'pages/@components/button/DownloadContButton';
 
@@ -12,7 +12,7 @@ import DownloadContButton from 'pages/@components/button/DownloadContButton';
  * 상태
  */
 const PhotoArchStatus = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
 
   switch (state) {
     case 'loading':

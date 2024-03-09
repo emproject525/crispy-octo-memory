@@ -42,6 +42,10 @@ const palette: Record<PaletteMode, PaletteOptions> = {
       main: '#1f8068',
       light: '#1f8068',
     },
+    success: {
+      main: '#66bb6a',
+      contrastText: '#efefef',
+    },
     common: {
       black: '#313148',
       white: '#fff',
@@ -61,6 +65,10 @@ const palette: Record<PaletteMode, PaletteOptions> = {
     },
     text: {
       disabled: '#eaeced',
+    },
+    success: {
+      main: '#66bb6a',
+      contrastText: '#efefef',
     },
     common: {
       black: '#fff',

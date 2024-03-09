@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { asyncVideo } from 'pages/video/state';
+import { videoSelector } from 'pages/video/state';
 
 const VideoHeader = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncVideo(contId));
+  const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
 
   switch (state) {
     case 'loading':

@@ -21,7 +21,7 @@ declare module 'dto' {
   }
 
   /**
-   * 코드 데이터
+   * 코드
    */
   export interface ICd {
     seq: null | number;
@@ -44,14 +44,27 @@ declare module 'dto' {
   }
 
   /**
+   * 작가
+   */
+  export interface IWriter {
+    ordNo: null | number;
+    media: null | number;
+    source: null | number;
+    department: null | number;
+    userId: null | string;
+    userName: null | string;
+    userEmail: null | string;
+    userType: null | string;
+  }
+
+  /**
    * 컨텐츠 타입
    * - `P` PHOTO 사진
-   * - `G` GRAPHIC 그래픽
    * - `T` TEXT 텍스트
    * - `V` VIDEO 비디오
    * - `A` AUDIO 오디오
    */
-  export type ContType = 'P' | 'G' | 'T' | 'V' | 'A';
+  export type ContType = 'P' | 'T' | 'V' | 'A';
 
   /**
    * 사진 컨텐츠
@@ -355,9 +368,68 @@ declare module 'dto' {
   }
 
   /**
-   * 문서 컨텐츠
+   * 텍스트 컨텐츠
    */
-  export interface IContText {}
+  export interface IContText {
+    contId: null | number;
+    contType: null | ContType;
+    /**
+     * 컨텐츠의 서비스 상태
+     * - `00` 중지됨
+     * - `01` 서비스 중
+     * - `99` 삭제됨
+     * @default 00
+     */
+    serviceStatus: null | '00' | '01' | '99';
+    title: null | string;
+    media: null | number;
+    source: null | number;
+    writers: null | IWriter[];
+    /**
+     * 아카이빙 상태
+     * - `00` : 아카이브 등록 전
+     * - `01` : 검토 중
+     * - `99` : 아카이브 등록 완료
+     * @default 00
+     */
+    archStatus: null | '00' | '01' | '99';
+    subTitle: null | string;
+    body: null | string;
+    keyword?: null | string;
+    /**
+     * 결제해야 볼 수 있는 컨텐츠인지
+     */
+    payYn: null | 'Y' | 'N';
+    /**
+     * 성인 컨텐츠 여부
+     */
+    adultYn: null | 'Y' | 'N';
+    /**
+     * 사용 허가 여부
+     * - `Y` 허가 받았음 (바로 사용 가능)
+     * - `N` 허가받지 않았음. 사용하려면 저작권자에게 허가 받아야함.
+     * @default N 허가받지 않은 상태
+     */
+    permissionYn: null | 'Y' | 'N';
+    /**
+     * 저작권자
+     */
+    copyrt?: null | string;
+    regId: null | string;
+    regDt: null | string;
+    modId?: null | string;
+    modDt?: null | string;
+    delId?: null | string;
+    delDt?: null | string;
+    /**
+     * 문서 타입
+     * - `00` 기사
+     * - `01` 인터뷰
+     * - `99` 기타
+     * @default 99
+     */
+    textType: null | '00' | '01' | '99';
+  }
 
   /**
    * 컨텐츠 간의 관련 정보
@@ -378,10 +450,4 @@ declare module 'dto' {
     contId: number;
     relations: (IContVideo | IContPhoto | IContAudio)[];
   }
-}
-
-declare module 'hls-server' {
-  import * as hlsserver from 'hls-server';
-
-  export = hlsserver;
 }

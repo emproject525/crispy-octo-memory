@@ -9,7 +9,7 @@ import {
   TextField,
 } from '@mui/material';
 import { constantsState } from 'pages/rootState';
-import { asyncPhoto } from 'pages/photo/state';
+import { photoSelector } from 'pages/photo/state';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
 
@@ -17,7 +17,7 @@ import FormSelect from 'components/Input/FormSelect';
  * 촬영 유형, 촬영일
  */
 const PhotoShootTypeShootDt = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(asyncPhoto(contId));
+  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
   const constants = useRecoilValue(constantsState);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));

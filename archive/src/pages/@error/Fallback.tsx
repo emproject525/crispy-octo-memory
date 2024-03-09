@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material';
 import React from 'react';
+import { Box, CircularProgress, Paper } from '@mui/material';
 
 const Fallback = () => {
   // const theme = useTheme();
@@ -15,7 +15,11 @@ const Fallback = () => {
       >
         <Typography marginTop={7}>페이지를 로딩하는 중입니다.</Typography>
       </Loader> */}
-      <Typography marginTop={7}>페이지를 로딩하는 중입니다.</Typography>
+      <Paper>
+        <Box display="flex" justifyContent="center" py={13}>
+          <CircularProgress color="success" />
+        </Box>
+      </Paper>
     </Box>
   );
 };

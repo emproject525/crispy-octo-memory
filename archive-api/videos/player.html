@@ -3,12 +3,22 @@
   <head>
     <title>{{fileName}}</title>
     <style>
-      body { margin: 0; padding: 0; }
-      video { display: block; background-color: #141414; margin: 0; padding: 0; width: 100%; aspect-ratio: 16 / 9; }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      video {
+        display: block;
+        background-color: #141414;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+      }
     </style>
   </head>
   <body>
-    <video id="video" controls></video>
+    <video id="video" controls autoplay="false"></video>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
       const video = document.getElementById('video');

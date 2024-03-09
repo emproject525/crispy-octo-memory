@@ -1,4 +1,5 @@
 import { IContAudio } from 'dto';
+import { IContAudioParams } from 'params';
 
 import client from './client';
 
@@ -6,8 +7,10 @@ import client from './client';
  * 오디오 목록
  * @returns axios
  */
-export const getAudios = () => {
-  return client.get<IContAudio>('/api/audios');
+export const getAudios = (params: IContAudioParams) => {
+  return client.get<IContAudio>('/api/audios', {
+    params,
+  });
 };
 
 /**
