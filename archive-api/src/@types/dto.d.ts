@@ -47,14 +47,20 @@ declare module 'dto' {
    * 작가
    */
   export interface IWriter {
-    ordNo: null | number;
-    media: null | number;
+    media: number;
     source: null | number;
-    department: null | number;
-    userId: null | string;
-    userName: null | string;
-    userEmail: null | string;
-    userType: null | string;
+    department: number;
+    id: string;
+    name: string;
+    email: null | string;
+    /**
+     * 상태
+     * - `00` 재직 중
+     * - `01` 휴직 중
+     * - `99` 퇴사
+     * @deafult 00
+     */
+    status: null | '00' | '01' | '99';
   }
 
   /**
@@ -384,7 +390,7 @@ declare module 'dto' {
     title: null | string;
     media: null | number;
     source: null | number;
-    writers: null | IWriter[];
+    writers: null | string[];
     /**
      * 아카이빙 상태
      * - `00` : 아카이브 등록 전
@@ -430,6 +436,9 @@ declare module 'dto' {
      */
     textType: null | '00' | '01' | '99';
   }
+  export interface IResContText extends IContText {
+    writers: null | IWriter[];
+  }
 
   /**
    * 컨텐츠 간의 관련 정보
@@ -448,6 +457,6 @@ declare module 'dto' {
   export interface IRelationCont {
     contType: ContType;
     contId: number;
-    relations: (IContVideo | IContPhoto | IContAudio)[];
+    relations: (IContVideo | IContPhoto | IContAudio | IContText)[];
   }
 }

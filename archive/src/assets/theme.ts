@@ -234,6 +234,16 @@ const theme = (mode: PaletteMode) => {
           },
         },
       },
+      /**
+       * MuiTableCell
+       */
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+            backgroundColor: palette[mode].background?.paper,
+          },
+        },
+      },
     },
   });
 };

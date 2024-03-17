@@ -9,9 +9,9 @@
   {
     "depth": 1,
     "menuId": "02",
-    "menuNm": "document",
+    "menuNm": "text",
     "menuKoNm": "문서",
-    "path": "/document"
+    "path": "/texts"
   },
   {
     "depth": 1,

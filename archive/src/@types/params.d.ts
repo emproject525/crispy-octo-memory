@@ -16,4 +16,10 @@ declare module 'params' {
     page: number;
     keyword?: string;
   }
+
+  export interface IContTextParams {
+    size: number;
+    page: number;
+    keyword?: string;
+  }
 }

@@ -11,9 +11,12 @@ import {
   ICd,
   IContAudio,
   IContPhoto,
+  IContText,
   IContVideo,
   IRelation,
-  IRelationCont
+  IRelationCont,
+  IResContText,
+  IWriter
 } from 'dto';
 import {
   removeNulls,
@@ -30,8 +33,15 @@ import departments from '@data/code/department.json';
 import photos from '@data/photo/list.json';
 import videos from '@data/video/list.json';
 import audios from '@data/audio/list.json';
+import writers from '@data/text/writers.json';
+import texts from '@data/text/list.json';
 import relations from '@data/relation/list.json';
-import { IContAudioParams, IContPhotoParams, IContVideoParams } from 'params';
+import {
+  IContAudioParams,
+  IContPhotoParams,
+  IContTextParams,
+  IContVideoParams
+} from 'params';
 
 const photosParsed = photos.map((item) =>
   removeNulls<IContPhoto>(item as IContPhoto)
@@ -41,6 +51,17 @@ const vidoesParsed = videos.map((item) =>
 );
 const audioParsed = audios.map((item) =>
   removeNulls<IContAudio>(item as IContAudio)
+);
+const writersParsed = writers.map((item) => item as IWriter);
+const textParsed = texts.map((item) =>
+  removeNulls<IContText>(item as IContText)
+);
+// api 용량을 줄이기 위해서 body 제거
+const textNoBodyParsed = texts.map((item) =>
+  removeNulls<IContText>({
+    ...item,
+    body: null
+  } as IContText)
 );
 const relationsParsed = relations.map((item) =>
   removeNulls<IRelation>(item as IRelation)
@@ -535,16 +556,88 @@ app.get(
   }
 );
 
+/**
+ * 문서 목록 조회
+ */
+app.get(
+  '/api/texts',
+  (req: Request<{}, {}, {}, IContTextParams>, res: Response) => {
+    try {
+      const { page, size, keyword } = req.query;
+      const count = textParsed.length;
+      const sliceIdx = getStartEnd(count, Number(size), Number(page));
+
+      const response: IArchiveResponse<IResContText> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: {
+          list: textNoBodyParsed
+            .slice(sliceIdx[0] - 1, sliceIdx[1])
+            .map((item) => ({
+              ...item,
+              writers: (item.writers || [])
+                .map((id) => writersParsed.find((item) => item.id === id))
+                .filter(isNonNullable)
+            })),
+          count,
+          keywords: []
+        }
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
+    }
+  }
+);
+
+/**
+ * 문서 상세
+ */
+app.get(
+  '/api/texts/:contId',
+  (
+    req: Request<{
+      contId?: string;
+    }>,
+    res: Response
+  ) => {
+    try {
+      const response: IArchiveResponse<IContText, false> = {
+        header: {
+          success: true,
+          status: 200,
+          message: '성공하였습니다'
+        },
+        body: textParsed.find(
+          (item) => String(item.contId) === req.params.contId
+        )
+      };
+      res.status(200).type('application/json').send(response);
+    } catch (e) {
+      res
+        .status(200)
+        .send(make500Response(e instanceof Error ? e.message : String(e)));
+    }
+  }
+);
+
 const findCont = (
   contType: ContType,
   contId: number
-): IContPhoto | IContVideo | IContAudio | undefined => {
+): IContPhoto | IContVideo | IContAudio | IContText | undefined => {
   if (contType === 'P') {
     return photosParsed.find((item) => item.contId === contId);
   } else if (contType === 'V') {
     return vidoesParsed.find((item) => item.contId === contId);
   } else if (contType === 'A') {
     return audioParsed.find((item) => item.contId === contId);
+  } else if (contType === 'T') {
+    return textParsed.find((item) => item.contId === contId);
   }
 
   return undefined;

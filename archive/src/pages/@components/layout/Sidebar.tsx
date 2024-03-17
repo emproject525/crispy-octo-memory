@@ -122,7 +122,7 @@ const Sidebar = ({ width }: { width: number }) => {
                 >
                   {item.menuNm === 'dashboard' ? (
                     <DashboardCustomizeRoundedIcon fontSize="small" />
-                  ) : item.menuNm === 'document' ? (
+                  ) : item.menuNm === 'text' ? (
                     <FeedRoundedIcon fontSize="small" />
                   ) : item.menuNm === 'photo' ? (
                     <PhotoLibraryIcon fontSize="small" />

@@ -47,6 +47,11 @@ export const constantsState = atom({
       '01': '인터뷰',
       '99': '기타',
     },
+    WRITER_STATUS: {
+      '00': '재직',
+      '01': '휴직',
+      '99': '퇴사',
+    },
   },
 });
 

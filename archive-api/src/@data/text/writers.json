@@ -1,1 +1,56 @@
-[]
+[
+  {
+    "media": 1,
+    "source": null,
+    "department": 1,
+    "id": "kim.gildong",
+    "name": "김길동",
+    "email": "kim.gildong@gmail.com",
+    "status": "00"
+  },
+  {
+    "media": 2,
+    "source": null,
+    "department": 2,
+    "id": "jung.gildong",
+    "name": "정길동",
+    "email": "jung.gildong@gmail.com",
+    "status": "00"
+  },
+  {
+    "media": 3,
+    "source": null,
+    "department": 3,
+    "id": "hong.gildong",
+    "name": "홍길동",
+    "email": "hong.gildong@gmail.com",
+    "status": "00"
+  },
+  {
+    "media": 4,
+    "source": null,
+    "department": 4,
+    "id": "park.gildong",
+    "name": "박길동",
+    "email": "park.gildong@gmail.com",
+    "status": "00"
+  },
+  {
+    "media": 5,
+    "source": null,
+    "department": 5,
+    "id": "yun.gildong",
+    "name": "윤길동",
+    "email": "yun.gildong@gmail.com",
+    "status": "99"
+  },
+  {
+    "media": 6,
+    "source": null,
+    "department": 6,
+    "id": "lee.gildong",
+    "name": "이길동",
+    "email": "lee.gildong@gmail.com",
+    "status": "01"
+  }
+]
