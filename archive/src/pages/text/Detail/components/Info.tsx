@@ -1,0 +1,64 @@
+import React from 'react';
+import { textSelector } from 'pages/text/state';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
+import Allowed from 'pages/@components/statusIcon/Allowed';
+import Disallowed from 'pages/@components/statusIcon/Disallowed';
+import { constantsState } from 'pages/rootState';
+
+/**
+ * 정보
+ */
+const TextInfo = ({ contId }: { contId: number }) => {
+  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const constants = useRecoilValue(constantsState);
+
+  switch (state) {
+    case 'loading':
+      return (
+        <Grid item xs={12}>
+          <Box px={4}>
+            <Skeleton width="100%">
+              <Typography>.</Typography>
+            </Skeleton>
+          </Box>
+        </Grid>
+      );
+
+    case 'hasValue': {
+      const { body, header } = contents;
+
+      if (!header.success) {
+        return null;
+      }
+
+      return (
+        <>
+          <Grid item xs={8}>
+            <Box px={4} display="flex" alignItems="center" gap={2}>
+              <Typography variant="fs12">
+                {constants.TEXT_TYPE[body!.textType] || '기타'}
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box
+              px={4}
+              display="flex"
+              alignItems="center"
+              justifyContent="flex-end"
+            >
+              {body!.permissionYn === 'Y' && <Allowed />}
+              {body!.permissionYn === 'N' && <Disallowed showText />}
+            </Box>
+          </Grid>
+        </>
+      );
+    }
+
+    default:
+      return null;
+  }
+};
+
+export default TextInfo;

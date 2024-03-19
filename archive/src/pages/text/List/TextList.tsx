@@ -1,5 +1,4 @@
 import {
-  useTheme,
   Checkbox,
   Grid,
   Paper,
@@ -17,14 +16,26 @@ import {
   useRecoilState,
   useRecoilStateLoadable,
   useRecoilValue,
+  useSetRecoilState,
 } from 'recoil';
-import { textListParams, textListSelector, textListState } from '../state';
+import {
+  checkedState,
+  checkTextList,
+  isCheckedAll,
+  textListParams,
+  textListSelector,
+  textListState,
+} from '../state';
+
+import TextItemRow from './TextItemRow';
 
 const Inner = () => {
   const [params, setParams] = useRecoilState(textListParams);
   const [loadable, setTextList] = useRecoilStateLoadable(textListSelector);
+  const checked = useRecoilValue(checkedState);
+  const check = useSetRecoilState(checkTextList);
+  const checkedAll = useRecoilValue(isCheckedAll);
   const texts = useRecoilValue(textListState);
-  const theme = useTheme();
 
   React.useEffect(() => {
     if (loadable.state === 'hasValue') {
@@ -41,18 +52,18 @@ const Inner = () => {
           }}
         >
           <TableContainer>
-            <Table stickyHeader aria-label="sticky table">
+            <Table aria-label="sticky table">
               <TableHead>
                 <TableRow>
                   <TableCell padding="checkbox" width={60}>
                     <Checkbox
                       color="primary"
-                      // indeterminate={numSelected > 0 && numSelected < rowCount}
-                      // checked={rowCount > 0 && numSelected === rowCount}
-                      // onChange={onSelectAllClick}
                       inputProps={{
                         'aria-label': 'select all desserts',
                       }}
+                      indeterminate={!checkedAll && checked.length > 0}
+                      checked={checkedAll}
+                      onChange={(evt, flag) => check(flag ? 'all' : 'uncheck')}
                     />
                   </TableCell>
                   <TableCell align="center" width={100}>
@@ -71,40 +82,16 @@ const Inner = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {texts.map((item) => {
-                  return (
-                    <TableRow key={`text-${item.contId}`}>
-                      <TableCell padding="checkbox" width={60}>
-                        <Checkbox
-                          color="primary"
-                          // indeterminate={numSelected > 0 && numSelected < rowCount}
-                          // checked={rowCount > 0 && numSelected === rowCount}
-                          // onChange={onSelectAllClick}
-                          inputProps={{
-                            'aria-label': 'select all desserts',
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell align="center" width={100}>
-                        {item.contId}
-                      </TableCell>
-                      <TableCell align="left">{item.title || ''}</TableCell>
-                      <TableCell align="center" width={150}>
-                        {(item.writers || []).length < 2
-                          ? (item.writers || []).map((i) => i.name).join('')
-                          : `${item.writers![0].name} 외 ${
-                              item.writers!.length - 1
-                            }명`}
-                      </TableCell>
-                      <TableCell align="center" width={120}>
-                        {item.regDt || ''}
-                      </TableCell>
-                      <TableCell align="center" width={120}>
-                        {item.modDt || ''}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                {texts.map((item) => (
+                  <TextItemRow
+                    key={`text-${item.contId}`}
+                    checked={
+                      checked.findIndex((i) => i.contId === item.contId) > -1
+                    }
+                    onCheck={() => check(item)}
+                    {...item}
+                  />
+                ))}
               </TableBody>
             </Table>
           </TableContainer>

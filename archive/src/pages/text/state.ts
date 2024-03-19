@@ -64,7 +64,7 @@ export const textSelector = selectorFamily<
   get: (contId) => async () => {
     const response = await api.getText(contId);
     const relations = await getRelations({
-      contType: 'V',
+      contType: 'T',
       contId,
     });
 
@@ -85,5 +85,59 @@ export const textSelector = selectorFamily<
       header: response.data.header,
       body: returnBody,
     };
+  },
+});
+
+/**
+ * 체크한 목록
+ */
+export const checkedState = atom<IContText[]>({
+  key: 'checkedState',
+  default: [],
+});
+
+/**
+ * 목록 전체를 체크했는지 확인
+ */
+export const isCheckedAll = selector<boolean>({
+  key: 'isCheckedAll',
+  get: ({ get }) => {
+    const checked = get(checkedState);
+    const allList = get(textListState);
+    return checked.length > 0 && checked.length === allList.length;
+  },
+});
+
+/**
+ * 체크
+ */
+export const checkTextList = selector<
+  undefined | IContText | 'all' | 'uncheck'
+>({
+  key: 'checkTextList',
+  get: () => {
+    return undefined;
+  },
+  set: ({ get, set }, newValue) => {
+    const before = get(checkedState);
+    const allList = get(textListState);
+
+    if (newValue instanceof DefaultValue) {
+    } else if (newValue === 'all') {
+      set(checkedState, allList);
+    } else if (newValue === 'uncheck') {
+      set(checkedState, []);
+    } else if (newValue !== undefined) {
+      const after: IContText[] = [...before];
+
+      const exists = before.findIndex((i) => i.contId === newValue.contId);
+      if (exists < 1) {
+        after.push(newValue);
+      } else {
+        after.splice(exists, 1);
+      }
+
+      set(checkedState, after);
+    }
   },
 });

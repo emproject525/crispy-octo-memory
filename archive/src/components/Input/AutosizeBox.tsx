@@ -9,6 +9,8 @@ import {
   textFieldClasses,
   inputBaseClasses,
   useTheme,
+  Chip,
+  Stack,
 } from '@mui/material';
 import clsx from 'clsx';
 
@@ -18,11 +20,22 @@ const AutosizeBox = ({
   variant,
   value,
   size,
-}: { value?: string } & Pick<
+  keyword,
+  keywordSeperator,
+}: { value?: string; keyword?: boolean; keywordSeperator?: string } & Pick<
   TextFieldProps,
   'id' | 'label' | 'variant' | 'size'
 >) => {
   const theme = useTheme();
+
+  // 키워드
+  const keywords: string[] = React.useMemo(() => {
+    if (keyword && value && value !== '') {
+      return (value || '').split(keywordSeperator || ' ');
+    }
+
+    return [];
+  }, [keyword, keywordSeperator, value]);
 
   return (
     <FormControl
@@ -97,18 +110,41 @@ const AutosizeBox = ({
           },
         }}
       >
-        <Typography
-          variant="fs13"
-          component="div"
-          sx={{
-            width: '100%',
-            cursor: 'text',
-            whiteSpace: 'pre-wrap',
-          }}
-          dangerouslySetInnerHTML={{
-            __html: value || `&nbsp;`,
-          }}
-        />
+        {keyword ? (
+          keywords.length > 0 ? (
+            <Stack direction="row" spacing={1}>
+              {keywords.map((word, idx) => (
+                <Chip key={`keyword-${idx}`} label={word} size="small" />
+              ))}
+            </Stack>
+          ) : (
+            <Typography
+              variant="fs13"
+              component="div"
+              sx={{
+                width: '100%',
+                cursor: 'text',
+                whiteSpace: 'pre-wrap',
+              }}
+              dangerouslySetInnerHTML={{
+                __html: `&nbsp;`,
+              }}
+            />
+          )
+        ) : (
+          <Typography
+            variant="fs13"
+            component="div"
+            sx={{
+              width: '100%',
+              cursor: 'text',
+              whiteSpace: 'pre-wrap',
+            }}
+            dangerouslySetInnerHTML={{
+              __html: value || `&nbsp;`,
+            }}
+          />
+        )}
       </Box>
     </FormControl>
   );

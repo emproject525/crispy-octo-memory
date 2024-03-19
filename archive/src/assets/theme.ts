@@ -1,4 +1,4 @@
-import { PaletteMode } from '@mui/material';
+import { alpha, PaletteMode, tableRowClasses } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 import palette from './palette';
@@ -59,7 +59,7 @@ declare module '@mui/material/Typography' {
  * Theme
  */
 const theme = (mode: PaletteMode) => {
-  // const color = palette[mode];
+  const color = createTheme({ palette: palette[mode] }).palette;
 
   return createTheme({
     spacing: 4,
@@ -235,12 +235,28 @@ const theme = (mode: PaletteMode) => {
         },
       },
       /**
+       * MuiTableRow
+       */
+      MuiTableRow: {
+        styleOverrides: {
+          root: {
+            [`&:nth-of-type(odd):not(.${tableRowClasses.head}, :hover)`]: {
+              backgroundColor: alpha(color.action?.hover, 0.03),
+            },
+            // hide last border
+            // '&:last-child td, &:last-child th': {
+            //   border: 0,
+            // },
+          },
+        },
+      },
+      /**
        * MuiTableCell
        */
       MuiTableCell: {
         styleOverrides: {
           root: {
-            backgroundColor: palette[mode].background?.paper,
+            // backgroundColor: color.background?.paper,
           },
         },
       },

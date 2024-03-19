@@ -17,12 +17,15 @@ const PhotoDetailRoute = React.lazy(
   () => import('pages/photo/Detail/PhotoDetailRoute'),
 );
 const Texts = React.lazy(() => import('pages/text/Texts'));
+const TextDetailRoute = React.lazy(
+  () => import('pages/text/Detail/TextDetailRoute'),
+);
 const Videos = React.lazy(() => import('pages/video/Videos'));
 const VideoDetailRoute = React.lazy(
   () => import('pages/video/Detail/VideoDetailRoute'),
 );
 const Audios = React.lazy(() => import('pages/audio/Audios'));
-const AudiosDetailRoute = React.lazy(
+const AudioDetailRoute = React.lazy(
   () => import('pages/audio/Detail/AudioDetailRoute'),
 );
 
@@ -43,6 +46,7 @@ export default createBrowserRouter(
       </Route>
       <Route path="/texts">
         <Route index element={getSuspensePages(<Texts />)} />
+        <Route path=":contId" element={getSuspensePages(<TextDetailRoute />)} />
       </Route>
       <Route path="/videos">
         <Route index element={getSuspensePages(<Videos />)} />
@@ -55,7 +59,7 @@ export default createBrowserRouter(
         <Route index element={getSuspensePages(<Audios />)} />
         <Route
           path=":contId"
-          element={getSuspensePages(<AudiosDetailRoute />)}
+          element={getSuspensePages(<AudioDetailRoute />)}
         />
       </Route>
     </Route>,

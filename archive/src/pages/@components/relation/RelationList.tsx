@@ -41,7 +41,6 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       P: relations.filter((item) => item.contType === 'P'),
       V: relations.filter((item) => item.contType === 'V'),
       A: relations.filter((item) => item.contType === 'A'),
-      G: relations.filter((item) => item.contType === 'G'),
       T: relations.filter((item) => item.contType === 'T'),
     }),
     [relations],
@@ -54,7 +53,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           width,
           height: Math.floor((width * 9) / 16) + 46,
           alt: parsed.title,
-          src: `http://localhost:8080${item.filePath}`,
+          src: `http://localhost:8080${parsed.filePath}`,
           key: `${item.contType}-${item.contId}`,
         };
       }),
@@ -83,7 +82,6 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           key: `${item.contType}-${item.contId}`,
         };
       }),
-      G: [],
       T: [],
     }),
     [relationsByContType, width],
@@ -170,6 +168,26 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
             }),
           )}
           {galleryPics.P.length === 0 && <NoRelations />}
+        </Box>
+      </Grid>
+      <Grid item xs={12}>
+        <Divider />
+      </Grid>
+      <Grid item xs={12}>
+        <Box px={4}>
+          <MiniTitle text="관련 문서" />
+        </Box>
+      </Grid>
+      <Grid item xs={12}>
+        <Box
+          px={4}
+          display="flex"
+          gap={2}
+          flexWrap="nowrap"
+          ref={boxRefCallback}
+        >
+          {/* TODO */}
+          {relationsByContType.T.length === 0 && <NoRelations />}
         </Box>
       </Grid>
       <Grid item xs={12}>

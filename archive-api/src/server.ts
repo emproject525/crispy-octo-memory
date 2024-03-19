@@ -607,15 +607,26 @@ app.get(
     res: Response
   ) => {
     try {
-      const response: IArchiveResponse<IContText, false> = {
+      const body = textParsed.find(
+        (item) => String(item.contId) === req.params.contId
+      );
+
+      if (!body) {
+        throw '본문이 없습니다.';
+      }
+
+      const response: IArchiveResponse<IResContText, false> = {
         header: {
           success: true,
           status: 200,
           message: '성공하였습니다'
         },
-        body: textParsed.find(
-          (item) => String(item.contId) === req.params.contId
-        )
+        body: {
+          ...body,
+          writers: (body!.writers || [])
+            .map((id) => writersParsed.find((item) => item.id === id))
+            .filter(isNonNullable)
+        }
       };
       res.status(200).type('application/json').send(response);
     } catch (e) {
