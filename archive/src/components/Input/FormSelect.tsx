@@ -36,12 +36,16 @@ const FormSelect = <ValueType extends string | number>({
         size="small"
         label={label}
         MenuProps={{
+          disableScrollLock: true,
           slotProps: {
             paper: {
               square: true,
               sx: {
                 p: 0,
               },
+            },
+            root: {
+              disablePortal: true,
             },
           },
         }}

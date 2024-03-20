@@ -27,77 +27,81 @@ const DownloadContButton = ({
   const [progress, setProgress] = React.useState(0);
 
   return (
-    <Tooltip
-      // arrow
-      PopperProps={{
-        disablePortal: true,
-      }}
-      open={showTooltip}
-      title={
-        <Box px={2} py={1} minWidth={120}>
-          {title && (
-            <Typography variant="fs12" mb={1} component="div">
-              {title}
-            </Typography>
-          )}
-          <LinearProgress variant="determinate" value={progress} />
-          <Typography variant="fs11" mt={1} color="grey.600" component="div">
-            {progress}%
-          </Typography>
-        </Box>
-      }
-      slotProps={{
-        popper: {
-          modifiers: [
-            {
-              name: 'offset',
-              options: {
-                offset: [0, -15],
-                // arrow 있을 때 offset
-                // offset: [0, -5],
-              },
-            },
-          ],
-        },
-      }}
-    >
-      <IconButton
-        color="info"
-        sx={{
-          p: 0.5,
+    <Box flexShrink={0} title="다운로드">
+      <Tooltip
+        // arrow
+        PopperProps={{
+          disablePortal: true,
         }}
-        onClick={() => {
-          if (progress !== 100) {
-            download(
+        open={showTooltip}
+        title={
+          <Box px={2} py={1} minWidth={120}>
+            {title && (
+              <Typography variant="fs12" mb={1} component="div">
+                {title}
+              </Typography>
+            )}
+            <LinearProgress variant="determinate" value={progress} />
+            <Typography variant="fs11" mt={1} color="grey.600" component="div">
+              {progress}%
+            </Typography>
+          </Box>
+        }
+        slotProps={{
+          popper: {
+            modifiers: [
               {
-                contType,
-                contId,
-              },
-              {
-                onDownloadProgress: (progressEvent) => {
-                  if (progressEvent.download) {
-                    setShowTooltip(true);
-                  }
-                  setProgress(Math.floor((progressEvent.progress || 0) * 100));
+                name: 'offset',
+                options: {
+                  offset: [0, -15],
+                  // arrow 있을 때 offset
+                  // offset: [0, -5],
                 },
               },
-            ).then(({ success }) => {
-              if (!success) {
-                // 다운로드 실패 -> noti 추가
-              }
-            });
-          } else {
-            setShowTooltip((f) => !f);
-          }
+            ],
+          },
         }}
       >
-        <DownloadRoundedIcon
+        <IconButton
+          color="info"
           sx={{
-            fontSize: 16,
+            p: 0.5,
           }}
-        />
-      </IconButton>
-    </Tooltip>
+          onClick={() => {
+            if (progress !== 100) {
+              download(
+                {
+                  contType,
+                  contId,
+                },
+                {
+                  onDownloadProgress: (progressEvent) => {
+                    if (progressEvent.download) {
+                      setShowTooltip(true);
+                    }
+                    setProgress(
+                      Math.floor((progressEvent.progress || 0) * 100),
+                    );
+                  },
+                },
+              ).then(({ success }) => {
+                if (!success) {
+                  // 다운로드 실패 -> noti 추가
+                }
+              });
+            } else {
+              setShowTooltip((f) => !f);
+            }
+          }}
+        >
+          <DownloadRoundedIcon
+            sx={{
+              fontSize: 16,
+            }}
+          />
+        </IconButton>
+      </Tooltip>
+    </Box>
   );
 };
 
