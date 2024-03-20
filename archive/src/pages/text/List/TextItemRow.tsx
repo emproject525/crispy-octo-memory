@@ -23,8 +23,15 @@ const TextItemRow = ({
   const [hideCell, setHideCell] = React.useState(false);
   const trRefCallback = React.useCallback((el: null | HTMLTableRowElement) => {
     if (el) {
-      const { width } = el.getBoundingClientRect();
-      setHideCell(width < 650);
+      const observer = new ResizeObserver((entries) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        for (const _entry of entries) {
+          const { width } = el.getBoundingClientRect();
+          setHideCell(width < 1000);
+        }
+      });
+
+      observer.observe(el);
     }
   }, []);
 

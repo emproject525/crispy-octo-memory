@@ -17,6 +17,7 @@ import {
   textListState,
 } from '../state';
 
+import TextSearchParams from './SeacrhParams';
 import TextItemHead from './TextItemHead';
 import TextItemRow from './TextItemRow';
 
@@ -42,6 +43,7 @@ const Inner = () => {
             px: 4,
           }}
         >
+          <TextSearchParams />
           <TableContainer>
             <Table aria-label="sticky table">
               <TextItemHead

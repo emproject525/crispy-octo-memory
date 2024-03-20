@@ -15,6 +15,7 @@ const FormSelect = <ValueType extends string | number>({
   label,
   options,
   variant,
+  color,
   ...rest
 }: {
   options?: {
@@ -23,7 +24,7 @@ const FormSelect = <ValueType extends string | number>({
   }[];
 } & SelectProps<ValueType>) => {
   return (
-    <FormControl variant={variant} fullWidth>
+    <FormControl color={color} variant={variant} fullWidth>
       {label && (
         <InputLabel size="small" id={`${id}-select-label`}>
           {label}
@@ -34,10 +35,25 @@ const FormSelect = <ValueType extends string | number>({
         id={id}
         size="small"
         label={label}
+        MenuProps={{
+          slotProps: {
+            paper: {
+              square: true,
+              sx: {
+                p: 0,
+              },
+            },
+          },
+        }}
         {...rest}
       >
         {label && (
-          <MenuItem value="" hidden>
+          <MenuItem
+            value=""
+            sx={{
+              fontSize: 12,
+            }}
+          >
             {label}
           </MenuItem>
         )}
@@ -45,6 +61,9 @@ const FormSelect = <ValueType extends string | number>({
           <MenuItem
             key={`${id}-select-label-option-${idx}`}
             value={option.value as ValueType}
+            sx={{
+              fontSize: 12,
+            }}
           >
             {option.label}
           </MenuItem>

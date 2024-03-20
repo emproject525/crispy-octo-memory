@@ -28,7 +28,7 @@ const DownloadContButton = ({
 
   return (
     <Tooltip
-      arrow
+      // arrow
       PopperProps={{
         disablePortal: true,
       }}
@@ -52,7 +52,9 @@ const DownloadContButton = ({
             {
               name: 'offset',
               options: {
-                offset: [0, -5],
+                offset: [0, -15],
+                // arrow 있을 때 offset
+                // offset: [0, -5],
               },
             },
           ],

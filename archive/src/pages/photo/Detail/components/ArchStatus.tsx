@@ -1,12 +1,11 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
-import copy from 'copy-to-clipboard';
-import { Box, Grid, IconButton, Skeleton, Typography } from '@mui/material';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
 
 import { photoSelector } from 'pages/photo/state';
 import Archived from 'pages/@components/statusIcon/Archived';
 import DownloadContButton from 'pages/@components/button/DownloadContButton';
+import CopyIconButton from 'components/Button/CopyIconButton';
 
 /**
  * 상태
@@ -49,23 +48,10 @@ const PhotoArchStatus = ({ contId }: { contId: number }) => {
           </Grid>
           <Grid item xs={6}>
             <Box px={4} display="flex" gap={1} justifyContent="flex-end">
-              <IconButton
-                sx={{
-                  width: 20,
-                  height: 20,
-                  p: 0.6,
-                }}
+              <CopyIconButton
                 title="URL 복사"
-                onClick={() => {
-                  copy(`${window.location.origin}/photos/${contId}`);
-                }}
-              >
-                <ContentCopyIcon
-                  sx={{
-                    fontSize: 14,
-                  }}
-                />
-              </IconButton>
+                copyText={`${window.location.origin}/photos/${contId}`}
+              />
               {body!.permissionYn === 'Y' && (
                 <DownloadContButton
                   contType="P"

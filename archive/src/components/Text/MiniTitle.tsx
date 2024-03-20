@@ -1,20 +1,40 @@
-import { Typography } from '@mui/material';
 import React from 'react';
+import { Box, Typography } from '@mui/material';
 
-const MiniTitle = ({ text }: { text: string }) => {
+const MiniTitle = ({
+  text,
+  startAdornment,
+}: {
+  text: string;
+  startAdornment?: React.ReactNode;
+}) => {
   return (
-    <Typography
-      component="div"
-      variant="fs14"
-      color="info.main"
-      fontWeight="bold"
-      sx={{
-        cursor: 'default',
-        userSelect: 'none',
-      }}
-    >
-      {text}
-    </Typography>
+    <>
+      {startAdornment && (
+        <Box
+          height={20}
+          mr={2}
+          sx={{
+            float: 'left',
+          }}
+        >
+          {startAdornment}
+        </Box>
+      )}
+      <Typography
+        component="div"
+        variant="fs13"
+        color="search.main"
+        fontWeight="bold"
+        sx={{
+          float: 'left',
+          cursor: 'default',
+          userSelect: 'none',
+        }}
+      >
+        {text}
+      </Typography>
+    </>
   );
 };
 

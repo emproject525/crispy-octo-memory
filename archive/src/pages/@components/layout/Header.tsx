@@ -1,4 +1,5 @@
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import ArchiveIcon from '@mui/icons-material/Archive';
 import {
   Box,
   Typography,
@@ -16,10 +17,18 @@ const Header = () => {
     <Box width="100%" height={100}>
       <Grid height={100} container gap={4}>
         <Grid item sm={0} md="auto">
-          <Box display="flex" alignItems="center" width={180} height="100%">
+          <Box
+            display="flex"
+            alignItems="center"
+            width={180}
+            height="100%"
+            gap={3}
+          >
+            <ArchiveIcon color="success" fontSize="large" />
             <Typography
-              variant="fs20"
+              variant="fs18"
               color="grey.700"
+              lineHeight="15px"
               sx={{
                 userSelect: 'none',
               }}

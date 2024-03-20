@@ -11,6 +11,9 @@ import {
 import Draggable from 'react-draggable';
 import StyledScrollBox from 'components/StyledScrollBox';
 
+/**
+ * Portal + 드래그 가능한 Paper
+ */
 const DraggablePaper = ({
   handleId,
   open,

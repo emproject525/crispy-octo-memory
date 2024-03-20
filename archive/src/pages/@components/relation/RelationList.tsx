@@ -10,6 +10,11 @@ import {
   TableContainer,
   Typography,
 } from '@mui/material';
+import FeedRoundedIcon from '@mui/icons-material/FeedRounded';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+
 import {
   ContType,
   IContAudio,
@@ -18,6 +23,7 @@ import {
   IContVideo,
   RelationType,
 } from 'dto';
+
 import PhotoItem from 'pages/photo/List/PhotoItem';
 import VideoItem from 'pages/video/List/VideoItem';
 import AudioItem from 'pages/audio/List/AudioItem';
@@ -159,7 +165,16 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
     <>
       <Grid item xs={12}>
         <Box px={4}>
-          <MiniTitle text="관련 사진" />
+          <MiniTitle
+            text="관련 사진"
+            startAdornment={
+              <PhotoLibraryIcon
+                sx={{
+                  fontSize: 14,
+                }}
+              />
+            }
+          />
         </Box>
       </Grid>
       <Grid item xs={12}>
@@ -187,23 +202,27 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       </Grid>
       <Grid item xs={12}>
         <Box px={4}>
-          <MiniTitle text="관련 문서" />
+          <MiniTitle
+            text="관련 문서"
+            startAdornment={
+              <FeedRoundedIcon
+                sx={{
+                  fontSize: 14,
+                }}
+              />
+            }
+          />
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <Box
-          px={4}
-          display="flex"
-          gap={2}
-          flexWrap="nowrap"
-          ref={boxRefCallback}
-        >
+        <Box px={4} ref={boxRefCallback}>
           {relationsByContType.T.length > 0 && (
             <TableContainer
               component={Paper}
               variant="outlined"
               sx={{
                 p: 0,
+                bgcolor: 'transparent',
               }}
               square
             >
@@ -236,7 +255,16 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       </Grid>
       <Grid item xs={12}>
         <Box px={4}>
-          <MiniTitle text="관련 영상" />
+          <MiniTitle
+            text="관련 영상"
+            startAdornment={
+              <VideoLibraryIcon
+                sx={{
+                  fontSize: 14,
+                }}
+              />
+            }
+          />
         </Box>
       </Grid>
       <Grid item xs={12}>
@@ -258,7 +286,16 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       </Grid>
       <Grid item xs={12}>
         <Box px={4}>
-          <MiniTitle text="관련 오디오" />
+          <MiniTitle
+            text="관련 오디오"
+            startAdornment={
+              <LibraryMusicIcon
+                sx={{
+                  fontSize: 14,
+                }}
+              />
+            }
+          />
         </Box>
       </Grid>
       <Grid item xs={12}>

@@ -34,6 +34,10 @@ const palette: Record<PaletteMode, PaletteOptions> = {
     text: {
       disabled: '#313148',
     },
+    search: {
+      main: '#333348',
+      contrastText: '#ffffff',
+    },
     primary: {
       main: '#a42082',
       light: 'rgb(179, 136, 255)',
@@ -65,6 +69,10 @@ const palette: Record<PaletteMode, PaletteOptions> = {
     },
     text: {
       disabled: '#eaeced',
+    },
+    search: {
+      main: '#d6d6d6',
+      contrastText: '#333348',
     },
     success: {
       main: '#66bb6a',

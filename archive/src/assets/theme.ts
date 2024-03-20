@@ -1,4 +1,9 @@
-import { alpha, PaletteMode, tableRowClasses } from '@mui/material';
+import {
+  alpha,
+  inputLabelClasses,
+  PaletteMode,
+  tableRowClasses,
+} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 import palette from './palette';
@@ -37,6 +42,12 @@ declare module '@mui/material/styles' {
     fs19?: React.CSSProperties;
     fs20?: React.CSSProperties;
   }
+  interface Palette {
+    search: Palette['primary'];
+  }
+  interface PaletteOptions {
+    search: PaletteOptions['primary'];
+  }
 }
 
 declare module '@mui/material/Typography' {
@@ -52,6 +63,66 @@ declare module '@mui/material/Typography' {
     fs18: true;
     fs19: true;
     fs20: true;
+  }
+}
+
+/**
+ * 버튼 color 확장
+ * @override ButtonPropsColorOverrides
+ */
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    search: true;
+  }
+}
+
+/**
+ * 버튼 color 확장
+ * @override ButtonGroupPropsColorOverrides
+ */
+declare module '@mui/material/ButtonGroup' {
+  interface ButtonGroupPropsColorOverrides {
+    search: true;
+  }
+}
+
+/**
+ * 버튼 color 확장
+ * @override IconButtonPropsColorOverrides
+ */
+declare module '@mui/material/IconButton' {
+  interface IconButtonPropsColorOverrides {
+    search: true;
+  }
+}
+
+/**
+ * Input color 확장
+ * @override InputBasePropsColorOverrides
+ */
+declare module '@mui/material/InputBase' {
+  interface InputBasePropsColorOverrides {
+    search: true;
+  }
+}
+
+/**
+ * Input color 확장
+ * @override TextFieldPropsColorOverrides
+ */
+declare module '@mui/material/TextField' {
+  interface TextFieldPropsColorOverrides {
+    search: true;
+  }
+}
+
+/**
+ * Input color 확장
+ * @override FormControlPropsColorOverrides
+ */
+declare module '@mui/material/FormControl' {
+  interface FormControlPropsColorOverrides {
+    search: true;
   }
 }
 
@@ -164,6 +235,18 @@ const theme = (mode: PaletteMode) => {
         },
       },
       /**
+       * MuiButton
+       */
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            '&.MuiButton-containedSearch': {
+              fontWeight: 'bold',
+            },
+          },
+        },
+      },
+      /**
        * MuiInputBase
        */
       MuiInputBase: {
@@ -189,9 +272,8 @@ const theme = (mode: PaletteMode) => {
       MuiInputLabel: {
         styleOverrides: {
           filled: {
-            color: 'success.main',
             ':not(.MuiInputLabel-shrink)': {
-              fontSize: '13px',
+              fontSize: 13,
             },
           },
         },
@@ -206,6 +288,15 @@ const theme = (mode: PaletteMode) => {
           },
           label: {
             fontSize: 13,
+          },
+        },
+      },
+      MuiFormLabel: {
+        styleOverrides: {
+          root: {
+            [`&.${inputLabelClasses.outlined}`]: {
+              fontSize: 12,
+            },
           },
         },
       },
@@ -257,6 +348,8 @@ const theme = (mode: PaletteMode) => {
         styleOverrides: {
           root: {
             fontSize: 13,
+            lineHeight: 'normal',
+            padding: '12px',
             // backgroundColor: color.background?.paper,
           },
         },
