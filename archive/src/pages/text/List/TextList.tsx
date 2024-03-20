@@ -1,14 +1,4 @@
-import {
-  Checkbox,
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
+import { Grid, Paper, Table, TableBody, TableContainer } from '@mui/material';
 import MoreButton from 'pages/@components/button/MoreButton';
 import React from 'react';
 import {
@@ -27,6 +17,7 @@ import {
   textListState,
 } from '../state';
 
+import TextItemHead from './TextItemHead';
 import TextItemRow from './TextItemRow';
 
 const Inner = () => {
@@ -53,37 +44,16 @@ const Inner = () => {
         >
           <TableContainer>
             <Table aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  <TableCell padding="checkbox" width={60}>
-                    <Checkbox
-                      color="primary"
-                      inputProps={{
-                        'aria-label': 'select all desserts',
-                      }}
-                      indeterminate={!checkedAll && checked.length > 0}
-                      checked={checkedAll}
-                      onChange={(evt, flag) => check(flag ? 'all' : 'uncheck')}
-                    />
-                  </TableCell>
-                  <TableCell align="center" width={100}>
-                    ID
-                  </TableCell>
-                  <TableCell align="left">제목</TableCell>
-                  <TableCell align="center" width={150}>
-                    작성자
-                  </TableCell>
-                  <TableCell align="center" width={120}>
-                    등록일
-                  </TableCell>
-                  <TableCell align="center" width={120}>
-                    수정일
-                  </TableCell>
-                </TableRow>
-              </TableHead>
+              <TextItemHead
+                useCheckboxCell
+                indeterminate={!checkedAll && checked.length > 0}
+                checked={checkedAll}
+                onCheck={(flag) => check(flag ? 'all' : 'uncheck')}
+              />
               <TableBody>
                 {texts.map((item) => (
                   <TextItemRow
+                    useCheckboxCell
                     key={`text-${item.contId}`}
                     checked={
                       checked.findIndex((i) => i.contId === item.contId) > -1

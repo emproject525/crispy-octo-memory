@@ -1,11 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { PhotoProps, RenderImageProps } from 'react-photo-gallery';
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Divider,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  Typography,
+} from '@mui/material';
 import {
   ContType,
   IContAudio,
   IContPhoto,
+  IContText,
   IContVideo,
   RelationType,
 } from 'dto';
@@ -13,6 +22,8 @@ import PhotoItem from 'pages/photo/List/PhotoItem';
 import VideoItem from 'pages/video/List/VideoItem';
 import AudioItem from 'pages/audio/List/AudioItem';
 import MiniTitle from 'components/Text/MiniTitle';
+import TextItemHead from 'pages/text/List/TextItemHead';
+import TextItemRow from 'pages/text/List/TextItemRow';
 
 const NoRelations = () => (
   <Typography
@@ -89,6 +100,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
   const boxRefCallback = React.useCallback((ele: HTMLDivElement | null) => {
     if (ele) {
       const observer = new ResizeObserver((entries) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for (const _entry of entries) {
           const { width: w } = ele.getBoundingClientRect();
           setWidth(Math.floor((w - 2 * 8 - 16 * 2) / 3));
@@ -186,7 +198,36 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           flexWrap="nowrap"
           ref={boxRefCallback}
         >
-          {/* TODO */}
+          {relationsByContType.T.length > 0 && (
+            <TableContainer
+              component={Paper}
+              variant="outlined"
+              sx={{
+                p: 0,
+              }}
+              square
+            >
+              <Table>
+                <TextItemHead
+                  useCheckboxCell={false}
+                  indeterminate={false}
+                  checked={false}
+                  onCheck={() => {}}
+                />
+                <TableBody>
+                  {relationsByContType.T.map((item) => (
+                    <TextItemRow
+                      useCheckboxCell={false}
+                      key={`rel-content-text-${item.contId}`}
+                      checked={false}
+                      onCheck={() => {}}
+                      {...(item as IContText)}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
           {relationsByContType.T.length === 0 && <NoRelations />}
         </Box>
       </Grid>

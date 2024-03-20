@@ -256,6 +256,7 @@ const theme = (mode: PaletteMode) => {
       MuiTableCell: {
         styleOverrides: {
           root: {
+            fontSize: 13,
             // backgroundColor: color.background?.paper,
           },
         },

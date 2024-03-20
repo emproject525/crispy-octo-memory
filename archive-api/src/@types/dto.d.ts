@@ -436,6 +436,10 @@ declare module 'dto' {
      */
     textType: null | '00' | '01' | '99';
   }
+
+  /**
+   * 텍스트 컨텐츠 (writers -> 작가 데이터 조인)
+   */
   export interface IResContText extends IContText {
     writers: null | IWriter[];
   }
@@ -457,6 +461,6 @@ declare module 'dto' {
   export interface IRelationCont {
     contType: ContType;
     contId: number;
-    relations: (IContVideo | IContPhoto | IContAudio | IContText)[];
+    relations: (IContVideo | IContPhoto | IContAudio | IResContText)[];
   }
 }

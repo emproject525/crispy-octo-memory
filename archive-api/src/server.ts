@@ -53,16 +53,19 @@ const audioParsed = audios.map((item) =>
   removeNulls<IContAudio>(item as IContAudio)
 );
 const writersParsed = writers.map((item) => item as IWriter);
-const textParsed = texts.map((item) =>
-  removeNulls<IContText>(item as IContText)
-);
-// api 용량을 줄이기 위해서 body 제거
-const textNoBodyParsed = texts.map((item) =>
-  removeNulls<IContText>({
+const textParsed: IResContText[] = texts
+  .map((item) => removeNulls<IContText>(item as IContText))
+  .map((item) => ({
     ...item,
-    body: null
-  } as IContText)
-);
+    writers: (item.writers || [])
+      .map((id) => writersParsed.find((item) => item.id === id))
+      .filter(isNonNullable)
+  }));
+// api 용량을 줄이기 위해서 body 제거
+const textNoBodyParsed = textParsed.map((item) => ({
+  ...item,
+  body: null
+}));
 const relationsParsed = relations.map((item) =>
   removeNulls<IRelation>(item as IRelation)
 );
@@ -574,14 +577,7 @@ app.get(
           message: '성공하였습니다'
         },
         body: {
-          list: textNoBodyParsed
-            .slice(sliceIdx[0] - 1, sliceIdx[1])
-            .map((item) => ({
-              ...item,
-              writers: (item.writers || [])
-                .map((id) => writersParsed.find((item) => item.id === id))
-                .filter(isNonNullable)
-            })),
+          list: textNoBodyParsed.slice(sliceIdx[0] - 1, sliceIdx[1]),
           count,
           keywords: []
         }
@@ -621,12 +617,7 @@ app.get(
           status: 200,
           message: '성공하였습니다'
         },
-        body: {
-          ...body,
-          writers: (body!.writers || [])
-            .map((id) => writersParsed.find((item) => item.id === id))
-            .filter(isNonNullable)
-        }
+        body
       };
       res.status(200).type('application/json').send(response);
     } catch (e) {
@@ -640,7 +631,7 @@ app.get(
 const findCont = (
   contType: ContType,
   contId: number
-): IContPhoto | IContVideo | IContAudio | IContText | undefined => {
+): IContPhoto | IContVideo | IContAudio | IResContText | undefined => {
   if (contType === 'P') {
     return photosParsed.find((item) => item.contId === contId);
   } else if (contType === 'V') {
@@ -648,7 +639,7 @@ const findCont = (
   } else if (contType === 'A') {
     return audioParsed.find((item) => item.contId === contId);
   } else if (contType === 'T') {
-    return textParsed.find((item) => item.contId === contId);
+    return textNoBodyParsed.find((item) => item.contId === contId);
   }
 
   return undefined;
