@@ -26,10 +26,11 @@ const Header = () => {
           >
             <ArchiveIcon color="success" fontSize="large" />
             <Typography
-              variant="fs18"
+              variant="fs14"
               color="grey.700"
-              lineHeight="15px"
+              lineHeight="12px"
               sx={{
+                fontStyle: 'italic',
                 userSelect: 'none',
               }}
             >

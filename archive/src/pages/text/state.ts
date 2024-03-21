@@ -2,7 +2,7 @@ import { IRes } from 'http';
 
 import * as api from 'api/text';
 import { IContText, RelationType } from 'dto';
-import { format } from 'date-fns';
+import { format, subMonths } from 'date-fns';
 import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
 import { getRelations } from 'api/content';
 import { IContTextParams } from 'params';
@@ -17,6 +17,8 @@ export const textListParams = atom<
   default: {
     size: 20,
     page: 1,
+    startDt: subMonths(new Date(), 6),
+    endDt: new Date(),
   },
 });
 

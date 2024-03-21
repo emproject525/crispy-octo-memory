@@ -29,6 +29,7 @@ const TextSearchParams = () => {
           onChange={(evt) => {
             setParams((before) => ({
               ...before,
+              page: 1,
               textType: evt.target.value,
             }));
           }}
@@ -41,6 +42,7 @@ const TextSearchParams = () => {
           onChange={(dates) => {
             setParams((before) => ({
               ...before,
+              page: 1,
               startDt: dates[0] || undefined,
               endDt: dates[1] || undefined,
             }));
@@ -62,6 +64,7 @@ const TextSearchParams = () => {
             if (evt.key === 'Enter') {
               setParams((before) => ({
                 ...before,
+                page: 1,
                 keyword: (evt.target as HTMLInputElement).value,
               }));
             }
@@ -70,7 +73,16 @@ const TextSearchParams = () => {
         />
       </Box>
       <Box flexShrink={0}>
-        <Button variant="contained" color="search">
+        <Button
+          variant="contained"
+          color="search"
+          onClick={() =>
+            setParams((before) => ({
+              ...before,
+              page: 1,
+            }))
+          }
+        >
           검색
         </Button>
       </Box>

@@ -1,3 +1,5 @@
+import { parse } from 'date-fns';
+
 /**
  * Format Bytes
  * @param bytes 바이트
@@ -42,4 +44,14 @@ export function secondsToTimeText(seconds: number): string {
   text += `00${digit}`.slice(-2);
 
   return text;
+}
+
+/**
+ * String -> Date
+ * @param text 변환 텍스트
+ * @param format 텍스트의 포맷
+ * @returns Date
+ */
+export function stringToDate(text: string, format?: string): Date {
+  return parse(text, format || 'yyyy-MM-dd', new Date());
 }

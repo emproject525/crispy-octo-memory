@@ -104,6 +104,9 @@ declare module '@mui/material/InputBase' {
   interface InputBasePropsColorOverrides {
     search: true;
   }
+  interface InputBaseClasses {
+    loading: string;
+  }
 }
 
 /**
@@ -114,6 +117,9 @@ declare module '@mui/material/TextField' {
   interface TextFieldPropsColorOverrides {
     search: true;
   }
+  interface TextFieldClasses {
+    loading: string;
+  }
 }
 
 /**
@@ -123,6 +129,9 @@ declare module '@mui/material/TextField' {
 declare module '@mui/material/FormControl' {
   interface FormControlPropsColorOverrides {
     search: true;
+  }
+  interface FormControlClasses {
+    loading: string;
   }
 }
 
