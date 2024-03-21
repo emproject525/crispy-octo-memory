@@ -6,11 +6,11 @@ In the project directory, you can run:
 
 ### `yarn rundemon`
 
-localhost 8080 포트로 server 실행
+localhost 8080 포트로 server 실행.
 
 ### TODO
 
-- [ ] 실행 속도가 오래 걸림. 빌드 속도 줄이기.
+- [ ] 실행 속도가 오래 걸림. 빌드 타임 줄이기.
 
 ### `yarn makestreamfiles`
 
