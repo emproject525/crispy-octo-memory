@@ -2,11 +2,17 @@ import { IRes } from 'http';
 
 import * as api from 'api/text';
 import { IContText, RelationType } from 'dto';
+import { format } from 'date-fns';
 import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
 import { getRelations } from 'api/content';
 import { IContTextParams } from 'params';
 
-export const textListParams = atom<IContTextParams>({
+export const textListParams = atom<
+  Omit<IContTextParams, 'startDt' | 'endDt'> & {
+    startDt?: Date;
+    endDt?: Date;
+  }
+>({
   key: 'textListParams',
   default: {
     size: 20,
@@ -26,7 +32,13 @@ export const textListSelector = selector<IRes<IContText>>({
   key: 'textListSelector',
   get: async ({ get }) => {
     const params = get(textListParams);
-    const response = await api.getTexts(params);
+    const response = await api.getTexts({
+      ...params,
+      startDt: params.startDt
+        ? format(params.startDt, 'yyyy-MM-dd')
+        : undefined,
+      endDt: params.endDt ? format(params.endDt, 'yyyy-MM-dd') : undefined,
+    });
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (response.status === 200 && response.data.header.success) {

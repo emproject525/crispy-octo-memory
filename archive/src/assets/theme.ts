@@ -257,6 +257,18 @@ const theme = (mode: PaletteMode) => {
         },
       },
       /**
+       * MuiOutlinedInput
+       */
+      MuiOutlinedInput: {
+        styleOverrides: {
+          input: {
+            '&.Mui-disabled': {
+              backgroundColor: 'rgba(118, 118, 118, 0.15)',
+            },
+          },
+        },
+      },
+      /**
        * MuiFilledInput
        */
       MuiFilledInput: {

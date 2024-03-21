@@ -1,9 +1,9 @@
+import React from 'react';
 import { RouterProvider } from 'react-router-dom';
-
 import { ThemeProvider } from '@mui/material/styles';
+
 import theme from 'assets/theme';
 import router from 'pages/router';
-import React from 'react';
 
 /**
  * Archive App

@@ -1,0 +1,108 @@
+@use './variables.scss' as v;
+
+/* date-picker */
+$datepicker__background-color: v.$gray-200;
+$datepicker__border-color: v.$gray-300 !default;
+$datepicker__highlighted-color: v.$highlight !default;
+$datepicker__muted-color: #ccc !default;
+$datepicker__selected-color: v.$highlight !default;
+$datepicker__text-color: #000 !default;
+$datepicker__header-color: #000 !default;
+$datepicker__navigation-disabled-color: lighten(
+  $datepicker__muted-color,
+  10%
+) !default;
+$datepicker__border-radius: 0.3rem !default;
+$datepicker__day-margin: 0.166rem !default;
+$datepicker__font-size: 0.8rem !default;
+$datepicker__font-family: v.$font-family-pretandard;
+$datepicker__item-size: 1.7rem !default;
+$datepicker__margin: 0.4rem !default;
+$datepicker__navigation-button-size: 32px !default;
+$datepicker__triangle-size: 8px !default;
+@import 'react-datepicker/src/stylesheets/datepicker.scss';
+
+.react-datepicker {
+  box-shadow:
+    rgb(0 0 0 / 20%) 0px 5px 5px -3px,
+    rgb(0 0 0 / 14%) 0px 8px 10px 1px,
+    rgb(0 0 0 / 12%) 0px 3px 14px 2px;
+}
+.react-datepicker-wrapper {
+  width: 100%;
+}
+.react-datepicker-popper[data-placement^='bottom'] {
+  padding-top: 4px;
+}
+.react-datepicker-popper {
+  z-index: 3;
+}
+.react-datepicker__triangle {
+  transform: initial !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+
+  &::before,
+  &::after {
+    left: 50% !important;
+  }
+}
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box {
+  width: 84px;
+}
+.react-datepicker__input-time-container
+  .react-datepicker-time__input-container
+  .react-datepicker-time__input {
+  margin-left: 1rem;
+}
+.react-datepicker__day {
+  &[aria-selected='true'],
+  &--selected,
+  &--in-selecting-range,
+  &--in-range {
+    color: #000;
+  }
+  &.sunday:not(&--disabled, &--selected) {
+    color: red;
+  }
+  &.saturday:not(&--disabled, &--selected) {
+    color: blue;
+  }
+}
+.react-datepicker__month {
+  [aria-selected='true'],
+  &--selected,
+  &--in-selecting-range,
+  &--in-range {
+    color: #000;
+  }
+}
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item {
+  height: auto;
+}
+
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li {
+  &[aria-selected='true'],
+  &--selected {
+    color: #000;
+  }
+}
+
+.react-datepicker__close-icon {
+  right: 36px;
+  &::after {
+    font-size: 14px;
+    padding: 0;
+    background-color: v.$gray-500;
+  }
+}

@@ -17,7 +17,7 @@ import {
   textListState,
 } from '../state';
 
-import TextSearchParams from './SeacrhParams';
+import TextSearchParams from './SearchParams';
 import TextItemHead from './TextItemHead';
 import TextItemRow from './TextItemRow';
 
