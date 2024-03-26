@@ -10,6 +10,7 @@ const TextSearchParams = () => {
   const constants = useRecoilValue(constantsState);
   const loadable = useRecoilValueLoadable(textListSelector);
   const [params, setParams] = useRecoilState(textListParams);
+  const keywordInputRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <Box display="flex" flexWrap="wrap" gap={2} mb={2}>
@@ -35,23 +36,22 @@ const TextSearchParams = () => {
           }}
         />
       </Box>
-      <Box width={250} flexShrink={0}>
-        <DateRangePicker
-          startDate={params.startDt}
-          endDate={params.endDt}
-          onChange={(dates) => {
-            setParams((before) => ({
-              ...before,
-              page: 1,
-              startDt: dates[0] || undefined,
-              endDt: dates[1] || undefined,
-            }));
-          }}
-          disabled={loadable.state === 'loading'}
-        />
-      </Box>
+      <DateRangePicker
+        startDate={params.startDt}
+        endDate={params.endDt}
+        onChange={(dates) => {
+          setParams((before) => ({
+            ...before,
+            page: 1,
+            startDt: dates[0] || undefined,
+            endDt: dates[1] || undefined,
+          }));
+        }}
+        disabled={loadable.state === 'loading'}
+      />
       <Box flex={1}>
         <TextField
+          ref={keywordInputRef}
           fullWidth
           name="keyword"
           id="keyword"
@@ -76,12 +76,13 @@ const TextSearchParams = () => {
         <Button
           variant="contained"
           color="search"
-          onClick={() =>
+          onClick={() => {
             setParams((before) => ({
               ...before,
               page: 1,
-            }))
-          }
+              keyword: keywordInputRef.current?.value || undefined,
+            }));
+          }}
         >
           검색
         </Button>

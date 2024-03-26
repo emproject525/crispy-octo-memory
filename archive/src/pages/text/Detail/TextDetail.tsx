@@ -17,12 +17,17 @@ import TextRelations from './components/Relations';
 
 import { textSelector } from '../state';
 
-const Inner = ({ contId }: { contId: number }) => {
+type TextDetail = {
+  contId: number;
+  highlightText?: string;
+};
+
+const Inner = ({ contId, highlightText }: TextDetail) => {
   useRecoilValueLoadable(textSelector(contId));
 
   return (
     <Grid container spacing={2}>
-      <TextHeader contId={contId} />
+      <TextHeader contId={contId} highlightText={highlightText} />
       <TextRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />
@@ -53,9 +58,9 @@ const Inner = ({ contId }: { contId: number }) => {
   );
 };
 
-const TextDetail = ({ contId }: { contId: number }) => (
+const TextDetail = (props: TextDetail) => (
   <RecoilRoot>
-    <Inner contId={contId} />
+    <Inner {...props} />
   </RecoilRoot>
 );
 

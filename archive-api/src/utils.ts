@@ -1,4 +1,6 @@
+import { parse } from 'date-fns';
 import { IArchiveResponse } from 'dto';
+import { ko } from 'date-fns/locale/ko';
 
 export type RecursivelyReplaceNullWithUndefined<T> = T extends null
   ? undefined
@@ -79,4 +81,16 @@ export function getStartEnd(
   }
 
   return [start, end];
+}
+
+/**
+ * String -> Date
+ * @param text 변환 텍스트
+ * @param format 텍스트의 포맷
+ * @returns Date
+ */
+export function stringToDate(text: string, format?: string): Date {
+  return parse(text, format || 'yyyy-MM-dd', new Date(), {
+    locale: ko
+  });
 }

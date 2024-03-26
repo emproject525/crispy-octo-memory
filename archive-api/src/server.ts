@@ -4,6 +4,7 @@ import path from 'path';
 import cors from 'cors';
 import debug from 'debug';
 import Throttle from 'throttle';
+import { isAfter } from 'date-fns';
 
 import {
   ContType,
@@ -22,7 +23,8 @@ import {
   removeNulls,
   make500Response,
   isNonNullable,
-  getStartEnd
+  getStartEnd,
+  stringToDate
 } from 'utils';
 
 import imgTypes from '@data/code/img_type.json';
@@ -566,8 +568,44 @@ app.get(
   '/api/texts',
   (req: Request<{}, {}, {}, IContTextParams>, res: Response) => {
     try {
-      const { page, size, keyword } = req.query;
-      const count = textParsed.length;
+      const { page, size, keyword, endDt, startDt, textType } = req.query;
+
+      const target = textParsed.filter((item) => {
+        let match = true;
+
+        if (textType) {
+          match = match && item.textType === textType;
+        }
+
+        if (item.regDt) {
+          const regDt = stringToDate(item.regDt, 'yyyy-MM-dd HH:mm:ss');
+          if (startDt) {
+            match =
+              match &&
+              isAfter(
+                regDt,
+                stringToDate(`${startDt} 00:00:00`, 'yyyy-MM-dd HH:mm:ss')
+              );
+          }
+          if (endDt) {
+            match =
+              match &&
+              isAfter(
+                stringToDate(`${endDt} 23:59:59`, 'yyyy-MM-dd HH:mm:ss'),
+                regDt
+              );
+          }
+        }
+
+        if (keyword && item.title) {
+          const reg = new RegExp(keyword, 'ig');
+          match = match && reg.test(item.title);
+        }
+
+        return match;
+      });
+
+      const count = target.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
 
       const response: IArchiveResponse<IResContText> = {
@@ -577,7 +615,7 @@ app.get(
           message: '성공하였습니다'
         },
         body: {
-          list: textNoBodyParsed.slice(sliceIdx[0] - 1, sliceIdx[1]),
+          list: target.slice(sliceIdx[0] - 1, sliceIdx[1]),
           count,
           keywords: []
         }

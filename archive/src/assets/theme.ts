@@ -240,6 +240,10 @@ const theme = (mode: PaletteMode) => {
                 backgroundColor: '#c68146',
               },
             }),
+            '.hl': {
+              fontStyle: 'normal',
+              backgroundColor: '#07818a',
+            },
           },
         },
       },
@@ -372,6 +376,10 @@ const theme = (mode: PaletteMode) => {
             lineHeight: 'normal',
             padding: '12px',
             // backgroundColor: color.background?.paper,
+            '.hl': {
+              fontStyle: 'normal',
+              backgroundColor: '#07818a',
+            },
           },
         },
       },

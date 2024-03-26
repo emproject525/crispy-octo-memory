@@ -61,6 +61,7 @@ const Inner = () => {
                       checked.findIndex((i) => i.contId === item.contId) > -1
                     }
                     onCheck={() => check(item)}
+                    highlightText={params.keyword}
                     {...item}
                   />
                 ))}

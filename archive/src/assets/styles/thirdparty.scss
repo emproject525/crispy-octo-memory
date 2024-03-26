@@ -1,7 +1,7 @@
 @use './variables.scss' as v;
 
 /* date-picker */
-$datepicker__background-color: v.$gray-200;
+$datepicker__background-color: v.$gray-200 !default;
 $datepicker__border-color: v.$gray-300 !default;
 $datepicker__highlighted-color: v.$highlight !default;
 $datepicker__muted-color: #ccc !default;
@@ -57,6 +57,9 @@ $datepicker__triangle-size: 8px !default;
   .react-datepicker-time__input {
   margin-left: 1rem;
 }
+.react-datepicker__header {
+  background-color: #2c3239;
+}
 .react-datepicker__day {
   &[aria-selected='true'],
   &--selected,
@@ -69,6 +72,11 @@ $datepicker__triangle-size: 8px !default;
   }
   &.saturday:not(&--disabled, &--selected) {
     color: blue;
+  }
+}
+.react-datepicker__day-names {
+  .react-datepicker__day-name {
+    color: #fff;
   }
 }
 .react-datepicker__month {

@@ -10,8 +10,9 @@ const TextDetailDialog = (props: {
   contId?: number;
   open: boolean;
   onClose: () => void;
+  highlightText?: string;
 }) => {
-  const { contId, open, onClose } = props;
+  const { contId, open, onClose, highlightText } = props;
 
   if (!contId) {
     return null;
@@ -26,7 +27,7 @@ const TextDetailDialog = (props: {
         width: 600,
       }}
     >
-      <TextDetail contId={contId} />
+      <TextDetail contId={contId} highlightText={highlightText} />
     </DraggablePaper>
   );
 };

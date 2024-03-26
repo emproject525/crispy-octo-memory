@@ -2,6 +2,7 @@ import React from 'react';
 import { Checkbox, TableCell, TableRow } from '@mui/material';
 import { IContText } from 'dto';
 import TextDetailDialog from '../Detail/TextDetailDialog';
+import { getHighlightText } from 'utils/utils';
 
 /**
  * 문서 테이블 Body의 ROW 한줄
@@ -10,6 +11,7 @@ const TextItemRow = ({
   checked,
   onCheck,
   useCheckboxCell,
+  highlightText,
   ...rest
 }: {
   checked: boolean;
@@ -18,6 +20,10 @@ const TextItemRow = ({
    * 체크박스셀 사용 여부
    */
   useCheckboxCell: boolean;
+  /**
+   * 하이라이트 키워드
+   */
+  highlightText?: string;
 } & IContText) => {
   const { contId, title, writers, regDt, modDt } = rest;
   const [hideCell, setHideCell] = React.useState(false);
@@ -63,9 +69,10 @@ const TextItemRow = ({
           }}
           onClick={() => setOpenDetail(true)}
           title={title}
-        >
-          {title || ''}
-        </TableCell>
+          dangerouslySetInnerHTML={{
+            __html: getHighlightText(title, highlightText),
+          }}
+        />
         {!hideCell && (
           <TableCell align="center" width={150}>
             {(writers || []).length < 2
@@ -89,6 +96,7 @@ const TextItemRow = ({
         open={openDetail}
         contId={contId}
         onClose={() => setOpenDetail(false)}
+        highlightText={highlightText}
       />
     </>
   );

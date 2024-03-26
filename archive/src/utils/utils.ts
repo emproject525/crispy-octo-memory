@@ -1,6 +1,15 @@
 import { parse } from 'date-fns';
 
 /**
+ * filter(Boolean) => filter(isNonNullable) 대체 사용
+ */
+export function isNonNullable<T>(
+  value?: T | undefined | null | false,
+): value is T {
+  return !!value;
+}
+
+/**
  * Format Bytes
  * @param bytes 바이트
  * @param decimals 소숫점
@@ -55,3 +64,34 @@ export function secondsToTimeText(seconds: number): string {
 export function stringToDate(text: string, format?: string): Date {
   return parse(text, format || 'yyyy-MM-dd', new Date());
 }
+
+/**
+ * 하이라이트 대상 선별 정규식
+ * @param keywords 키워드 목록
+ * @returns 정규식
+ */
+const getHighlightRex = (keywords: string[]): RegExp => {
+  return new RegExp(
+    keywords
+      .filter(isNonNullable)
+      .map((k) => k.replaceAll('(', '\\(').replaceAll(')', '\\)'))
+      .join('|'),
+    'gi',
+  );
+};
+
+/**
+ * 하이라이트 태그 추가한 텍스트로 변환
+ * @param text 변환 전
+ * @param keyword 하이라이트 키워드
+ * @returns 변환 후
+ */
+export const getHighlightText = (text: string, keyword?: string): string => {
+  let msg = text;
+
+  if (keyword) {
+    msg = msg.replaceAll(getHighlightRex([keyword]), `<em class="hl">$&</em>`);
+  }
+
+  return msg;
+};

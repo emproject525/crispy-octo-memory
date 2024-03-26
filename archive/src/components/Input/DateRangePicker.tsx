@@ -1,157 +1,43 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
-import DatePicker, {
-  registerLocale,
-  ReactDatePickerCustomHeaderProps,
-  ReactDatePickerProps,
-} from 'react-datepicker';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { ko } from 'date-fns/locale/ko';
-import { PatternFormat } from 'react-number-format';
-import { IconButton, TextField } from '@mui/material';
-import { stringToDate } from 'utils/utils';
+import { ReactDatePickerProps } from 'react-datepicker';
+import { Box, Typography } from '@mui/material';
 
-registerLocale('ko-KR', ko);
+import DatePicker from './DatePicker';
 
 /**
- * 커스텀 인풋
- */
-const DateRangePickerInput = React.forwardRef<
-  HTMLInputElement,
-  React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > & {
-    value?: string;
-    onToggle: () => void;
-    onSet: (dates: (Date | null)[]) => void;
-  }
->((props, ref): JSX.Element => {
-  const {
-    value,
-    onSet,
-    onClick,
-    disabled,
-    readOnly,
-    placeholder,
-    onToggle,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onChange, // 제외
-    ...inputProps
-  } = props;
-
-  return (
-    <PatternFormat
-      inputRef={ref}
-      format="####-##-## - ####-##-##"
-      customInput={TextField}
-      InputProps={{
-        endAdornment: (
-          <IconButton
-            title="달력 열기"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onToggle();
-            }}
-            sx={{
-              p: 0.5,
-            }}
-          >
-            <CalendarMonthIcon fontSize="small" />
-          </IconButton>
-        ),
-      }}
-      inputProps={inputProps}
-      size="small"
-      variant="outlined"
-      color="search"
-      fullWidth
-      value={value}
-      onChange={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const text = e.target.value || '';
-
-        const matchStartDt = new RegExp(
-          /^(\d{4}-\d{2}-\d{2})\s-(\s{5}-\s{2}-\s{2})$/,
-        );
-        const matchEndDt = new RegExp(
-          /^(\d{4}-\d{2}-\d{2})\s-\s(\d{4}-\d{2}-\d{2})$/,
-        );
-
-        // 2024-01-01 -     -  -
-        if (matchStartDt.test(text)) {
-          // const startDt = text.replace(matchStartDt, '$1');
-          // onSet([stringToDate(startDt), null]);
-        } else if (
-          // 2024-01-01 - 2024-01-01
-          matchEndDt.test(text)
-        ) {
-          const startDt = text.replace(matchEndDt, '$1');
-          const endDt = text.replace(matchEndDt, '$2');
-          onSet([stringToDate(startDt), stringToDate(endDt)]);
-        }
-      }}
-      onClick={(evt: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-        evt.stopPropagation();
-        evt.preventDefault();
-        onClick?.(evt);
-      }}
-      disabled={disabled}
-      readOnly={readOnly}
-      placeholder={placeholder}
-    />
-  );
-});
-
-DateRangePickerInput.displayName = 'DateRangePickerInput';
-
-/**
- * 범위 선택
+ * 범위 선택 2개를 하나로
  */
 const DateRangePicker = (
-  props: Omit<
-    ReactDatePickerProps,
-    'locale' | 'selectsRange' | 'customInput' | 'onChange'
-  > & {
+  props: Pick<ReactDatePickerProps, 'startDate' | 'endDate' | 'disabled'> & {
     onChange: (dates: (Date | null)[]) => void;
   },
 ) => {
-  const { onChange, startDate, endDate, ...datePickerProps } = props;
-  const [open, setOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    if (endDate) {
-      setOpen(false);
-    }
-  }, [endDate]);
+  const { onChange, startDate, endDate, disabled } = props;
 
   return (
-    <DatePicker<true, false>
-      open={open}
-      icon={<CalendarMonthIcon fontSize="small" />}
-      dateFormat="yyyy-MM-dd"
-      locale="ko-KR"
-      selectsRange
-      // isClearable
-      shouldCloseOnSelect={false}
-      showPopperArrow={false}
-      customInput={
-        <DateRangePickerInput
-          onToggle={() => setOpen((b) => !b)}
-          onSet={onChange}
+    <Box display="flex" alignItems="center" justifyContent="center" gap={2}>
+      <Box width={130} flexShrink={0}>
+        <DatePicker
+          value={startDate || undefined}
+          onChange={(date) => onChange([date, endDate || null])}
+          disabled={disabled}
+          startDate={startDate}
+          endDate={endDate}
         />
-      }
-      placeholderText="yyyy-MM-dd - yyyy-MM-dd"
-      startDate={startDate}
-      endDate={endDate}
-      onChange={(dates) => {
-        onChange(dates);
-      }}
-      disabledKeyboardNavigation
-      {...datePickerProps}
-    />
+      </Box>
+      <Typography component="div" flexShrink={0}>
+        -
+      </Typography>
+      <Box width={130} flexShrink={0}>
+        <DatePicker
+          value={endDate || undefined}
+          onChange={(date) => onChange([startDate || null, date])}
+          disabled={disabled}
+          startDate={startDate}
+          endDate={endDate}
+        />
+      </Box>
+    </Box>
   );
 };
 

@@ -34,12 +34,15 @@ export const textListSelector = selector<IRes<IContText>>({
   key: 'textListSelector',
   get: async ({ get }) => {
     const params = get(textListParams);
+    const startDt = params.startDt
+      ? format(params.startDt, 'yyyy-MM-dd')
+      : undefined;
+    const endDt = params.endDt ? format(params.endDt, 'yyyy-MM-dd') : undefined;
+
     const response = await api.getTexts({
       ...params,
-      startDt: params.startDt
-        ? format(params.startDt, 'yyyy-MM-dd')
-        : undefined,
-      endDt: params.endDt ? format(params.endDt, 'yyyy-MM-dd') : undefined,
+      startDt,
+      endDt,
     });
     await new Promise((resolve) => setTimeout(resolve, 500));
 
