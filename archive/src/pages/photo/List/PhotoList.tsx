@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper, Typography } from '@mui/material';
 import React from 'react';
 import {
   RecoilRoot,
@@ -9,13 +9,19 @@ import {
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import MoreButton from 'pages/@components/button/MoreButton';
 
-import { photoListSelector, photoListParams, photoListState } from '../state';
+import { photoListSelector, photoListParams, photoListState } from './state';
 import PhotoItem from './PhotoItem';
+import PhotoSearchParams from './SearchParams';
 
 const Inner = () => {
   const [params, setParams] = useRecoilState(photoListParams);
   const [loadable, setPhotoList] = useRecoilStateLoadable(photoListSelector);
   const photos = useRecoilValue(photoListState);
+  const count = React.useMemo(
+    () =>
+      loadable.state === 'hasValue' ? loadable.contents.body?.count || 0 : 0,
+    [loadable.contents.body?.count, loadable.state],
+  );
 
   React.useEffect(() => {
     if (loadable.state === 'hasValue') {
@@ -57,30 +63,36 @@ const Inner = () => {
   return (
     <Grid container spacing={4}>
       <Grid item xs={12}>
-        <Paper>상태 검색</Paper>
-      </Grid>
-      <Grid item xs={12}>
         <Paper
           sx={{
             px: 4,
           }}
         >
+          <PhotoSearchParams />
+          <Box textAlign="right" mb={1}>
+            <Typography variant="fs12">
+              검색 결과 : {count.toLocaleString()}개
+            </Typography>
+          </Box>
           {galleryPics.length > 0 && (
-            <Gallery
-              margin={6}
-              photos={galleryPics}
-              direction="column"
-              renderImage={renderImage}
-            />
+            <Box
+              sx={{
+                width: 'calc(100% + 6px)',
+                marginLeft: '-3px',
+              }}
+            >
+              <Gallery
+                margin={6}
+                photos={galleryPics}
+                direction="column"
+                renderImage={renderImage}
+              />
+            </Box>
           )}
 
           <MoreButton
             loading={loadable.state === 'loading'}
-            count={
-              loadable.state === 'hasValue'
-                ? loadable.contents.body?.count || 0
-                : 0
-            }
+            count={count}
             size={params.size}
             page={params.page}
             onClick={(nextPage) =>

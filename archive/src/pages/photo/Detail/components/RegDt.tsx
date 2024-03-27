@@ -1,13 +1,13 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { photoSelector } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
+import { photoOneState } from '../state';
 
 /**
  * 사진 등록일, 수정일
  */
 const PhotoRegDt = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
 
   switch (state) {
     case 'loading':

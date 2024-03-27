@@ -1,16 +1,16 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { textSelector } from 'pages/text/state';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import FormSelect from 'components/Input/FormSelect';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { constantsState } from 'pages/rootState';
+import FormSelect from 'components/Input/FormSelect';
+import { textOneState } from '../state';
 
 /**
  * 문서 유형
  * @deprecated
  */
 const TextTextType = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
   const constants = useRecoilValue(constantsState);
 
   switch (state) {

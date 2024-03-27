@@ -1,13 +1,13 @@
-import { Grid, Skeleton, Typography, Box } from '@mui/material';
-import { textSelector } from 'pages/text/state';
 import React from 'react';
+import { Grid, Skeleton, Typography, Box } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
+import { textOneState } from '../state';
 
 /**
  * 본문
  */
 const TextBody = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
 
   switch (state) {
     case 'loading':

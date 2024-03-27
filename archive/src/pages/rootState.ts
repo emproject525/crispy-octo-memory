@@ -1,5 +1,6 @@
 import { getCodes } from 'api/code';
-import { CodeGroupType, ICode } from 'dto';
+import { CodeGroupType } from 'archive-types';
+import { ICode } from '@types';
 import { atom, selector } from 'recoil';
 
 const codeMap: Record<CodeGroupType, ICode[]> = {

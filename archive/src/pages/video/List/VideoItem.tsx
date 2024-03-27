@@ -1,5 +1,5 @@
 import React from 'react';
-import { IContVideo } from 'dto';
+import { IContVideo } from '@types';
 import { RenderImageProps } from 'react-photo-gallery';
 import { alpha, Box, Typography, useTheme } from '@mui/material';
 import YouTubeIcon from '@mui/icons-material/YouTube';

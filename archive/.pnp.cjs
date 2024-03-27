@@ -39,6 +39,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/jest-dom", "npm:5.17.0"],\
           ["@testing-library/react", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:13.4.0"],\
           ["@testing-library/user-event", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:13.5.0"],\
+          ["@types/archive-types", "file:../types/archive-types#../types/archive-types::hash=d6af79&locator=archive%40workspace%3A."],\
           ["@types/babel__core", "npm:7.20.5"],\
           ["@types/eslint", "npm:8.56.0"],\
           ["@types/jest", "npm:29.5.11"],\
@@ -5874,6 +5875,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/archive-types", [\
+      ["file:../types/archive-types#../types/archive-types::hash=d6af79&locator=archive%40workspace%3A.", {\
+        "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/@types-archive-types-file-e594c8df1c-10c0.zip/node_modules/@types/archive-types/",\
+        "packageDependencies": [\
+          ["@types/archive-types", "file:../types/archive-types#../types/archive-types::hash=d6af79&locator=archive%40workspace%3A."]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/aria-query", [\
       ["npm:5.0.4", {\
         "packageLocation": "../../../../Users/lg/AppData/Local/Yarn/Berry/cache/@types-aria-query-npm-5.0.4-51d2b61619-10c0.zip/node_modules/@types/aria-query/",\
@@ -7416,6 +7426,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/jest-dom", "npm:5.17.0"],\
           ["@testing-library/react", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:13.4.0"],\
           ["@testing-library/user-event", "virtual:de8c6b1e4a53f8d7517250e54cba94821c65dba51e204d9a8ce93971f35e3fbfa57dc45ccde97e450aef3c57bd60351db9db656b6de251129e3849a88a72ec49#npm:13.5.0"],\
+          ["@types/archive-types", "file:../types/archive-types#../types/archive-types::hash=d6af79&locator=archive%40workspace%3A."],\
           ["@types/babel__core", "npm:7.20.5"],\
           ["@types/eslint", "npm:8.56.0"],\
           ["@types/jest", "npm:29.5.11"],\

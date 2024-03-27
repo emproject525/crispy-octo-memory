@@ -1,11 +1,9 @@
-import { IRes } from 'http';
+import { IRes, IContTextParams } from 'archive-types';
 
 import * as api from 'api/text';
-import { IContText, RelationType } from 'dto';
+import { IContText } from '@types';
 import { format, subMonths } from 'date-fns';
-import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
-import { getRelations } from 'api/content';
-import { IContTextParams } from 'params';
+import { atom, DefaultValue, selector } from 'recoil';
 
 export const textListParams = atom<
   Omit<IContTextParams, 'startDt' | 'endDt'> & {
@@ -28,7 +26,7 @@ export const textListState = atom<IContText[]>({
 });
 
 /**
- * 비동기 문서 목록
+ * params 변경 => 문서 목록 조회
  */
 export const textListSelector = selector<IRes<IContText>>({
   key: 'textListSelector',
@@ -66,46 +64,6 @@ export const textListSelector = selector<IRes<IContText>>({
 });
 
 /**
- * 비동기 문서 1개
- */
-export const textSelector = selectorFamily<
-  IRes<
-    IContText & {
-      relations: RelationType[];
-    },
-    false
-  >,
-  number
->({
-  key: 'textSelector',
-  get: (contId) => async () => {
-    const response = await api.getText(contId);
-    const relations = await getRelations({
-      contType: 'T',
-      contId,
-    });
-
-    let returnBody:
-      | undefined
-      | (IContText & {
-          relations: RelationType[];
-        }) = undefined;
-
-    if (response.data.header.success) {
-      returnBody = {
-        ...response.data.body!,
-        relations: relations.data.body?.list || [],
-      };
-    }
-
-    return {
-      header: response.data.header,
-      body: returnBody,
-    };
-  },
-});
-
-/**
  * 체크한 목록
  */
 export const checkedState = atom<IContText[]>({
@@ -128,33 +86,33 @@ export const isCheckedAll = selector<boolean>({
 /**
  * 체크
  */
-export const checkTextList = selector<
-  undefined | IContText | 'all' | 'uncheck'
->({
-  key: 'checkTextList',
-  get: () => {
-    return undefined;
-  },
-  set: ({ get, set }, newValue) => {
-    const before = get(checkedState);
-    const allList = get(textListState);
+export const checkTextOne = selector<undefined | IContText | 'all' | 'uncheck'>(
+  {
+    key: 'checkTextOne',
+    get: () => {
+      return undefined;
+    },
+    set: ({ get, set }, newValue) => {
+      const before = get(checkedState);
+      const allList = get(textListState);
 
-    if (newValue instanceof DefaultValue) {
-    } else if (newValue === 'all') {
-      set(checkedState, allList);
-    } else if (newValue === 'uncheck') {
-      set(checkedState, []);
-    } else if (newValue !== undefined) {
-      const after: IContText[] = [...before];
+      if (newValue instanceof DefaultValue) {
+      } else if (newValue === 'all') {
+        set(checkedState, allList);
+      } else if (newValue === 'uncheck') {
+        set(checkedState, []);
+      } else if (newValue !== undefined) {
+        const after: IContText[] = [...before];
 
-      const exists = before.findIndex((i) => i.contId === newValue.contId);
-      if (exists < 1) {
-        after.push(newValue);
-      } else {
-        after.splice(exists, 1);
+        const exists = before.findIndex((i) => i.contId === newValue.contId);
+        if (exists < 1) {
+          after.push(newValue);
+        } else {
+          after.splice(exists, 1);
+        }
+
+        set(checkedState, after);
       }
-
-      set(checkedState, after);
-    }
+    },
   },
-});
+);

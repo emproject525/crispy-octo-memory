@@ -1,5 +1,5 @@
-import { IContPhoto } from 'dto';
 import React from 'react';
+import { IContPhoto } from '@types';
 import { RenderImageProps } from 'react-photo-gallery';
 import { Box, Typography, useTheme, alpha, Divider } from '@mui/material';
 import Archived from 'pages/@components/statusIcon/Archived';

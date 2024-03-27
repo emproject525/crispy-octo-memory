@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "node16",
+    "lib": ["es6"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "typeRoots": ["types"],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": ["index.d.ts", "archive-types-tests.ts"]
+}

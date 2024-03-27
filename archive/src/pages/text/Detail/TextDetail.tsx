@@ -15,7 +15,7 @@ import TextKeyword from './components/Keyword';
 import TextPayYnAdultYn from './components/PayYnAdultYn';
 import TextRelations from './components/Relations';
 
-import { textSelector } from '../state';
+import { textOneState } from './state';
 
 type TextDetail = {
   contId: number;
@@ -23,7 +23,7 @@ type TextDetail = {
 };
 
 const Inner = ({ contId, highlightText }: TextDetail) => {
-  useRecoilValueLoadable(textSelector(contId));
+  useRecoilValueLoadable(textOneState(contId));
 
   return (
     <Grid container spacing={2}>

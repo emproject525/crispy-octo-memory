@@ -1,5 +1,5 @@
-import { IContText } from 'dto';
-import { IContTextParams } from 'params';
+import { IContText } from '@types';
+import { IContTextParams } from 'archive-types';
 
 import client from './client';
 

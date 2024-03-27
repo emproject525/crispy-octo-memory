@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox, TableCell, TableRow } from '@mui/material';
-import { IContText } from 'dto';
+import { IContText } from '@types';
 import TextDetailDialog from '../Detail/TextDetailDialog';
 import { getHighlightText } from 'utils/utils';
 

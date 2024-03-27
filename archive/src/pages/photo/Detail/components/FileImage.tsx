@@ -1,14 +1,14 @@
 import React from 'react';
-import { Grid, Skeleton } from '@mui/material';
-import { photoSelector } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
+import { Grid, Skeleton } from '@mui/material';
 import Image from 'components/Image';
+import { photoOneState } from '../state';
 
 /**
  * 사진
  */
 const PhotoFileImage = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
 
   switch (state) {
     case 'loading':

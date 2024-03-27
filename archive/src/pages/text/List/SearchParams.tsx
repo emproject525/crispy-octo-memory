@@ -1,16 +1,16 @@
 import React from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box } from '@mui/material';
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { constantsState } from 'pages/rootState';
+import StartEndDt from 'pages/@components/searchParams/StartEndDt';
+import Keyword from 'pages/@components/searchParams/Keyword';
 import FormSelect from 'components/Input/FormSelect';
-import DateRangePicker from 'components/Input/DateRangePicker';
-import { textListParams, textListSelector } from '../state';
+import { textListParams, textListSelector } from './state';
 
 const TextSearchParams = () => {
   const constants = useRecoilValue(constantsState);
   const loadable = useRecoilValueLoadable(textListSelector);
   const [params, setParams] = useRecoilState(textListParams);
-  const keywordInputRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <Box display="flex" flexWrap="wrap" gap={2} mb={2}>
@@ -36,57 +36,38 @@ const TextSearchParams = () => {
           }}
         />
       </Box>
-      <DateRangePicker
-        startDate={params.startDt}
-        endDate={params.endDt}
-        onChange={(dates) => {
+      <StartEndDt
+        disabled={loadable.state === 'loading'}
+        startDt={params.startDt}
+        endDt={params.endDt}
+        onChange={(dates) =>
           setParams((before) => ({
             ...before,
             page: 1,
-            startDt: dates[0] || undefined,
-            endDt: dates[1] || undefined,
-          }));
-        }}
-        disabled={loadable.state === 'loading'}
+            startDt: dates[0],
+            endDt: dates[1],
+          }))
+        }
       />
-      <Box flex={1}>
-        <TextField
-          ref={keywordInputRef}
-          fullWidth
-          name="keyword"
-          id="keyword"
-          size="small"
-          variant="outlined"
-          label="검색어"
-          color="search"
-          defaultValue={params.keyword}
-          onKeyUp={(evt) => {
-            if (evt.key === 'Enter') {
-              setParams((before) => ({
-                ...before,
-                page: 1,
-                keyword: (evt.target as HTMLInputElement).value,
-              }));
-            }
-          }}
-          disabled={loadable.state === 'loading'}
-        />
-      </Box>
-      <Box flexShrink={0}>
-        <Button
-          variant="contained"
-          color="search"
-          onClick={() => {
-            setParams((before) => ({
-              ...before,
-              page: 1,
-              keyword: keywordInputRef.current?.value || undefined,
-            }));
-          }}
-        >
-          검색
-        </Button>
-      </Box>
+      <Keyword
+        value={params.keyword}
+        onChange={(newValue) =>
+          setParams((before) => ({
+            ...before,
+            page: 1,
+            keyword: newValue,
+          }))
+        }
+        disabled={loadable.state === 'loading'}
+        useSearchButton
+        onSearch={(keyword) =>
+          setParams((before) => ({
+            ...before,
+            page: 1,
+            keyword,
+          }))
+        }
+      />
     </Box>
   );
 };

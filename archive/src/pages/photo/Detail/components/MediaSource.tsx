@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
   Box,
   Grid,
@@ -8,15 +9,14 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { asyncCodeMap } from 'pages/rootState';
-import { photoSelector } from 'pages/photo/state';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
+import { photoOneState } from '../state';
 
 /**
  * 매체, 출처
  */
 const PhotoMediaSource = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
   const code = useRecoilValue(asyncCodeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));

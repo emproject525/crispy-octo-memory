@@ -15,14 +15,14 @@ import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 
+import { ContType } from 'archive-types';
 import {
-  ContType,
   IContAudio,
   IContPhoto,
   IContText,
   IContVideo,
   RelationType,
-} from 'dto';
+} from '@types';
 
 import PhotoItem from 'pages/photo/List/PhotoItem';
 import VideoItem from 'pages/video/List/VideoItem';

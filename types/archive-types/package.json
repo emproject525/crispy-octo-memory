@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@types/archive-types",
+  "version": "1.0.0.9999",
+  "projects": [
+    "https://github.com/emproject525/crispy-octo-memory/tree/main/archive"
+  ],
+  "devDependencies": {
+    "@types/archive-types": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "전현지",
+      "githubUsername": "emproject525"
+    }
+  ]
+}

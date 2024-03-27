@@ -1,15 +1,14 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton } from '@mui/material';
-
-import { photoSelector } from 'pages/photo/state';
 import RelationList from 'pages/@components/relation/RelationList';
+import { photoOneState } from '../state';
 
 /**
  * 관련 컨텐츠
  */
 const PhotoRelations = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
 
   switch (state) {
     case 'loading':

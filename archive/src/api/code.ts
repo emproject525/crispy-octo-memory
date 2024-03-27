@@ -1,4 +1,5 @@
-import { CodeGroupType, ICode } from 'dto';
+import { CodeGroupType } from 'archive-types';
+import { ICode } from '@types';
 
 import client from './client';
 

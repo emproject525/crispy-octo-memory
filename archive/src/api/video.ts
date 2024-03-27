@@ -1,5 +1,5 @@
-import { IContVideo } from 'dto';
-import { IContVideoParams } from 'params';
+import { IContVideo } from '@types';
+import { IContVideoParams } from 'archive-types';
 
 import client from './client';
 

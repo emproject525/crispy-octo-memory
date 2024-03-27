@@ -1,4 +1,5 @@
-import { ContType, RelationType } from 'dto';
+import { ContType } from 'archive-types';
+import { RelationType } from '@types';
 import client from './client';
 
 /**

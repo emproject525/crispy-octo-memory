@@ -1,10 +1,10 @@
-import { IRes } from 'http';
+import { IRes } from 'archive-types';
 
 import * as api from 'api/audio';
-import { IContAudio, RelationType } from 'dto';
+import { IContAudio, RelationType } from '@types';
 import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
 import { getRelations } from 'api/content';
-import { IContAudioParams } from 'params';
+import { IContAudioParams } from 'archive-types';
 
 export const audioListParams = atom<IContAudioParams>({
   key: 'audioListParams',

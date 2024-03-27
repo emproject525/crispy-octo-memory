@@ -1,5 +1,5 @@
 import React from 'react';
-import { IContAudio } from 'dto';
+import { IContAudio } from '@types';
 import { RenderImageProps } from 'react-photo-gallery';
 import { alpha, Box, Divider, Typography, useTheme } from '@mui/material';
 import HeadphonesIcon from '@mui/icons-material/Headphones';

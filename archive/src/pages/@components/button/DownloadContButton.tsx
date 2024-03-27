@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContType } from 'dto';
+import { ContType } from 'archive-types';
 
 import {
   Box,

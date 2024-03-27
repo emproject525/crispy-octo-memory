@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValueLoadable } from 'recoil';
 import {
   Box,
   Checkbox,
@@ -7,14 +8,13 @@ import {
   Grid,
   Skeleton,
 } from '@mui/material';
-import { textSelector } from 'pages/text/state';
-import { useRecoilValueLoadable } from 'recoil';
+import { textOneState } from '../state';
 
 /**
  * 결제
  */
 const TextPayYnAdultYn = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
 
   switch (state) {
     case 'loading':

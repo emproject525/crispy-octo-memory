@@ -19,10 +19,10 @@ import PhotoPayYnAdultYn from './components/PayYnAdultYn';
 import PhotoPeopleType from './components/PeopleType';
 import PhotoRelations from './components/Relations';
 
-import { photoSelector } from '../state';
+import { photoOneState } from './state';
 
 const Inner = ({ contId }: { contId: number }) => {
-  useRecoilValueLoadable(photoSelector(contId));
+  useRecoilValueLoadable(photoOneState(contId));
 
   return (
     <Grid container spacing={2}>

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, Grid, Skeleton, TextField } from '@mui/material';
-import { textSelector } from 'pages/text/state';
 import { useRecoilValueLoadable } from 'recoil';
+import { Box, Grid, Skeleton, TextField } from '@mui/material';
 import AutosizeBox from 'components/Input/AutosizeBox';
+import { textOneState } from '../state';
 
 const TextSubTitle = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
 
   switch (state) {
     case 'loading':

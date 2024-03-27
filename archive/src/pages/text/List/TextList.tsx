@@ -1,4 +1,12 @@
-import { Grid, Paper, Table, TableBody, TableContainer } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  Typography,
+} from '@mui/material';
 import MoreButton from 'pages/@components/button/MoreButton';
 import React from 'react';
 import {
@@ -10,12 +18,12 @@ import {
 } from 'recoil';
 import {
   checkedState,
-  checkTextList,
+  checkTextOne,
   isCheckedAll,
   textListParams,
   textListSelector,
   textListState,
-} from '../state';
+} from './state';
 
 import TextSearchParams from './SearchParams';
 import TextItemHead from './TextItemHead';
@@ -25,9 +33,14 @@ const Inner = () => {
   const [params, setParams] = useRecoilState(textListParams);
   const [loadable, setTextList] = useRecoilStateLoadable(textListSelector);
   const checked = useRecoilValue(checkedState);
-  const check = useSetRecoilState(checkTextList);
+  const check = useSetRecoilState(checkTextOne);
   const checkedAll = useRecoilValue(isCheckedAll);
   const texts = useRecoilValue(textListState);
+  const count = React.useMemo(
+    () =>
+      loadable.state === 'hasValue' ? loadable.contents.body?.count || 0 : 0,
+    [loadable.contents.body?.count, loadable.state],
+  );
 
   React.useEffect(() => {
     if (loadable.state === 'hasValue') {
@@ -44,6 +57,11 @@ const Inner = () => {
           }}
         >
           <TextSearchParams />
+          <Box textAlign="right">
+            <Typography variant="fs12">
+              검색 결과 : {count.toLocaleString()}개
+            </Typography>
+          </Box>
           <TableContainer>
             <Table aria-label="sticky table">
               <TextItemHead
@@ -71,11 +89,7 @@ const Inner = () => {
 
           <MoreButton
             loading={loadable.state === 'loading'}
-            count={
-              loadable.state === 'hasValue'
-                ? loadable.contents.body?.count || 0
-                : 0
-            }
+            count={count}
             size={params.size}
             page={params.page}
             onClick={(nextPage) =>

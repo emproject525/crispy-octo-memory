@@ -1,16 +1,16 @@
 import React from 'react';
-import { textSelector } from 'pages/text/state';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import Allowed from 'pages/@components/statusIcon/Allowed';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 import { constantsState } from 'pages/rootState';
+import { textOneState } from '../state';
 
 /**
  * 정보
  */
 const TextInfo = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
   const constants = useRecoilValue(constantsState);
 
   switch (state) {

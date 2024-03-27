@@ -2,15 +2,14 @@ import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import CopyIconButton from 'components/Button/CopyIconButton';
-
-import { textSelector } from 'pages/text/state';
 import Archived from 'pages/@components/statusIcon/Archived';
+import { textOneState } from '../state';
 
 /**
  * 상태
  */
 const TextArchStatus = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
 
   switch (state) {
     case 'loading':

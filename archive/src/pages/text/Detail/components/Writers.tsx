@@ -1,14 +1,14 @@
 import React from 'react';
-import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
-import { textSelector } from 'pages/text/state';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
 import { asyncCodeMap } from 'pages/rootState';
+import { textOneState } from '../state';
 
 /**
  * 작가
  */
 const TextWriters = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
   const codeMap = useRecoilValue(asyncCodeMap);
 
   switch (state) {

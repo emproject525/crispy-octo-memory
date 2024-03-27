@@ -1,16 +1,16 @@
 import React from 'react';
-import { photoSelector } from 'pages/photo/state';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
 import Allowed from 'pages/@components/statusIcon/Allowed';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 import { formatBytes } from 'utils/utils';
+import { photoOneState } from '../state';
 
 /**
  * 이미지 정보
  */
 const PhotoImageInfo = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
 
   switch (state) {
     case 'loading':

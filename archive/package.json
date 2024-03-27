@@ -58,6 +58,7 @@
     "@craco/craco": "^7.1.0",
     "@craco/types": "^7.1.0",
     "@jest/globals": "^29.7.0",
+    "@types/archive-types": "../types/archive-types",
     "@types/babel__core": "^7",
     "@types/eslint": "^8",
     "@types/jest": "^29.5.11",

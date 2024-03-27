@@ -1,5 +1,5 @@
-import { IContAudio } from 'dto';
-import { IContAudioParams } from 'params';
+import { IContAudioParams } from 'archive-types';
+import { IContAudio } from '@types';
 
 import client from './client';
 

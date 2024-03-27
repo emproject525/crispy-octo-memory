@@ -1,15 +1,14 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton } from '@mui/material';
-
-import { textSelector } from 'pages/text/state';
 import RelationList from 'pages/@components/relation/RelationList';
+import { textOneState } from '../state';
 
 /**
  * 관련 컨텐츠
  */
 const TextRelations = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
 
   switch (state) {
     case 'loading':

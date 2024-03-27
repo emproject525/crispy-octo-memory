@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { ContType } from 'dto';
+import { ContType } from 'archive-types';
 import client from './client';
 
 /**

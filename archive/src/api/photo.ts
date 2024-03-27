@@ -1,5 +1,5 @@
-import { IContPhoto } from 'dto';
-import { IContPhotoParams } from 'params';
+import { IContPhoto } from '@types';
+import { IContPhotoParams } from 'archive-types';
 
 import client from './client';
 

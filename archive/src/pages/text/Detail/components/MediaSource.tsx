@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
   Box,
   Grid,
@@ -8,15 +9,14 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { asyncCodeMap } from 'pages/rootState';
-import { textSelector } from 'pages/text/state';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import FormSelect from 'components/Input/FormSelect';
+import { textOneState } from '../state';
 
 /**
  * 매체, 출처
  */
 const TextMediaSource = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
   const code = useRecoilValue(asyncCodeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));

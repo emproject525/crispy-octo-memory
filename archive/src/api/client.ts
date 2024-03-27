@@ -1,8 +1,8 @@
-import { IArchiveAxiosInstance, IRes } from 'http';
+import { IArchiveAxiosInstance } from '@types';
+import { IRes, ContType } from 'archive-types';
 
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
-import { ContType } from 'dto';
 
 const base = axios.create({
   baseURL: 'http://localhost:8080',

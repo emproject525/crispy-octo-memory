@@ -1,15 +1,15 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { photoSelector } from 'pages/photo/state';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import FormSelect from 'components/Input/FormSelect';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { constantsState } from 'pages/rootState';
+import FormSelect from 'components/Input/FormSelect';
+import { photoOneState } from '../state';
 
 /**
  * 이미지 유형
  */
 const PhotoImgType = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
   const constants = useRecoilValue(constantsState);
 
   switch (state) {

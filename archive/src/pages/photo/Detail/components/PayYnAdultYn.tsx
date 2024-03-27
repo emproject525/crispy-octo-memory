@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValueLoadable } from 'recoil';
 import {
   Box,
   Checkbox,
@@ -7,14 +8,13 @@ import {
   Grid,
   Skeleton,
 } from '@mui/material';
-import { photoSelector } from 'pages/photo/state';
-import { useRecoilValueLoadable } from 'recoil';
+import { photoOneState } from '../state';
 
 /**
  * 결제
  */
 const PhotoPayYnAdultYn = ({ contId }: { contId: number }) => {
-  const { contents, state } = useRecoilValueLoadable(photoSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
 
   switch (state) {
     case 'loading':

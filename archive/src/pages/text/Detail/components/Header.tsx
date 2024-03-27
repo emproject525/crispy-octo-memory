@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { textSelector } from 'pages/text/state';
 import { useRecoilValueLoadable } from 'recoil';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { getHighlightText } from 'utils/utils';
+import { textOneState } from '../state';
 
 /**
  * 문서명
@@ -14,7 +14,7 @@ const TextHeader = ({
   contId: number;
   highlightText?: string;
 }) => {
-  const { contents, state } = useRecoilValueLoadable(textSelector(contId));
+  const { contents, state } = useRecoilValueLoadable(textOneState(contId));
 
   switch (state) {
     case 'loading':

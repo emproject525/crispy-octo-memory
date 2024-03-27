@@ -1,10 +1,8 @@
-import { IRes } from 'http';
-
+import { IRes, IContVideoParams } from 'archive-types';
 import * as api from 'api/video';
-import { IContVideo, RelationType } from 'dto';
+import { IContVideo, RelationType } from '@types';
 import { atom, DefaultValue, selector, selectorFamily } from 'recoil';
 import { getRelations } from 'api/content';
-import { IContVideoParams } from 'params';
 
 export const videoListParams = atom<IContVideoParams>({
   key: 'videoListParams',
