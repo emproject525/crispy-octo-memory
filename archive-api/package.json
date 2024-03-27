@@ -19,6 +19,7 @@
   },
   "packageManager": "yarn@4.1.0",
   "devDependencies": {
+    "@types/archive-types": "../types/archive-types",
     "@types/cors": "^2",
     "@types/debug": "^4",
     "@types/eslint": "^8",

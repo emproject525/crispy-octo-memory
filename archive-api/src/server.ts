@@ -8,17 +8,22 @@ import { isAfter } from 'date-fns';
 
 import {
   ContType,
-  IArchiveResponse,
-  ICd,
+  IRes,
+  ICode,
   IContAudio,
   IContPhoto,
   IContText,
   IContVideo,
   IRelation,
   IRelationCont,
-  IResContText,
-  IWriter
-} from 'dto';
+  IContTextJoinWriters,
+  IWriter,
+  IContAudioParams,
+  IContPhotoParams,
+  IContTextParams,
+  IContVideoParams
+} from 'archive-types';
+
 import {
   removeNulls,
   make500Response,
@@ -31,19 +36,12 @@ import imgTypes from '@data/code/img_type.json';
 import sources from '@data/code/source.json';
 import medias from '@data/code/media.json';
 import departments from '@data/code/department.json';
-
 import photos from '@data/photo/list.json';
 import videos from '@data/video/list.json';
 import audios from '@data/audio/list.json';
 import writers from '@data/text/writers.json';
 import texts from '@data/text/list.json';
 import relations from '@data/relation/list.json';
-import {
-  IContAudioParams,
-  IContPhotoParams,
-  IContTextParams,
-  IContVideoParams
-} from 'params';
 
 const photosParsed = photos.map((item) =>
   removeNulls<IContPhoto>(item as IContPhoto)
@@ -55,7 +53,7 @@ const audioParsed = audios.map((item) =>
   removeNulls<IContAudio>(item as IContAudio)
 );
 const writersParsed = writers.map((item) => item as IWriter);
-const textParsed: IResContText[] = texts
+const textParsed: IContTextJoinWriters[] = texts
   .map((item) => removeNulls<IContText>(item as IContText))
   .map((item) => ({
     ...item,
@@ -96,31 +94,31 @@ const port: number = 8080;
 app.get('/api/codes', (req: Request, res: Response) => {
   try {
     const IMG_TYPE = imgTypes.map((item) =>
-      removeNulls<ICd>({
+      removeNulls<ICode>({
         ...item,
         cdId: `${item.group}-${item.seq}`
-      } as ICd)
+      } as ICode)
     );
     const SOURCE = sources.map((item) =>
-      removeNulls<ICd>({
+      removeNulls<ICode>({
         ...item,
         cdId: `${item.group}-${item.seq}`
-      } as ICd)
+      } as ICode)
     );
     const MEDIA = medias.map((item) =>
-      removeNulls<ICd>({
+      removeNulls<ICode>({
         ...item,
         cdId: `${item.group}-${item.seq}`
-      } as ICd)
+      } as ICode)
     );
     const DEPARTMENT = departments.map((item) =>
-      removeNulls<ICd>({
+      removeNulls<ICode>({
         ...item,
         cdId: `${item.group}-${item.seq}`
-      } as ICd)
+      } as ICode)
     );
 
-    const response: IArchiveResponse<Record<string, ICd[]>, false> = {
+    const response: IRes<Record<string, ICode[]>, false> = {
       header: {
         success: true,
         status: 200,
@@ -153,7 +151,7 @@ app.get(
       const count = photos.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
 
-      const response: IArchiveResponse<IContPhoto> = {
+      const response: IRes<IContPhoto> = {
         header: {
           success: true,
           status: 200,
@@ -187,7 +185,7 @@ app.get(
     res: Response
   ) => {
     try {
-      const response: IArchiveResponse<IContPhoto, false> = {
+      const response: IRes<IContPhoto, false> = {
         header: {
           success: true,
           status: 200,
@@ -358,7 +356,7 @@ app.get(
       const count = videos.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
 
-      const response: IArchiveResponse<IContVideo> = {
+      const response: IRes<IContVideo> = {
         header: {
           success: true,
           status: 200,
@@ -391,7 +389,7 @@ app.get(
     res: Response
   ) => {
     try {
-      const response: IArchiveResponse<IContVideo, false> = {
+      const response: IRes<IContVideo, false> = {
         header: {
           success: true,
           status: 200,
@@ -509,7 +507,7 @@ app.get(
       const count = audioParsed.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
 
-      const response: IArchiveResponse<IContAudio> = {
+      const response: IRes<IContAudio> = {
         header: {
           success: true,
           status: 200,
@@ -542,7 +540,7 @@ app.get(
     res: Response
   ) => {
     try {
-      const response: IArchiveResponse<IContAudio, false> = {
+      const response: IRes<IContAudio, false> = {
         header: {
           success: true,
           status: 200,
@@ -608,7 +606,7 @@ app.get(
       const count = target.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
 
-      const response: IArchiveResponse<IResContText> = {
+      const response: IRes<IContTextJoinWriters> = {
         header: {
           success: true,
           status: 200,
@@ -649,7 +647,7 @@ app.get(
         throw '본문이 없습니다.';
       }
 
-      const response: IArchiveResponse<IResContText, false> = {
+      const response: IRes<IContTextJoinWriters, false> = {
         header: {
           success: true,
           status: 200,
@@ -669,7 +667,7 @@ app.get(
 const findCont = (
   contType: ContType,
   contId: number
-): IContPhoto | IContVideo | IContAudio | IResContText | undefined => {
+): IContPhoto | IContVideo | IContAudio | IContTextJoinWriters | undefined => {
   if (contType === 'P') {
     return photosParsed.find((item) => item.contId === contId);
   } else if (contType === 'V') {
@@ -717,7 +715,7 @@ app.get(
         )
         .filter(isNonNullable);
 
-      const response: IArchiveResponse<IRelationCont['relations'][0]> = {
+      const response: IRes<IRelationCont['relations'][0]> = {
         header: {
           success: true,
           status: 200,
