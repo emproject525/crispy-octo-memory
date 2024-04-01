@@ -299,12 +299,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/archive-types@file:../types/archive-types::locator=archive-api%40workspace%3A.":
-  version: 1.0.0.9999
-  resolution: "@types/archive-types@file:../types/archive-types#../types/archive-types::hash=d6af79&locator=archive-api%40workspace%3A."
-  checksum: 10c0/73bb7c207372323d2a8a9e56056a178187896952f74f96e48041166c417e16ca3145fd10736acb71d7cd8052b44aa452d3ff8c7bf2bc822f182d0388e07e2842
+"@types/archive-types@link:./../types/archive-types::locator=archive-api%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@types/archive-types@link:./../types/archive-types::locator=archive-api%40workspace%3A."
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@types/body-parser@npm:*":
   version: 1.19.5
@@ -759,7 +758,7 @@ __metadata:
   resolution: "archive-api@workspace:."
   dependencies:
     "@ffmpeg-installer/ffmpeg": "npm:^1.1.0"
-    "@types/archive-types": ../types/archive-types
+    "@types/archive-types": "link:./../types/archive-types"
     "@types/cors": "npm:^2"
     "@types/debug": "npm:^4"
     "@types/eslint": "npm:^8"

@@ -6,20 +6,15 @@
     "https://github.com/emproject525/crispy-octo-memory/tree/main/archive"
   ],
   "devDependencies": {
-    "typescript": "^4.4.2"
+    "@types/archive-types": "workspace:."
   },
+  "packageManager": "yarn@4.1.1",
   "owners": [
     {
       "name": "전현지",
       "githubUsername": "emproject525"
     }
   ],
-  "dependencies": {
-    "@types/node": "^20.12.2",
-    "date-fns": "^3.6.0"
-  },
-  "peerDependencies": {
-    "@types/node": "^20.12.2",
-    "date-fns": "^3.6.0"
-  }
+  "main": "index.js",
+  "license": "MIT"
 }

@@ -1,5 +1,5 @@
-import { parse } from 'date-fns';
-import { IArchiveResponse } from 'dto';
+import { isAfter, parse } from 'date-fns';
+import { IRes } from 'archive-types';
 import { ko } from 'date-fns/locale/ko';
 
 export type RecursivelyReplaceNullWithUndefined<T> = T extends null
@@ -33,9 +33,7 @@ export function removeNulls<T>(obj: T): RecursivelyReplaceNullWithUndefined<T> {
  * @param message header.message 내용
  * @returns 500 응답 (body = false)
  */
-export function make500Response(
-  message: string
-): IArchiveResponse<boolean, false> {
+export function make500Response(message: string): IRes<boolean, false> {
   return {
     header: {
       success: false,
@@ -93,4 +91,36 @@ export function stringToDate(text: string, format?: string): Date {
   return parse(text, format || 'yyyy-MM-dd', new Date(), {
     locale: ko
   });
+}
+
+/**
+ * 비교날짜가 시작일 종료일 사이인지 체크
+ * @param compareDt 비교날짜
+ * @param startDt 시작일
+ * @param endDt 종료일
+ * @returns 사이의 날짜인가?
+ */
+export function isBetweenStartEndDt(
+  compareDt?: string | null,
+  startDt?: string,
+  endDt?: string
+): boolean {
+  if (!compareDt) {
+    return true;
+  }
+
+  let match = true;
+  const dt = stringToDate(compareDt, 'yyyy-MM-dd HH:mm:ss');
+
+  if (startDt) {
+    match =
+      match &&
+      isAfter(dt, stringToDate(`${startDt} 00:00:00`, 'yyyy-MM-dd HH:mm:ss'));
+  }
+
+  if (endDt) {
+    match = match && isAfter(stringToDate(`${endDt} 00:00:00`), dt);
+  }
+
+  return match;
 }

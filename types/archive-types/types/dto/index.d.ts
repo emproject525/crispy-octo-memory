@@ -1,9 +1,8 @@
-export * from "./Code";
-export * from "./Cont";
-export * from "./ContPhoto";
-export * from "./ContVideo";
-export * from "./ContAudio";
-export * from "./ContText";
-export * from "./ContTextJoinWriters";
-export * from "./Writer";
-export * from "./Relation";
+export type * from "./Code";
+export type * from "./Cont";
+export type * from "./ContPhoto";
+export type * from "./ContVideo";
+export type * from "./ContAudio";
+export type * from "./ContText";
+export type * from "./Writer";
+export type * from "./Relation";

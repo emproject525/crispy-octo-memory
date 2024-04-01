@@ -4,32 +4,29 @@ import path from 'path';
 import cors from 'cors';
 import debug from 'debug';
 import Throttle from 'throttle';
-import { isAfter } from 'date-fns';
 
 import {
-  ContType,
-  IRes,
-  ICode,
-  IContAudio,
-  IContPhoto,
-  IContText,
-  IContVideo,
-  IRelation,
-  IRelationCont,
-  IContTextJoinWriters,
   IWriter,
-  IContAudioParams,
-  IContPhotoParams,
+  IRelation,
   IContTextParams,
-  IContVideoParams
+  IContPhotoParams,
+  IContAudioParams,
+  IContVideoParams,
+  IRes,
+  IContPhoto,
+  IContTextJoinWriters,
+  IContAudio,
+  IContVideo,
+  ICode,
+  ContType,
+  IRelationCont
 } from 'archive-types';
 
 import {
   removeNulls,
   make500Response,
   isNonNullable,
-  getStartEnd,
-  stringToDate
+  getStartEnd
 } from 'utils';
 
 import imgTypes from '@data/code/img_type.json';
@@ -43,29 +40,34 @@ import writers from '@data/text/writers.json';
 import texts from '@data/text/list.json';
 import relations from '@data/relation/list.json';
 
+import {
+  ContAudio,
+  ContPhoto,
+  ContTextJoinWriters,
+  ContVideo,
+  Code
+} from '@dto';
+
 const photosParsed = photos.map((item) =>
-  removeNulls<IContPhoto>(item as IContPhoto)
+  removeNulls<ContPhoto>(new ContPhoto(item))
 );
 const vidoesParsed = videos.map((item) =>
-  removeNulls<IContVideo>(item as IContVideo)
+  removeNulls<ContVideo>(new ContVideo(item))
 );
 const audioParsed = audios.map((item) =>
-  removeNulls<IContAudio>(item as IContAudio)
+  removeNulls<ContAudio>(new ContAudio(item))
 );
 const writersParsed = writers.map((item) => item as IWriter);
-const textParsed: IContTextJoinWriters[] = texts
-  .map((item) => removeNulls<IContText>(item as IContText))
-  .map((item) => ({
-    ...item,
-    writers: (item.writers || [])
-      .map((id) => writersParsed.find((item) => item.id === id))
-      .filter(isNonNullable)
-  }));
-// api 용량을 줄이기 위해서 body 제거
-const textNoBodyParsed = textParsed.map((item) => ({
-  ...item,
-  body: null
-}));
+const textParsed = texts.map((item) =>
+  removeNulls<ContTextJoinWriters>(
+    new ContTextJoinWriters({
+      ...item,
+      writers: (item.writers || [])
+        .map((id) => writersParsed.find((item) => item.id === id))
+        .filter(isNonNullable)
+    })
+  )
+);
 const relationsParsed = relations.map((item) =>
   removeNulls<IRelation>(item as IRelation)
 );
@@ -94,28 +96,16 @@ const port: number = 8080;
 app.get('/api/codes', (req: Request, res: Response) => {
   try {
     const IMG_TYPE = imgTypes.map((item) =>
-      removeNulls<ICode>({
-        ...item,
-        cdId: `${item.group}-${item.seq}`
-      } as ICode)
+      removeNulls<ICode>(new Code(item.seq, 'IMG_TYPE', item))
     );
     const SOURCE = sources.map((item) =>
-      removeNulls<ICode>({
-        ...item,
-        cdId: `${item.group}-${item.seq}`
-      } as ICode)
+      removeNulls<ICode>(new Code(item.seq, 'SOURCE', item))
     );
     const MEDIA = medias.map((item) =>
-      removeNulls<ICode>({
-        ...item,
-        cdId: `${item.group}-${item.seq}`
-      } as ICode)
+      removeNulls<ICode>(new Code(item.seq, 'MEDIA', item))
     );
     const DEPARTMENT = departments.map((item) =>
-      removeNulls<ICode>({
-        ...item,
-        cdId: `${item.group}-${item.seq}`
-      } as ICode)
+      removeNulls<ICode>(new Code(item.seq, 'DEPARTMENT', item))
     );
 
     const response: IRes<Record<string, ICode[]>, false> = {
@@ -147,8 +137,14 @@ app.get(
   '/api/photos',
   (req: Request<{}, {}, {}, IContPhotoParams>, res: Response) => {
     try {
-      const { page, size, keyword } = req.query;
-      const count = photos.length;
+      const { page, size } = req.query;
+
+      // 검색 조건 필터
+      const target = photosParsed
+        .filter((item) => item.matchSearchParams(req.query))
+        .map((item) => item.get());
+
+      const count = target.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
 
       const response: IRes<IContPhoto> = {
@@ -158,7 +154,7 @@ app.get(
           message: '성공하였습니다'
         },
         body: {
-          list: photosParsed.slice(sliceIdx[0] - 1, sliceIdx[1]),
+          list: target.slice(sliceIdx[0] - 1, sliceIdx[1]),
           count,
           keywords: []
         }
@@ -566,42 +562,15 @@ app.get(
   '/api/texts',
   (req: Request<{}, {}, {}, IContTextParams>, res: Response) => {
     try {
-      const { page, size, keyword, endDt, startDt, textType } = req.query;
+      const { page, size } = req.query;
 
-      const target = textParsed.filter((item) => {
-        let match = true;
-
-        if (textType) {
-          match = match && item.textType === textType;
-        }
-
-        if (item.regDt) {
-          const regDt = stringToDate(item.regDt, 'yyyy-MM-dd HH:mm:ss');
-          if (startDt) {
-            match =
-              match &&
-              isAfter(
-                regDt,
-                stringToDate(`${startDt} 00:00:00`, 'yyyy-MM-dd HH:mm:ss')
-              );
-          }
-          if (endDt) {
-            match =
-              match &&
-              isAfter(
-                stringToDate(`${endDt} 23:59:59`, 'yyyy-MM-dd HH:mm:ss'),
-                regDt
-              );
-          }
-        }
-
-        if (keyword && item.title) {
-          const reg = new RegExp(keyword, 'ig');
-          match = match && reg.test(item.title);
-        }
-
-        return match;
-      });
+      // 검색 조건 필터
+      const target = textParsed
+        .filter((item) => item.matchSearchParams(req.query))
+        .map((item) => ({
+          ...item.get(),
+          body: null
+        }));
 
       const count = target.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
@@ -675,7 +644,13 @@ const findCont = (
   } else if (contType === 'A') {
     return audioParsed.find((item) => item.contId === contId);
   } else if (contType === 'T') {
-    return textNoBodyParsed.find((item) => item.contId === contId);
+    const target = textParsed.find((item) => item.contId === contId);
+
+    if (target) {
+      target.body = null;
+    }
+
+    return target;
   }
 
   return undefined;

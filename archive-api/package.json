@@ -19,7 +19,7 @@
   },
   "packageManager": "yarn@4.1.0",
   "devDependencies": {
-    "@types/archive-types": "../types/archive-types",
+    "@types/archive-types": "link:./../types/archive-types",
     "@types/cors": "^2",
     "@types/debug": "^4",
     "@types/eslint": "^8",
@@ -40,6 +40,7 @@
   "scripts": {
     "rundemon": "yarn nodemon ./src/server.ts localhost 8080",
     "debug": "set DEBUG=express:* & node ./src/server.js",
-    "makestreamfiles": "node ffmpeg.cjs"
+    "makestreamfiles": "node ffmpeg.cjs",
+    "upgrade-type": "yarn add --dev @types/archive-types@link:./../types/archive-types"
   }
 }

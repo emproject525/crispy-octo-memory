@@ -35,32 +35,3 @@ export interface IWriter {
    */
   status: null | "00" | "01" | "99";
 }
-
-/**
- * 작가
- */
-export class Writer implements IWriter {
-  media: number | null;
-  source: number | null;
-  department: number | null;
-  id: string;
-  name: string;
-  email: string | null;
-  status: "00" | "01" | "99" | null;
-
-  /**
-   *
-   * @param id 작가 ID
-   * @param name 작가명
-   * @param params 선택 데이터
-   */
-  constructor(id: string, name: string, params?: Record<string, any>) {
-    this.media = params?.["media"] || null;
-    this.source = null;
-    this.department = params?.["department"] || null;
-    this.id = id;
-    this.name = name;
-    this.email = params?.["email"] || null;
-    this.status = params?.["status"] || "00";
-  }
-}

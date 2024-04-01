@@ -1,23 +1,14 @@
-import { isAfter } from "date-fns";
-import { IContTextParams } from "../params";
-import { IWriter, Writer } from "./Writer";
-import { Cont } from "./Cont";
-import { IContText } from "./ContText";
+import { IContText, IContTextParams } from 'archive-types';
+import { Cont } from './Cont';
+import { isAfter } from 'date-fns';
 
 /**
- * 문서컨텐츠 타입 (writers 조인)
- */
-export interface IContTextJoinWriters extends Omit<IContText, "writers"> {
-  writers: null | IWriter[];
-}
-
-/**
- * 문서컨텐츠 (작가 목록)
+ * 문서컨텐츠
  * @extends Cont
  */
-export class ContTextJoinWriters extends Cont implements IContTextJoinWriters {
-  textType: "00" | "01" | "99" | null;
-  writers: Writer[] | null;
+export class ContText extends Cont implements IContText {
+  textType: '00' | '01' | '99' | null;
+  writers: string[] | null;
   subTitle: string | null;
   body: string | null;
 
@@ -26,25 +17,25 @@ export class ContTextJoinWriters extends Cont implements IContTextJoinWriters {
    * @param params 선택 데이터
    */
   constructor(params?: Record<string, any>) {
-    super("T", params);
+    super('T', params);
 
-    this.textType = params?.["textType"] || "99";
-    this.writers = params?.["writers"] || [];
-    this.subTitle = params?.["subTitle"] || null;
-    this.body = params?.["body"] || null;
+    this.textType = params?.['textType'] || '99';
+    this.writers = params?.['writers'] || [];
+    this.subTitle = params?.['subTitle'] || null;
+    this.body = params?.['body'] || null;
   }
 
   /**
    * @override
    * @returns IContText
    */
-  get(): IContTextJoinWriters {
+  get(): IContText {
     return {
       ...super.get(),
       textType: this.textType,
       writers: this.writers,
       subTitle: this.subTitle,
-      body: this.body,
+      body: this.body
     };
   }
 
@@ -75,7 +66,7 @@ export class ContTextJoinWriters extends Cont implements IContTextJoinWriters {
     }
 
     if (keyword && this.title) {
-      const reg = new RegExp(keyword, "ig");
+      const reg = new RegExp(keyword, 'ig');
       match = match && reg.test(this.title);
     }
 

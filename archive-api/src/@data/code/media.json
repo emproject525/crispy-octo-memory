@@ -12,7 +12,7 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   },
   {
     "seq": 2,
@@ -27,7 +27,7 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   },
   {
     "seq": 3,
@@ -42,7 +42,7 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   },
   {
     "seq": 4,
@@ -57,7 +57,7 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   },
   {
     "seq": 5,
@@ -72,7 +72,7 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   },
   {
     "seq": 6,
@@ -87,7 +87,7 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   },
   {
     "seq": 7,
@@ -102,7 +102,7 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   },
   {
     "seq": 8,
@@ -117,7 +117,7 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   },
   {
     "seq": 9,
@@ -132,6 +132,6 @@
     "modDt": null,
     "etc1": null,
     "etc2": null,
-    "comment": null
+    "caption": null
   }
 ]
