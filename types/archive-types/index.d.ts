@@ -3,9 +3,11 @@
  *~ Otherwise, delete this declaration.
  */
 
+export * from "./types/dto";
+
 export * from "./types/serverHttp";
 
-export * from "./types/dto";
+export * from "./types/utilsType";
 
 export * from "./types/params";
 
