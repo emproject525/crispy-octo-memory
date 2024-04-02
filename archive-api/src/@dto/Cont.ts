@@ -1,6 +1,7 @@
 import { ContType, ICont } from 'archive-types';
 import { format, parse as dateFnsParse } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import { removeNulls } from 'utils';
 
 /**
  * 컨텐츠
@@ -88,7 +89,7 @@ export class Cont implements ICont {
    * @returns ICont
    */
   public get(): ICont {
-    return {
+    return removeNulls<ICont>({
       contId: this.contId,
       contType: this.contType,
       adultYn: this.adultYn,
@@ -109,6 +110,6 @@ export class Cont implements ICont {
       media: this.media,
       delId: this.delId,
       delDt: this.delDt
-    };
+    });
   }
 }

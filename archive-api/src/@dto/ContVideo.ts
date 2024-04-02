@@ -1,6 +1,7 @@
 import { IContVideo, IContVideoParams } from 'archive-types';
 import { Cont } from './Cont';
 import { isAfter } from 'date-fns';
+import { removeNulls } from 'utils';
 
 /**
  * 영상컨텐츠
@@ -44,7 +45,7 @@ export class ContVideo extends Cont implements IContVideo {
    * @returns IContVideo
    */
   get(): IContVideo {
-    return {
+    return removeNulls<IContVideo>({
       ...super.get(),
       shootDt: this.shootDt,
       shootPlace: this.shootPlace,
@@ -57,7 +58,7 @@ export class ContVideo extends Cont implements IContVideo {
       orgFileName: this.orgFileName,
       thumbFilePath: this.thumbFilePath,
       duration: this.duration
-    };
+    });
   }
 
   /**

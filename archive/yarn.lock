@@ -3639,12 +3639,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/archive-types@file:../types/archive-types::locator=archive%40workspace%3A.":
-  version: 1.0.0.9999
-  resolution: "@types/archive-types@file:../types/archive-types#../types/archive-types::hash=d6af79&locator=archive%40workspace%3A."
-  checksum: 10c0/73bb7c207372323d2a8a9e56056a178187896952f74f96e48041166c417e16ca3145fd10736acb71d7cd8052b44aa452d3ff8c7bf2bc822f182d0388e07e2842
+"@types/archive-types@link:./../types/archive-types::locator=archive%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@types/archive-types@link:./../types/archive-types::locator=archive%40workspace%3A."
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@types/aria-query@npm:^5.0.1":
   version: 5.0.4
@@ -4845,7 +4844,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^5.14.1"
     "@testing-library/react": "npm:^13.0.0"
     "@testing-library/user-event": "npm:^13.2.1"
-    "@types/archive-types": ../types/archive-types
+    "@types/archive-types": "link:./../types/archive-types"
     "@types/babel__core": "npm:^7"
     "@types/eslint": "npm:^8"
     "@types/jest": "npm:^29.5.11"

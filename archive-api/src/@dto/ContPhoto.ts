@@ -1,6 +1,7 @@
 import { IContPhoto, IContPhotoParams } from 'archive-types';
 import { Cont } from './Cont';
 import { isAfter } from 'date-fns';
+import { removeNulls } from 'utils';
 
 /**
  * 사진컨텐츠
@@ -54,7 +55,7 @@ export class ContPhoto extends Cont implements IContPhoto {
    * @returns IContPhoto
    */
   get(): IContPhoto {
-    return {
+    return removeNulls<IContPhoto>({
       ...super.get(),
       imgType: this.imgType,
       format: this.format,
@@ -72,7 +73,7 @@ export class ContPhoto extends Cont implements IContPhoto {
       hashcode: this.hashcode,
       peopleYn: this.peopleYn,
       peopleType: this.peopleType
-    };
+    });
   }
 
   /**

@@ -22,12 +22,7 @@ import {
   IRelationCont
 } from 'archive-types';
 
-import {
-  removeNulls,
-  make500Response,
-  isNonNullable,
-  getStartEnd
-} from 'utils';
+import { make500Response, isNonNullable, getStartEnd } from 'utils';
 
 import imgTypes from '@data/code/img_type.json';
 import sources from '@data/code/source.json';
@@ -45,32 +40,24 @@ import {
   ContPhoto,
   ContTextJoinWriters,
   ContVideo,
-  Code
+  Code,
+  Relation
 } from '@dto';
 
-const photosParsed = photos.map((item) =>
-  removeNulls<ContPhoto>(new ContPhoto(item))
-);
-const vidoesParsed = videos.map((item) =>
-  removeNulls<ContVideo>(new ContVideo(item))
-);
-const audioParsed = audios.map((item) =>
-  removeNulls<ContAudio>(new ContAudio(item))
-);
+const photosParsed = photos.map((item) => new ContPhoto(item));
+const vidoesParsed = videos.map((item) => new ContVideo(item));
+const audioParsed = audios.map((item) => new ContAudio(item));
 const writersParsed = writers.map((item) => item as IWriter);
-const textParsed = texts.map((item) =>
-  removeNulls<ContTextJoinWriters>(
+const textParsed = texts.map(
+  (item) =>
     new ContTextJoinWriters({
       ...item,
       writers: (item.writers || [])
         .map((id) => writersParsed.find((item) => item.id === id))
         .filter(isNonNullable)
     })
-  )
 );
-const relationsParsed = relations.map((item) =>
-  removeNulls<IRelation>(item as IRelation)
-);
+const relationsParsed = relations.map((item) => new Relation(item));
 
 const app: Application = express();
 app.use(
@@ -96,16 +83,14 @@ const port: number = 8080;
 app.get('/api/codes', (req: Request, res: Response) => {
   try {
     const IMG_TYPE = imgTypes.map((item) =>
-      removeNulls<ICode>(new Code(item.seq, 'IMG_TYPE', item))
+      new Code(item.seq, 'IMG_TYPE', item).get()
     );
     const SOURCE = sources.map((item) =>
-      removeNulls<ICode>(new Code(item.seq, 'SOURCE', item))
+      new Code(item.seq, 'SOURCE', item).get()
     );
-    const MEDIA = medias.map((item) =>
-      removeNulls<ICode>(new Code(item.seq, 'MEDIA', item))
-    );
+    const MEDIA = medias.map((item) => new Code(item.seq, 'MEDIA', item).get());
     const DEPARTMENT = departments.map((item) =>
-      removeNulls<ICode>(new Code(item.seq, 'DEPARTMENT', item))
+      new Code(item.seq, 'DEPARTMENT', item).get()
     );
 
     const response: IRes<Record<string, ICode[]>, false> = {
@@ -603,10 +588,7 @@ app.get(
       // 검색 조건 필터
       const target = textParsed
         .filter((item) => item.matchSearchParams(req.query))
-        .map((item) => ({
-          ...item.get(),
-          body: null
-        }));
+        .map((item) => item.get(true));
 
       const count = target.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
@@ -676,19 +658,13 @@ const findCont = (
   contId: number
 ): IContPhoto | IContVideo | IContAudio | IContTextJoinWriters | undefined => {
   if (contType === 'P') {
-    return photosParsed.find((item) => item.contId === contId);
+    return photosParsed.find((item) => item.contId === contId)?.get();
   } else if (contType === 'V') {
-    return vidoesParsed.find((item) => item.contId === contId);
+    return vidoesParsed.find((item) => item.contId === contId)?.get();
   } else if (contType === 'A') {
-    return audioParsed.find((item) => item.contId === contId);
+    return audioParsed.find((item) => item.contId === contId)?.get();
   } else if (contType === 'T') {
-    const target = textParsed.find((item) => item.contId === contId);
-
-    if (target) {
-      target.body = null;
-    }
-
-    return target;
+    return textParsed.find((item) => item.contId === contId)?.get(true);
   }
 
   return undefined;
@@ -713,13 +689,7 @@ app.get(
   ) => {
     try {
       const relations: IRelationCont['relations'] = relationsParsed
-        .filter(
-          (item) =>
-            (req.query.contType === item.contType &&
-              String(req.query.contId) === String(item.contId)) ||
-            (req.query.contType === item.relContType &&
-              String(req.query.contId) === String(item.relContId))
-        )
+        .filter((item) => item.related(req.query.contType, req.query.contId))
         .map((item) =>
           req.query.contType === item.contType &&
           String(req.query.contId) === String(item.contId)

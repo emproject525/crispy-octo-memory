@@ -1,6 +1,7 @@
 import { IContAudio, IContAudioParams } from 'archive-types';
 import { Cont } from './Cont';
 import { isAfter } from 'date-fns';
+import { removeNulls } from 'utils';
 
 /**
  * 오디오컨텐츠
@@ -44,7 +45,7 @@ export class ContAudio extends Cont implements IContAudio {
    * @returns IContAudio
    */
   get(): IContAudio {
-    return {
+    return removeNulls<IContAudio>({
       ...super.get(),
       shootDt: this.shootDt,
       shootPlace: this.shootPlace,
@@ -57,7 +58,7 @@ export class ContAudio extends Cont implements IContAudio {
       orgFileName: this.orgFileName,
       thumbFilePath: this.thumbFilePath,
       duration: this.duration
-    };
+    });
   }
 
   /**

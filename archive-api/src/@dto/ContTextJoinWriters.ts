@@ -1,6 +1,7 @@
 import { IContTextJoinWriters, IContTextParams, IWriter } from 'archive-types';
 import { Cont } from './Cont';
 import { isAfter } from 'date-fns';
+import { removeNulls } from 'utils';
 
 /**
  * 문서컨텐츠 (작가 목록)
@@ -27,16 +28,17 @@ export class ContTextJoinWriters extends Cont implements IContTextJoinWriters {
 
   /**
    * @override
-   * @returns IContText
+   * @param noBody 본문 제거 여부
+   * @returns IContTextJoinWriters
    */
-  get(): IContTextJoinWriters {
-    return {
+  get(noBody?: boolean): IContTextJoinWriters {
+    return removeNulls<IContTextJoinWriters>({
       ...super.get(),
       textType: this.textType,
       writers: this.writers,
       subTitle: this.subTitle,
-      body: this.body
-    };
+      body: noBody ? null : this.body
+    });
   }
 
   /**
@@ -47,7 +49,7 @@ export class ContTextJoinWriters extends Cont implements IContTextJoinWriters {
   public matchSearchParams(params: IContTextParams): boolean {
     const { startDt, endDt, textType, keyword } = params;
 
-    let match = true;
+    let match = super.inService();
 
     if (this.regDt) {
       const date = super.parse(this.regDt);

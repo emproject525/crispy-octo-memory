@@ -38,7 +38,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "upgrade-type": "yarn add --dev @types/archive-types@link:./../types/archive-types"
   },
   "browserslist": {
     "production": [
@@ -58,7 +59,7 @@
     "@craco/craco": "^7.1.0",
     "@craco/types": "^7.1.0",
     "@jest/globals": "^29.7.0",
-    "@types/archive-types": "../types/archive-types",
+    "@types/archive-types": "link:./../types/archive-types",
     "@types/babel__core": "^7",
     "@types/eslint": "^8",
     "@types/jest": "^29.5.11",

@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { ICode } from 'archive-types';
+import { removeNulls } from 'utils';
 
 /**
  *  코드
@@ -37,5 +38,26 @@ export class Code implements ICode {
     this.modId = params?.['modId'] || null;
     this.modDt = params?.['modDt'] || null;
     this.caption = params?.['caption'] || null;
+  }
+
+  /**
+   * 컨텐츠만 리턴
+   * @returns ICode
+   */
+  public get(): ICode {
+    return removeNulls<ICode>({
+      seq: this.seq,
+      group: this.group,
+      ordNo: this.ordNo,
+      cdId: this.cdId,
+      cdNm: this.cdNm,
+      cdNmEng: this.cdNmEng,
+      usedYn: this.usedYn,
+      regId: this.regId,
+      regDt: this.regDt,
+      modId: this.modId,
+      modDt: this.modDt,
+      caption: this.caption
+    });
   }
 }

@@ -1,6 +1,7 @@
 import { IContText, IContTextParams } from 'archive-types';
 import { Cont } from './Cont';
 import { isAfter } from 'date-fns';
+import { removeNulls } from 'utils';
 
 /**
  * 문서컨텐츠
@@ -27,16 +28,17 @@ export class ContText extends Cont implements IContText {
 
   /**
    * @override
+   * @param noBody 본문 제거 여부
    * @returns IContText
    */
-  get(): IContText {
-    return {
+  get(noBody?: boolean): IContText {
+    return removeNulls<IContText>({
       ...super.get(),
       textType: this.textType,
       writers: this.writers,
       subTitle: this.subTitle,
-      body: this.body
-    };
+      body: noBody ? null : this.body
+    });
   }
 
   /**
