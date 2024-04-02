@@ -83,7 +83,7 @@ export class ContPhoto extends Cont implements IContPhoto {
   public matchSearchParams(params: IContPhotoParams): boolean {
     const { startDt, endDt, imgType, shootType, keyword } = params;
 
-    let match = true;
+    let match = super.inService();
 
     if (this.regDt) {
       const date = super.parse(this.regDt);

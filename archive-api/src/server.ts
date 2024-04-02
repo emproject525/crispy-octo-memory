@@ -175,23 +175,31 @@ app.get(
   '/api/photos/:contId',
   (
     req: Request<{
-      // 캐스팅이 안되는듯? 그냥 string 타입임 ==> query여서 string으로 받네
+      // 캐스팅이 안되는듯? 그냥 string 타입임 ==> path여서 string으로 받네
       contId?: string;
     }>,
     res: Response
   ) => {
     try {
-      const response: IRes<IContPhoto, false> = {
-        header: {
-          success: true,
-          status: 200,
-          message: '성공하였습니다'
-        },
-        body: photosParsed.find(
-          (item) => String(item.contId) === req.params.contId
-        )
-      };
-      res.status(200).type('application/json').send(response);
+      const target = photosParsed.find(
+        (item) => String(item.contId) === req.params.contId
+      );
+
+      if (!target) {
+        throw '잘못된 데이터입니다.';
+      } else if (!target.inService()) {
+        throw '서비스 중지된 데이터입니다.';
+      } else {
+        const response: IRes<IContPhoto, false> = {
+          header: {
+            success: true,
+            status: 200,
+            message: '성공하였습니다'
+          },
+          body: target
+        };
+        res.status(200).type('application/json').send(response);
+      }
     } catch (e) {
       res
         .status(200)
@@ -348,8 +356,14 @@ app.get(
   '/api/videos',
   (req: Request<{}, {}, {}, IContVideoParams>, res: Response) => {
     try {
-      const { page, size, keyword } = req.query;
-      const count = videos.length;
+      const { page, size } = req.query;
+
+      // 검색 조건 필터
+      const target = vidoesParsed
+        .filter((item) => item.matchSearchParams(req.query))
+        .map((item) => item.get());
+
+      const count = target.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
 
       const response: IRes<IContVideo> = {
@@ -359,7 +373,7 @@ app.get(
           message: '성공하였습니다'
         },
         body: {
-          list: vidoesParsed.slice(sliceIdx[0] - 1, sliceIdx[1]),
+          list: target.slice(sliceIdx[0] - 1, sliceIdx[1]),
           count,
           keywords: []
         }
@@ -385,17 +399,25 @@ app.get(
     res: Response
   ) => {
     try {
-      const response: IRes<IContVideo, false> = {
-        header: {
-          success: true,
-          status: 200,
-          message: '성공하였습니다'
-        },
-        body: vidoesParsed.find(
-          (item) => String(item.contId) === req.params.contId
-        )
-      };
-      res.status(200).type('application/json').send(response);
+      const target = vidoesParsed.find(
+        (item) => String(item.contId) === req.params.contId
+      );
+
+      if (!target) {
+        throw '잘못된 데이터입니다.';
+      } else if (!target.inService()) {
+        throw '서비스 중지된 데이터입니다.';
+      } else {
+        const response: IRes<IContVideo, false> = {
+          header: {
+            success: true,
+            status: 200,
+            message: '성공하였습니다'
+          },
+          body: target
+        };
+        res.status(200).type('application/json').send(response);
+      }
     } catch (e) {
       res
         .status(200)
@@ -499,8 +521,14 @@ app.get(
   '/api/audios',
   (req: Request<{}, {}, {}, IContAudioParams>, res: Response) => {
     try {
-      const { page, size, keyword } = req.query;
-      const count = audioParsed.length;
+      const { page, size } = req.query;
+
+      // 검색 조건 필터
+      const target = audioParsed
+        .filter((item) => item.matchSearchParams(req.query))
+        .map((item) => item.get());
+
+      const count = target.length;
       const sliceIdx = getStartEnd(count, Number(size), Number(page));
 
       const response: IRes<IContAudio> = {
@@ -510,7 +538,7 @@ app.get(
           message: '성공하였습니다'
         },
         body: {
-          list: audioParsed.slice(sliceIdx[0] - 1, sliceIdx[1]),
+          list: target.slice(sliceIdx[0] - 1, sliceIdx[1]),
           count,
           keywords: []
         }
@@ -536,17 +564,25 @@ app.get(
     res: Response
   ) => {
     try {
-      const response: IRes<IContAudio, false> = {
-        header: {
-          success: true,
-          status: 200,
-          message: '성공하였습니다'
-        },
-        body: audioParsed.find(
-          (item) => String(item.contId) === req.params.contId
-        )
-      };
-      res.status(200).type('application/json').send(response);
+      const target = audioParsed.find(
+        (item) => String(item.contId) === req.params.contId
+      );
+
+      if (!target) {
+        throw '잘못된 데이터입니다.';
+      } else if (!target.inService()) {
+        throw '서비스 중지된 데이터입니다.';
+      } else {
+        const response: IRes<IContAudio, false> = {
+          header: {
+            success: true,
+            status: 200,
+            message: '성공하였습니다'
+          },
+          body: target
+        };
+        res.status(200).type('application/json').send(response);
+      }
     } catch (e) {
       res
         .status(200)
@@ -608,23 +644,25 @@ app.get(
     res: Response
   ) => {
     try {
-      const body = textParsed.find(
+      const target = textParsed.find(
         (item) => String(item.contId) === req.params.contId
       );
 
-      if (!body) {
-        throw '본문이 없습니다.';
+      if (!target) {
+        throw '잘못된 데이터입니다.';
+      } else if (!target.inService()) {
+        throw '서비스 중지된 데이터입니다.';
+      } else {
+        const response: IRes<IContTextJoinWriters, false> = {
+          header: {
+            success: true,
+            status: 200,
+            message: '성공하였습니다'
+          },
+          body: target
+        };
+        res.status(200).type('application/json').send(response);
       }
-
-      const response: IRes<IContTextJoinWriters, false> = {
-        header: {
-          success: true,
-          status: 200,
-          message: '성공하였습니다'
-        },
-        body
-      };
-      res.status(200).type('application/json').send(response);
     } catch (e) {
       res
         .status(200)

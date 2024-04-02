@@ -68,7 +68,7 @@ export class ContVideo extends Cont implements IContVideo {
   public matchSearchParams(params: IContVideoParams): boolean {
     const { startDt, endDt, mediaType, shootType, keyword } = params;
 
-    let match = true;
+    let match = super.inService();
 
     if (this.regDt) {
       const date = super.parse(this.regDt);

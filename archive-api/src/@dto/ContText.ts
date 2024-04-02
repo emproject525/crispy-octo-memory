@@ -47,7 +47,7 @@ export class ContText extends Cont implements IContText {
   public matchSearchParams(params: IContTextParams): boolean {
     const { startDt, endDt, textType, keyword } = params;
 
-    let match = true;
+    let match = super.inService();
 
     if (this.regDt) {
       const date = super.parse(this.regDt);

@@ -68,7 +68,7 @@ export class ContAudio extends Cont implements IContAudio {
   public matchSearchParams(params: IContAudioParams): boolean {
     const { startDt, endDt, mediaType, shootType, keyword } = params;
 
-    let match = true;
+    let match = super.inService();
 
     if (this.regDt) {
       const date = super.parse(this.regDt);
