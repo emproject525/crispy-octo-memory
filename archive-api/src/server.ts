@@ -235,7 +235,7 @@ app.post(
             .attachment(target.orgFileName || target.filePath)
             .download(path.join(__dirname, '..', target.filePath));
         } else {
-          res.status(200).send(make500Response('다운로드 이미지가 없습니다.'));
+          throw '다운로드 이미지가 없습니다.';
         }
       } else if (req.body.contType === 'V') {
         // 영상 다운로드
@@ -276,9 +276,7 @@ app.post(
             res.end();
           });
         } else {
-          res
-            .status(200)
-            .send(make500Response('다운로드할 영상 파일이 없습니다.'));
+          throw '다운로드할 영상 파일이 없습니다.';
         }
       } else if (req.body.contType === 'A') {
         // 오디오 다운로드
@@ -319,12 +317,10 @@ app.post(
             res.end();
           });
         } else {
-          res
-            .status(200)
-            .send(make500Response('다운로드할 오디오 파일이 없습니다.'));
+          throw '다운로드할 오디오 파일이 없습니다.';
         }
       } else {
-        res.status(200).send(make500Response('컨텐츠 타입을 확인하세요.'));
+        throw '컨텐츠 타입을 확인하세요.';
       }
     } catch (e) {
       res
@@ -435,10 +431,7 @@ app.get(
 
         res.status(200).type('html').send(playerHTML);
       } else {
-        res
-          .status(200)
-          .type('application/json')
-          .send(make500Response('영상 없음'));
+        throw '영상 없음';
       }
     } catch (e) {
       res

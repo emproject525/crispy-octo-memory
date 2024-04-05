@@ -45,6 +45,12 @@ const DraggablePaper = ({
       observer.observe(ele);
       nodeRef.current = ele;
 
+      ele.addEventListener('focus', () => {
+        ele.style.setProperty('z-index', '1500');
+      });
+      ele.addEventListener('focusout', () => {
+        ele.style.setProperty('z-index', '1499');
+      });
       ele.focus();
     }
   }, []);
@@ -106,7 +112,14 @@ const DraggablePaper = ({
             display="flex"
             justifyContent="flex-end"
           >
-            <IconButton title="Close" onClick={onClose}>
+            <IconButton
+              title="Close"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onClose();
+              }}
+            >
               <CloseIcon fontSize="small" />
             </IconButton>
           </Box>
