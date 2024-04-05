@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { audioSelector } from 'pages/audio/state';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
+
+import { audioSelector } from '../state';
 
 /**
  * 등록일, 수정일

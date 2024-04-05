@@ -1,28 +1,29 @@
 import React from 'react';
 import DraggablePaper from 'components/DraggablePaper';
 
-import TextDetail from './TextDetail';
+import TextDetail, { TextDetailProps } from './TextDetail';
 
 /**
  * 문서 상세를 dialog 처럼 노출
  */
-const TextDetailDialog = (props: {
-  contId?: number;
-  open: boolean;
-  onClose: () => void;
-  highlightText?: string;
-}) => {
-  const { contId, open, onClose, highlightText } = props;
-
-  if (!contId) {
-    return null;
-  }
+const TextDetailDialog = (
+  props: {
+    /**
+     * unique key
+     */
+    id: string;
+    open: boolean;
+    onClose: () => void;
+  } & TextDetailProps,
+) => {
+  const { id, contId, open, onClose, highlightText } = props;
 
   return (
     <DraggablePaper
+      key={id}
       open={open}
       onClose={onClose}
-      handleId={`photo-${contId}`}
+      handleId={id}
       sx={{
         width: 600,
       }}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Divider, Grid } from '@mui/material';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
-import { videoSelector } from '../state';
 
+import { videoSelector } from './state';
 import VideoHeader from './components/Header';
 import VideoRegDt from './components/RegDt';
 import VideoArchStatus from './components/ArchStatus';
@@ -18,12 +18,14 @@ import VideoShootPlace from './components/ShootPlace';
 import VideoPayYnAdultYn from './components/PayYnAdultYn';
 import VideoRelations from './components/Relations';
 
-const Inner = ({ contId }: { contId: number }) => {
+export type VideoDetailProps = { contId: number; highlightText?: string };
+
+const Inner = ({ contId, highlightText }: VideoDetailProps) => {
   useRecoilValueLoadable(videoSelector(contId));
 
   return (
     <Grid container spacing={2}>
-      <VideoHeader contId={contId} />
+      <VideoHeader contId={contId} highlightText={highlightText} />
       <VideoRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />
@@ -50,9 +52,9 @@ const Inner = ({ contId }: { contId: number }) => {
   );
 };
 
-const VideoDetail = ({ contId }: { contId: number }) => (
+const VideoDetail = (props: VideoDetailProps) => (
   <RecoilRoot>
-    <Inner contId={contId} />
+    <Inner {...props} />
   </RecoilRoot>
 );
 

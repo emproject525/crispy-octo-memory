@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { constantsState } from 'pages/rootState';
+import { codeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
 import { textOneState } from '../state';
 
@@ -11,7 +11,7 @@ import { textOneState } from '../state';
  */
 const TextTextType = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(textOneState(contId));
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
 
   switch (state) {
     case 'loading':

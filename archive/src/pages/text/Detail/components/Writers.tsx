@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
-import { asyncCodeMap } from 'pages/rootState';
+import { serverCodeMap } from 'pages/rootState';
 import { textOneState } from '../state';
 
 /**
@@ -9,7 +9,7 @@ import { textOneState } from '../state';
  */
 const TextWriters = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(textOneState(contId));
-  const codeMap = useRecoilValue(asyncCodeMap);
+  const codeMap = useRecoilValue(serverCodeMap);
 
   switch (state) {
     case 'loading':
@@ -34,7 +34,7 @@ const TextWriters = ({ contId }: { contId: number }) => {
         <Grid item xs={12}>
           <Box px={4} display="flex" columnGap={4} rowGap={1} flexWrap="wrap">
             {body!.writers?.map((item, idx) => {
-              const dep = codeMap['DEPARTMENT'][item.department];
+              const dep = codeMap['DEPARTMENT'][item.department!];
 
               return (
                 <Box

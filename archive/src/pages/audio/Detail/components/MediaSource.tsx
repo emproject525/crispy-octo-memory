@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
   Box,
   Grid,
@@ -7,17 +8,17 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import { asyncCodeMap } from 'pages/rootState';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+
+import { serverCodeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
-import { audioSelector } from 'pages/audio/state';
+import { audioSelector } from '../state';
 
 /**
  * 매체, 출처
  */
 const AudioMediaSource = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
-  const code = useRecoilValue(asyncCodeMap);
+  const code = useRecoilValue(serverCodeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));
 

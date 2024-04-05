@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Grid, Skeleton } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { videoSelector } from 'pages/video/state';
+import { Box, Grid, Skeleton } from '@mui/material';
+
+import { videoSelector } from '../state';
 
 const PlayVideo = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(videoSelector(contId));

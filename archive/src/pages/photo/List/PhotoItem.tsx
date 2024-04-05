@@ -7,11 +7,16 @@ import Disallowed from 'pages/@components/statusIcon/Disallowed';
 
 import Image from 'components/Image';
 import PhotoDetailDialog from '../Detail/PhotoDetailDialog';
+import { getHighlightText } from 'utils/utils';
 
 const PhotoItem = (
   props: {
     targetProps: RenderImageProps;
     direction: 'row' | 'column';
+    /**
+     * 하이라이트 키워드
+     */
+    highlightText?: string;
   } & IContPhoto,
 ) => {
   const {
@@ -23,6 +28,7 @@ const PhotoItem = (
     dpi,
     archStatus,
     permissionYn,
+    highlightText,
   } = props;
   const { index, margin, photo, left, top } = props.targetProps;
   const theme = useTheme();
@@ -64,7 +70,14 @@ const PhotoItem = (
             boxShadow: `0 0 0 3px ${alpha(theme.palette.success.main, 0.6)}`,
           }),
         }}
-        onClick={() => setOpenDetail(true)}
+        onClick={() => {
+          const ele = document.getElementById(`photo-${contId}`);
+          if (ele) {
+            ele.parentElement?.focus();
+          } else {
+            setOpenDetail(true);
+          }
+        }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -93,7 +106,7 @@ const PhotoItem = (
             textOverflow="ellipsis"
             title={plainTitle}
             dangerouslySetInnerHTML={{
-              __html: title || '&nbsp;',
+              __html: getHighlightText(title || '', highlightText) || '&nbsp;',
             }}
             sx={{
               userSelect: 'none',
@@ -143,11 +156,15 @@ const PhotoItem = (
         </Box>
       </Box>
 
-      <PhotoDetailDialog
-        open={openDetail}
-        contId={contId}
-        onClose={() => setOpenDetail(false)}
-      />
+      {contId && (
+        <PhotoDetailDialog
+          id={`photo-${contId}`}
+          open={openDetail}
+          contId={contId}
+          onClose={() => setOpenDetail(false)}
+          highlightText={highlightText}
+        />
+      )}
     </React.Fragment>
   );
 };

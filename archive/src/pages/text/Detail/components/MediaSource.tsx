@@ -8,7 +8,7 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import { asyncCodeMap } from 'pages/rootState';
+import { serverCodeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
 import { textOneState } from '../state';
 
@@ -17,7 +17,7 @@ import { textOneState } from '../state';
  */
 const TextMediaSource = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(textOneState(contId));
-  const code = useRecoilValue(asyncCodeMap);
+  const code = useRecoilValue(serverCodeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));
 
@@ -59,8 +59,8 @@ const TextMediaSource = ({ contId }: { contId: number }) => {
                 id={`content-${contId}-source`}
                 value={body!.source}
                 options={code.SOURCE.map((item) => ({
-                  label: item.cdNm,
-                  value: item.seq,
+                  label: item.cdNm!,
+                  value: item.seq!,
                 }))}
                 readOnly
               />
@@ -74,8 +74,8 @@ const TextMediaSource = ({ contId }: { contId: number }) => {
                 id={`content-${contId}-media`}
                 value={body!.media}
                 options={code.MEDIA.map((item) => ({
-                  label: item.cdNm,
-                  value: item.seq,
+                  label: item.cdNm!,
+                  value: item.seq!,
                 }))}
                 readOnly
               />

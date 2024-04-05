@@ -1,19 +1,13 @@
 import { getCodes } from 'api/code';
-import { CodeGroupType } from 'archive-types';
+import { GroupType } from 'archive-types';
 import { ICode } from '@types';
 import { atom, selector } from 'recoil';
-
-const codeMap: Record<CodeGroupType, ICode[]> = {
-  MEDIA: [],
-  SOURCE: [],
-  DEPARTMENT: [],
-};
 
 /**
  * 상수
  */
-export const constantsState = atom({
-  key: 'constantsState',
+export const codeMap = atom({
+  key: 'codeMap',
   default: {
     IMG_TYPE: {
       '00': '일반',
@@ -43,6 +37,10 @@ export const constantsState = atom({
       '01': '전신',
       '02': '하반신',
     },
+    VIDEO_MEDIA_TYPE: {
+      '00': '자체 영상',
+      '01': '유튜브 영상',
+    },
     AUDIO_MEDIA_TYPE: {
       '00': '음악',
       '01': '인터뷰',
@@ -61,11 +59,18 @@ export const constantsState = atom({
   },
 });
 
+const defaultMap: Record<GroupType, ICode[]> = {
+  MEDIA: [],
+  SOURCE: [],
+  DEPARTMENT: [],
+  IMG_TYPE: [],
+};
+
 /**
  * 코드 데이터 조회
  */
-export const asyncCodeMap = selector<typeof codeMap>({
-  key: 'asyncCodeMap',
+export const serverCodeMap = selector<typeof defaultMap>({
+  key: 'serverCodeMap',
   get: async () => {
     const response = await getCodes();
 
@@ -75,10 +80,10 @@ export const asyncCodeMap = selector<typeof codeMap>({
       if (data.header.success) {
         return data.body!;
       } else {
-        return codeMap;
+        return defaultMap;
       }
     }
 
-    return codeMap;
+    return defaultMap;
   },
 });

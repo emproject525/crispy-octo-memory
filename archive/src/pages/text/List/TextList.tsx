@@ -1,12 +1,4 @@
-import {
-  Box,
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableContainer,
-  Typography,
-} from '@mui/material';
+import { Grid, Paper, Table, TableBody, TableContainer } from '@mui/material';
 import MoreButton from 'pages/@components/button/MoreButton';
 import React from 'react';
 import {
@@ -28,6 +20,7 @@ import {
 import TextSearchParams from './SearchParams';
 import TextItemHead from './TextItemHead';
 import TextItemRow from './TextItemRow';
+import SearchCount from 'pages/@components/text/SearchCount';
 
 const Inner = () => {
   const [params, setParams] = useRecoilState(textListParams);
@@ -57,11 +50,7 @@ const Inner = () => {
           }}
         >
           <TextSearchParams />
-          <Box textAlign="right">
-            <Typography variant="fs12">
-              검색 결과 : {count.toLocaleString()}개
-            </Typography>
-          </Box>
+          <SearchCount count={count} />
           <TableContainer>
             <Table aria-label="sticky table">
               <TextItemHead

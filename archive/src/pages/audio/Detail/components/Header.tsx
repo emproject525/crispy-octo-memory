@@ -1,9 +1,17 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { audioSelector } from 'pages/audio/state';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
 
-const AudioHeader = ({ contId }: { contId: number }) => {
+import { audioSelector } from '../state';
+import { getHighlightText } from 'utils/utils';
+
+const AudioHeader = ({
+  contId,
+  highlightText,
+}: {
+  contId: number;
+  highlightText?: string;
+}) => {
   const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
 
   switch (state) {
@@ -28,7 +36,12 @@ const AudioHeader = ({ contId }: { contId: number }) => {
       return (
         <Grid item xs={12}>
           <Box px={4}>
-            <Typography variant="h3">{body!.title}</Typography>
+            <Typography
+              variant="h3"
+              dangerouslySetInnerHTML={{
+                __html: getHighlightText(body!.title || '', highlightText),
+              }}
+            />
           </Box>
         </Grid>
       );

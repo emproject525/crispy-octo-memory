@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, Grid } from '@mui/material';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
-import { audioSelector } from '../state';
+import { audioSelector } from './state';
 
 import AudioHeader from './components/Header';
 import AudioRegDt from './components/RegDt';
@@ -18,12 +18,17 @@ import AudioShootPlace from './components/ShootPlace';
 import AudioPayYnAdultYn from './components/PayYnAdultYn';
 import AudioRelations from './components/Relations';
 
-const Inner = ({ contId }: { contId: number }) => {
+export type AudioDetailProps = {
+  contId: number;
+  highlightText?: string;
+};
+
+const Inner = ({ contId, highlightText }: AudioDetailProps) => {
   useRecoilValueLoadable(audioSelector(contId));
 
   return (
     <Grid container spacing={2}>
-      <AudioHeader contId={contId} />
+      <AudioHeader contId={contId} highlightText={highlightText} />
       <AudioRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />
@@ -50,9 +55,9 @@ const Inner = ({ contId }: { contId: number }) => {
   );
 };
 
-const AudioDetail = ({ contId }: { contId: number }) => (
+const AudioDetail = (props: AudioDetailProps) => (
   <RecoilRoot>
-    <Inner contId={contId} />
+    <Inner {...props} />
   </RecoilRoot>
 );
 

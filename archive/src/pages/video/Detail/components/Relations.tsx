@@ -3,7 +3,7 @@ import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton } from '@mui/material';
 
 import RelationList from 'pages/@components/relation/RelationList';
-import { videoSelector } from 'pages/video/state';
+import { videoSelector } from '../state';
 
 /**
  * 관련 컨텐츠

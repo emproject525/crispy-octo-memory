@@ -1,32 +1,34 @@
 import React from 'react';
 import DraggablePaper from 'components/DraggablePaper';
 
-import VideoDetail from './VideoDetail';
+import VideoDetail, { VideoDetailProps } from './VideoDetail';
 
 /**
  * 영상 상세를 dialog 처럼 노출
  */
-const VideoDetailDialog = (props: {
-  contId?: number;
-  open: boolean;
-  onClose: () => void;
-}) => {
-  const { contId, open, onClose } = props;
-
-  if (!contId) {
-    return null;
-  }
+const VideoDetailDialog = (
+  props: {
+    /**
+     * unique key
+     */
+    id: string;
+    open: boolean;
+    onClose: () => void;
+  } & VideoDetailProps,
+) => {
+  const { id, contId, open, onClose, highlightText } = props;
 
   return (
     <DraggablePaper
+      key={id}
       open={open}
       onClose={onClose}
-      handleId={`video-${contId}`}
+      handleId={id}
       sx={{
         width: 600,
       }}
     >
-      <VideoDetail contId={contId} />
+      <VideoDetail contId={contId} highlightText={highlightText} />
     </DraggablePaper>
   );
 };

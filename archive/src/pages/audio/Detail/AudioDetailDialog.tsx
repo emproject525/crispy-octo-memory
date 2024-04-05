@@ -1,32 +1,35 @@
 import React from 'react';
 import DraggablePaper from 'components/DraggablePaper';
 
-import AudioDetail from './AudioDetail';
+import AudioDetail, { AudioDetailProps } from './AudioDetail';
 
 /**
  * 상세를 dialog 처럼 노출
  */
-const AudioDetailDialog = (props: {
-  contId?: number;
-  open: boolean;
-  onClose: () => void;
-}) => {
-  const { contId, open, onClose } = props;
-
-  if (!contId) {
-    return null;
-  }
+const AudioDetailDialog = (
+  props: {
+    /**
+     * unique key
+     */
+    id: string;
+    open: boolean;
+    onClose: () => void;
+    highlightText?: string;
+  } & AudioDetailProps,
+) => {
+  const { id, contId, open, onClose, highlightText } = props;
 
   return (
     <DraggablePaper
+      key={id}
       open={open}
       onClose={onClose}
-      handleId={`audio-${contId}`}
+      handleId={id}
       sx={{
         width: 600,
       }}
     >
-      <AudioDetail contId={contId} />
+      <AudioDetail contId={contId} highlightText={highlightText} />
     </DraggablePaper>
   );
 };

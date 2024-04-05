@@ -1,16 +1,17 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { asyncCodeMap } from 'pages/rootState';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
+
+import { serverCodeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
-import { audioSelector } from 'pages/audio/state';
+import { audioSelector } from '../state';
 
 /**
  * 부서
  */
 const AudioDepartment = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
-  const code = useRecoilValue(asyncCodeMap);
+  const code = useRecoilValue(serverCodeMap);
 
   switch (state) {
     case 'loading':

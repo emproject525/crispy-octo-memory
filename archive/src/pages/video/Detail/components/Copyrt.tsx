@@ -1,7 +1,8 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
-import { videoSelector } from 'pages/video/state';
+
+import { videoSelector } from '../state';
 
 /**
  * 저작권

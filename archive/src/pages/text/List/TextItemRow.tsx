@@ -67,10 +67,17 @@ const TextItemRow = ({
           sx={{
             cursor: 'pointer',
           }}
-          onClick={() => setOpenDetail(true)}
+          onClick={() => {
+            const ele = document.getElementById(`text-${contId}`);
+            if (ele) {
+              ele.parentElement?.focus();
+            } else {
+              setOpenDetail(true);
+            }
+          }}
           title={title}
           dangerouslySetInnerHTML={{
-            __html: getHighlightText(title, highlightText),
+            __html: getHighlightText(title || '', highlightText),
           }}
         />
         {!hideCell && (
@@ -92,12 +99,15 @@ const TextItemRow = ({
         )}
       </TableRow>
 
-      <TextDetailDialog
-        open={openDetail}
-        contId={contId}
-        onClose={() => setOpenDetail(false)}
-        highlightText={highlightText}
-      />
+      {contId && (
+        <TextDetailDialog
+          id={`text-${contId}`}
+          open={openDetail}
+          contId={contId}
+          onClose={() => setOpenDetail(false)}
+          highlightText={highlightText}
+        />
+      )}
     </>
   );
 };

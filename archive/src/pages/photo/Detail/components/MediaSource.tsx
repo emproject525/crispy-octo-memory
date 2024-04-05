@@ -8,7 +8,7 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import { asyncCodeMap } from 'pages/rootState';
+import { serverCodeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
 import { photoOneState } from '../state';
 
@@ -17,7 +17,7 @@ import { photoOneState } from '../state';
  */
 const PhotoMediaSource = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
-  const code = useRecoilValue(asyncCodeMap);
+  const code = useRecoilValue(serverCodeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));
 

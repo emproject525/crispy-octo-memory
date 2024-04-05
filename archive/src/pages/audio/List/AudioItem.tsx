@@ -8,14 +8,18 @@ import Image from 'components/Image';
 import Archived from 'pages/@components/statusIcon/Archived';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 import AudioDetailDialog from '../Detail/AudioDetailDialog';
-import { secondsToTimeText } from 'utils/utils';
+import { getHighlightText, secondsToTimeText } from 'utils/utils';
 import { useRecoilValue } from 'recoil';
-import { constantsState } from 'pages/rootState';
+import { codeMap } from 'pages/rootState';
 
 const AudioItem = (
   props: {
     targetProps: RenderImageProps;
     direction: 'row' | 'column';
+    /**
+     * 하이라이트 키워드
+     */
+    highlightText?: string;
   } & IContAudio,
 ) => {
   const {
@@ -28,10 +32,11 @@ const AudioItem = (
     archStatus,
     permissionYn,
     duration,
+    highlightText,
   } = props;
   const { index, margin, photo, left, top } = props.targetProps;
   const theme = useTheme();
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
   const isColumnPic = React.useMemo(() => direction === 'column', [direction]);
 
   //  hover 체크
@@ -70,7 +75,14 @@ const AudioItem = (
             boxShadow: `0 0 0 3px ${alpha(theme.palette.success.main, 0.6)}`,
           }),
         }}
-        onClick={() => setOpenDetail(true)}
+        onClick={() => {
+          const ele = document.getElementById(`audio-${contId}`);
+          if (ele) {
+            ele.parentElement?.focus();
+          } else {
+            setOpenDetail(true);
+          }
+        }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -135,7 +147,7 @@ const AudioItem = (
             textOverflow="ellipsis"
             title={plainTitle}
             dangerouslySetInnerHTML={{
-              __html: title || '&nbsp;',
+              __html: getHighlightText(title || '', highlightText) || '&nbsp;',
             }}
             sx={{
               userSelect: 'none',
@@ -154,7 +166,7 @@ const AudioItem = (
               height={16}
             >
               <Typography variant="fs12" color="grey.600">
-                {constants.AUDIO_MEDIA_TYPE?.[mediaType] || ''}
+                {constants.AUDIO_MEDIA_TYPE?.[mediaType!] || ''}
               </Typography>
               <Divider
                 flexItem
@@ -175,11 +187,15 @@ const AudioItem = (
         </Box>
       </Box>
 
-      <AudioDetailDialog
-        open={openDetail}
-        contId={contId}
-        onClose={() => setOpenDetail(false)}
-      />
+      {contId && (
+        <AudioDetailDialog
+          id={`audio-${contId}`}
+          open={openDetail}
+          contId={contId}
+          highlightText={highlightText}
+          onClose={() => setOpenDetail(false)}
+        />
+      )}
     </React.Fragment>
   );
 };

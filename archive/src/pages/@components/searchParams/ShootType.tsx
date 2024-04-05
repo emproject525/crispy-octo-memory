@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Box } from '@mui/material';
-import { constantsState } from 'pages/rootState';
+import { codeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
 
 /**
@@ -28,7 +28,7 @@ const ShootType = ({
    */
   onChange: (newValue: string) => void;
 }) => {
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
 
   return (
     <Box width={100} flexShrink={0}>

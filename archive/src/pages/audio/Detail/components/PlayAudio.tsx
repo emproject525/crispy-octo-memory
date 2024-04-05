@@ -1,9 +1,10 @@
 import React from 'react';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton } from '@mui/material';
-import { audioSelector } from 'pages/audio/state';
-import { constantsState } from 'pages/rootState';
+
+import { codeMap } from 'pages/rootState';
 import MusicPlayer from 'components/MusicPlayer';
+import { audioSelector } from '../state';
 
 /**
  * 오디오 재생 컴포넌트
@@ -12,7 +13,7 @@ import MusicPlayer from 'components/MusicPlayer';
  */
 const PlayAudio = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
   const [width, setWidth] = React.useState(560);
   const [height, setHeight] = React.useState(315);
 
@@ -57,12 +58,12 @@ const PlayAudio = ({ contId }: { contId: number }) => {
             return (
               <Box px={4}>
                 <MusicPlayer
-                  src={body!.filePath}
+                  src={body!.filePath || ''}
                   coverImageSrc={body!.thumbFilePath}
                   title={body!.title || ''}
                   subTitle={body!.copyrt || ''}
                   infoTitle={
-                    constants.AUDIO_MEDIA_TYPE?.[body!.mediaType] || ''
+                    constants.AUDIO_MEDIA_TYPE?.[body!.mediaType!] || ''
                   }
                   duration={body!.duration || 0}
                 />

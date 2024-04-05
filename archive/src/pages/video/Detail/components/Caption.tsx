@@ -1,8 +1,9 @@
 import React from 'react';
-import { Box, Grid, Skeleton, TextField } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
+import { Box, Grid, Skeleton, TextField } from '@mui/material';
+
 import AutosizeBox from 'components/Input/AutosizeBox';
-import { videoSelector } from 'pages/video/state';
+import { videoSelector } from '../state';
 
 const VideoCaption = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(videoSelector(contId));

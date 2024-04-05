@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
   Box,
   Grid,
@@ -7,17 +8,17 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import { asyncCodeMap } from 'pages/rootState';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+
+import { serverCodeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
-import { videoSelector } from 'pages/video/state';
+import { videoSelector } from '../state';
 
 /**
  * 매체, 출처
  */
 const VideoMediaSource = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
-  const code = useRecoilValue(asyncCodeMap);
+  const code = useRecoilValue(serverCodeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));
 
@@ -59,8 +60,8 @@ const VideoMediaSource = ({ contId }: { contId: number }) => {
                 id={`content-${contId}-source`}
                 value={body!.source}
                 options={code.SOURCE.map((item) => ({
-                  label: item.cdNm,
-                  value: item.seq,
+                  label: item.cdNm!,
+                  value: item.seq!,
                 }))}
                 readOnly
               />
@@ -74,8 +75,8 @@ const VideoMediaSource = ({ contId }: { contId: number }) => {
                 id={`content-${contId}-media`}
                 value={body!.media}
                 options={code.MEDIA.map((item) => ({
-                  label: item.cdNm,
-                  value: item.seq,
+                  label: item.cdNm!,
+                  value: item.seq!,
                 }))}
                 readOnly
               />

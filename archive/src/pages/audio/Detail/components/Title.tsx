@@ -1,8 +1,9 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
+
 import AutosizeBox from 'components/Input/AutosizeBox';
-import { audioSelector } from 'pages/audio/state';
+import { audioSelector } from '../state';
 
 /**
  * 제목

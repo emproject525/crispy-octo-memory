@@ -9,12 +9,16 @@ import Image from 'components/Image';
 import Archived from 'pages/@components/statusIcon/Archived';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 import VideoDetailDialog from '../Detail/VideoDetailDialog';
-import { secondsToTimeText } from 'utils/utils';
+import { getHighlightText, secondsToTimeText } from 'utils/utils';
 
 const VideoItem = (
   props: {
     targetProps: RenderImageProps;
     direction: 'row' | 'column';
+    /**
+     * 하이라이트 키워드
+     */
+    highlightText?: string;
   } & IContVideo,
 ) => {
   const {
@@ -26,6 +30,7 @@ const VideoItem = (
     archStatus,
     permissionYn,
     duration,
+    highlightText,
   } = props;
   const { index, margin, photo, left, top } = props.targetProps;
   const theme = useTheme();
@@ -67,7 +72,14 @@ const VideoItem = (
             boxShadow: `0 0 0 3px ${alpha(theme.palette.success.main, 0.6)}`,
           }),
         }}
-        onClick={() => setOpenDetail(true)}
+        onClick={() => {
+          const ele = document.getElementById(`video-${contId}`);
+          if (ele) {
+            ele.parentElement?.focus();
+          } else {
+            setOpenDetail(true);
+          }
+        }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -151,7 +163,7 @@ const VideoItem = (
             textOverflow="ellipsis"
             title={plainTitle}
             dangerouslySetInnerHTML={{
-              __html: title || '&nbsp;',
+              __html: getHighlightText(title || '', highlightText) || '&nbsp;',
             }}
             sx={{
               userSelect: 'none',
@@ -179,11 +191,15 @@ const VideoItem = (
         </Box>
       </Box>
 
-      <VideoDetailDialog
-        open={openDetail}
-        contId={contId}
-        onClose={() => setOpenDetail(false)}
-      />
+      {contId && (
+        <VideoDetailDialog
+          id={`video-${contId}`}
+          open={openDetail}
+          contId={contId}
+          onClose={() => setOpenDetail(false)}
+          highlightText={highlightText}
+        />
+      )}
     </React.Fragment>
   );
 };

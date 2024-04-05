@@ -3,7 +3,7 @@ import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import Allowed from 'pages/@components/statusIcon/Allowed';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
-import { constantsState } from 'pages/rootState';
+import { codeMap } from 'pages/rootState';
 import { textOneState } from '../state';
 
 /**
@@ -11,7 +11,7 @@ import { textOneState } from '../state';
  */
 const TextInfo = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(textOneState(contId));
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
 
   switch (state) {
     case 'loading':
@@ -37,7 +37,7 @@ const TextInfo = ({ contId }: { contId: number }) => {
           <Grid item xs={8}>
             <Box px={4} display="flex" alignItems="center" gap={2}>
               <Typography variant="fs12">
-                {constants.TEXT_TYPE[body!.textType] || '기타'}
+                {constants.TEXT_TYPE[body!.textType!] || '기타'}
               </Typography>
             </Box>
           </Grid>

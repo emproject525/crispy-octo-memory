@@ -1,4 +1,4 @@
-import { Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import {
@@ -8,17 +8,24 @@ import {
   useRecoilValue,
 } from 'recoil';
 
-import VideoItem from './VideoItem';
-import { videoListSelector, videoListState, videoListParams } from '../state';
 import MoreButton from 'pages/@components/button/MoreButton';
+import VideoSearchParams from './SearchParams';
+import VideoItem from './VideoItem';
+import { videoListSelector, videoListState, videoListParams } from './state';
+import SearchCount from 'pages/@components/text/SearchCount';
 
 const Inner = () => {
+  const { breakpoints } = useTheme();
   const [params, setParams] = useRecoilState(videoListParams);
   const [loadable, setVideoList] = useRecoilStateLoadable(videoListSelector);
   const videos = useRecoilValue(videoListState);
-  const { breakpoints } = useTheme();
   const isDownXs = useMediaQuery(breakpoints.down('xs'));
   const isUpLg = useMediaQuery(breakpoints.up('lg'));
+  const count = React.useMemo(
+    () =>
+      loadable.state === 'hasValue' ? loadable.contents.body?.count || 0 : 0,
+    [loadable.contents.body?.count, loadable.state],
+  );
 
   React.useEffect(() => {
     if (loadable.state === 'hasValue') {
@@ -32,7 +39,7 @@ const Inner = () => {
         width: 1280,
         // height: 720
         height: 900,
-        src: item.thumbFilePath,
+        src: item.thumbFilePath || '',
         key: `${item.contType}-${item.contId}`,
       })),
     [videos],
@@ -48,6 +55,7 @@ const Inner = () => {
             key={`video-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
+            highlightText={params.keyword}
             {...origin}
           />
         );
@@ -55,7 +63,7 @@ const Inner = () => {
 
       return null;
     },
-    [videos],
+    [params.keyword, videos],
   );
 
   return (
@@ -66,24 +74,29 @@ const Inner = () => {
             px: 4,
           }}
         >
+          <VideoSearchParams />
+          <SearchCount count={count} />
           {galleryPics.length > 0 && (
-            <Gallery
-              margin={6}
-              photos={galleryPics}
-              direction="row"
-              renderImage={renderItem}
-              targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
-              limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
-            />
+            <Box
+              sx={{
+                width: 'calc(100% + 12px)',
+                marginLeft: '-6px',
+              }}
+            >
+              <Gallery
+                margin={6}
+                photos={galleryPics}
+                direction="row"
+                renderImage={renderItem}
+                targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
+                limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
+              />
+            </Box>
           )}
 
           <MoreButton
             loading={loadable.state === 'loading'}
-            count={
-              loadable.state === 'hasValue'
-                ? loadable.contents.body?.count || 0
-                : 0
-            }
+            count={count}
             size={params.size}
             page={params.page}
             onClick={(nextPage) =>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Box } from '@mui/material';
-import { constantsState } from 'pages/rootState';
+import { codeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
 
 /**
@@ -28,7 +28,7 @@ const ImgType = ({
    */
   onChange: (newValue: string) => void;
 }) => {
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
 
   return (
     <Box width={100} flexShrink={0}>
@@ -38,9 +38,9 @@ const ImgType = ({
         variant="outlined"
         label="이미지 종류"
         color="search"
-        options={Object.keys(constants.TEXT_TYPE).map((key) => ({
+        options={Object.keys(constants.IMG_TYPE).map((key) => ({
           value: key,
-          label: constants.TEXT_TYPE[key as keyof typeof constants.TEXT_TYPE],
+          label: constants.IMG_TYPE[key as keyof typeof constants.IMG_TYPE],
         }))}
         disabled={disabled}
         value={value}

@@ -1,6 +1,7 @@
 import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import {
+  alpha,
   Box,
   IconButton,
   Paper,
@@ -43,6 +44,8 @@ const DraggablePaper = ({
       observer.observe(document.body);
       observer.observe(ele);
       nodeRef.current = ele;
+
+      ele.focus();
     }
   }, []);
   const theme = useTheme();
@@ -58,7 +61,7 @@ const DraggablePaper = ({
   }
 
   return (
-    <Portal>
+    <Portal key={handleId}>
       <Draggable
         nodeRef={nodeRef}
         handle={`#${handleId}`}
@@ -70,6 +73,7 @@ const DraggablePaper = ({
       >
         <Paper
           ref={nodeRefCallback}
+          tabIndex={-1}
           sx={{
             position: 'fixed',
             maxHeight: `calc(100vh - ${theme.spacing(20)})`,
@@ -83,6 +87,11 @@ const DraggablePaper = ({
             overflowY: 'auto',
             display: 'flex',
             flexDirection: 'column',
+            '&:focus, &:focus-visible': {
+              outline: 'none',
+              transition: 'none 400s ease 400s',
+              boxShadow: `0 0 0 3px ${alpha(theme.palette.warning.main, 0.25)}`,
+            },
           }}
           elevation={5}
           {...rest}

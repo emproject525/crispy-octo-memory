@@ -1,10 +1,11 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
+
 import Allowed from 'pages/@components/statusIcon/Allowed';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 import { formatBytes, secondsToTimeText } from 'utils/utils';
-import { videoSelector } from 'pages/video/state';
+import { videoSelector } from '../state';
 
 const VideoInfo = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(videoSelector(contId));

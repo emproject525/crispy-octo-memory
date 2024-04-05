@@ -1,16 +1,17 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { asyncCodeMap } from 'pages/rootState';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
+
+import { serverCodeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
-import { videoSelector } from 'pages/video/state';
+import { videoSelector } from '../state';
 
 /**
  * 부서
  */
 const VideoDepartment = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
-  const code = useRecoilValue(asyncCodeMap);
+  const code = useRecoilValue(serverCodeMap);
 
   switch (state) {
     case 'loading':
@@ -39,9 +40,9 @@ const VideoDepartment = ({ contId }: { contId: number }) => {
               label="부서"
               id={`content-${contId}-department`}
               value={body!.department}
-              options={code.DEPARTMENT.map((item) => ({
-                label: item.cdNm,
-                value: item.seq,
+              options={code['DEPARTMENT'].map((item) => ({
+                label: item.cdNm!,
+                value: item.seq!,
               }))}
               readOnly
             />

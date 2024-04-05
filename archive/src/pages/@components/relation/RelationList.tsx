@@ -71,7 +71,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           height: Math.floor((width * 9) / 16) + 46,
           alt: parsed.title,
           src: `http://localhost:8080${parsed.filePath}`,
-          key: `${item.contType}-${item.contId}`,
+          key: `${item.contType}-rel-${item.contId}`,
         };
       }),
       V: relationsByContType.V.map((item) => {
@@ -83,8 +83,8 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           src:
             parsed.mediaType === '00'
               ? `http://localhost:8080${parsed.thumbFilePath}`
-              : parsed.thumbFilePath,
-          key: `${item.contType}-${item.contId}`,
+              : parsed.thumbFilePath || '',
+          key: `${item.contType}-rel-${item.contId}`,
         };
       }),
       A: relationsByContType.A.map((item) => {
@@ -93,10 +93,10 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           width,
           height: Math.floor((width * 9) / 16) + 46,
           alt: parsed.fileName,
-          src: parsed.thumbFilePath.startsWith('http')
-            ? parsed.thumbFilePath
+          src: (parsed.thumbFilePath || '').startsWith('http')
+            ? parsed.thumbFilePath || ''
             : `http://localhost:8080${parsed.thumbFilePath}`,
-          key: `${item.contType}-${item.contId}`,
+          key: `${item.contType}-rel-${item.contId}`,
         };
       }),
       T: [],
@@ -128,7 +128,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
 
         return (
           <VideoItem
-            key={`video-${targetProps.index}`}
+            key={`${contType}-rel-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
             {...parsed}
@@ -139,7 +139,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
 
         return (
           <AudioItem
-            key={`audio-${targetProps.index}`}
+            key={`${contType}-rel-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
             {...parsed}
@@ -150,7 +150,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
 
         return (
           <PhotoItem
-            key={`photo-${targetProps.index}`}
+            key={`${contType}-rel-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
             {...parsed}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper, useTheme, useMediaQuery } from '@mui/material';
+import { Grid, Paper, useTheme, useMediaQuery, Box } from '@mui/material';
 import {
   RecoilRoot,
   useRecoilState,
@@ -9,16 +9,23 @@ import {
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import MoreButton from 'pages/@components/button/MoreButton';
 
+import AudioSearchParams from './SearchParams';
 import AudioItem from './AudioItem';
-import { audioListParams, audioListSelector, audioListState } from '../state';
+import { audioListParams, audioListSelector, audioListState } from './state';
+import SearchCount from 'pages/@components/text/SearchCount';
 
 const Inner = () => {
+  const { breakpoints } = useTheme();
   const [params, setParams] = useRecoilState(audioListParams);
   const [loadable, setAudioList] = useRecoilStateLoadable(audioListSelector);
   const audios = useRecoilValue(audioListState);
-  const { breakpoints } = useTheme();
   const isDownXs = useMediaQuery(breakpoints.down('xs'));
   const isUpLg = useMediaQuery(breakpoints.up('lg'));
+  const count = React.useMemo(
+    () =>
+      loadable.state === 'hasValue' ? loadable.contents.body?.count || 0 : 0,
+    [loadable.contents.body?.count, loadable.state],
+  );
 
   React.useEffect(() => {
     if (loadable.state === 'hasValue') {
@@ -31,7 +38,7 @@ const Inner = () => {
       audios.map((item) => ({
         width: 1280,
         height: 900,
-        src: item.thumbFilePath,
+        src: item.thumbFilePath || '',
         key: `${item.contType}-${item.contId}`,
       })),
     [audios],
@@ -47,6 +54,7 @@ const Inner = () => {
             key={`audio-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
+            highlightText={params.keyword}
             {...origin}
           />
         );
@@ -54,7 +62,7 @@ const Inner = () => {
 
       return null;
     },
-    [audios],
+    [audios, params.keyword],
   );
 
   return (
@@ -65,24 +73,29 @@ const Inner = () => {
             px: 4,
           }}
         >
+          <AudioSearchParams />
+          <SearchCount count={count} />
           {galleryPics.length > 0 && (
-            <Gallery
-              margin={6}
-              photos={galleryPics}
-              direction="row"
-              renderImage={renderItem}
-              targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
-              limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
-            />
+            <Box
+              sx={{
+                width: 'calc(100% + 12px)',
+                marginLeft: '-6px',
+              }}
+            >
+              <Gallery
+                margin={6}
+                photos={galleryPics}
+                direction="row"
+                renderImage={renderItem}
+                targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
+                limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
+              />
+            </Box>
           )}
 
           <MoreButton
             loading={loadable.state === 'loading'}
-            count={
-              loadable.state === 'hasValue'
-                ? loadable.contents.body?.count || 0
-                : 0
-            }
+            count={count}
             size={params.size}
             page={params.page}
             onClick={(nextPage) =>

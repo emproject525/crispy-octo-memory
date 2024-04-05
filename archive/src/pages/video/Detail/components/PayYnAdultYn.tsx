@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValueLoadable } from 'recoil';
 import {
   Box,
   Checkbox,
@@ -7,8 +8,8 @@ import {
   Grid,
   Skeleton,
 } from '@mui/material';
-import { useRecoilValueLoadable } from 'recoil';
-import { videoSelector } from 'pages/video/state';
+
+import { videoSelector } from '../state';
 
 /**
  * 결제

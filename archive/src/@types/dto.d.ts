@@ -8,8 +8,9 @@
 import * as orgTypes from 'archive-types';
 
 export type ICode = orgTypes.RemoveNullType<orgTypes.ICode>;
-export type IContPhoto = orgTypes.RemoveNullType<orgTypes.IContPhoto>;
-export type IContVideo = orgTypes.RemoveNullType<orgTypes.IContVideo>;
-export type IContAudio = orgTypes.RemoveNullType<orgTypes.IContAudio>;
-export type IContText = orgTypes.RemoveNullType<orgTypes.IContTextJoinWriters>;
+export type IContPhoto = orgTypes.ReplaceNullToUndefined<orgTypes.IContPhoto>;
+export type IContVideo = orgTypes.ReplaceNullToUndefined<orgTypes.IContVideo>;
+export type IContAudio = orgTypes.ReplaceNullToUndefined<orgTypes.IContAudio>;
+export type IContText =
+  orgTypes.ReplaceNullToUndefined<orgTypes.IContTextJoinWriters>;
 export type RelationType = IContPhoto | IContVideo | IContAudio | IContText;

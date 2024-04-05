@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   TextField,
 } from '@mui/material';
-import { constantsState } from 'pages/rootState';
+import { codeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
 import { photoOneState } from '../state';
 
@@ -18,7 +18,7 @@ import { photoOneState } from '../state';
  */
 const PhotoShootTypeShootDt = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));
 

@@ -21,12 +21,17 @@ import PhotoRelations from './components/Relations';
 
 import { photoOneState } from './state';
 
-const Inner = ({ contId }: { contId: number }) => {
+export type PhotoDetailType = {
+  contId: number;
+  highlightText?: string;
+};
+
+const Inner = ({ contId, highlightText }: PhotoDetailType) => {
   useRecoilValueLoadable(photoOneState(contId));
 
   return (
     <Grid container spacing={2}>
-      <PhotoHeader contId={contId} />
+      <PhotoHeader contId={contId} highlightText={highlightText} />
       <PhotoRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />
@@ -55,9 +60,9 @@ const Inner = ({ contId }: { contId: number }) => {
   );
 };
 
-const PhotoDetail = ({ contId }: { contId: number }) => (
+const PhotoDetail = (props: PhotoDetailType) => (
   <RecoilRoot>
-    <Inner contId={contId} />
+    <Inner {...props} />
   </RecoilRoot>
 );
 

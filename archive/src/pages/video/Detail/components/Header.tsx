@@ -1,9 +1,20 @@
 import React from 'react';
-import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { useRecoilValueLoadable } from 'recoil';
-import { videoSelector } from 'pages/video/state';
+import { Box, Grid, Skeleton, Typography } from '@mui/material';
 
-const VideoHeader = ({ contId }: { contId: number }) => {
+import { videoSelector } from '../state';
+import { getHighlightText } from 'utils/utils';
+
+const VideoHeader = ({
+  contId,
+  highlightText,
+}: {
+  contId: number;
+  /**
+   * 하이라이트 키워드
+   */
+  highlightText?: string;
+}) => {
   const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
 
   switch (state) {
@@ -28,7 +39,12 @@ const VideoHeader = ({ contId }: { contId: number }) => {
       return (
         <Grid item xs={12}>
           <Box px={4}>
-            <Typography variant="h3">{body!.title}</Typography>
+            <Typography
+              variant="h3"
+              dangerouslySetInnerHTML={{
+                __html: getHighlightText(body!.title || '', highlightText),
+              }}
+            />
           </Box>
         </Grid>
       );

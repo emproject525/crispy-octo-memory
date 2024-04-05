@@ -4,8 +4,8 @@ import { Box, Grid, Skeleton, Typography } from '@mui/material';
 
 import Archived from 'pages/@components/statusIcon/Archived';
 import DownloadContButton from 'pages/@components/button/DownloadContButton';
-import { audioSelector } from 'pages/audio/state';
 import CopyIconButton from 'components/Button/CopyIconButton';
+import { audioSelector } from '../state';
 
 /**
  * 상태

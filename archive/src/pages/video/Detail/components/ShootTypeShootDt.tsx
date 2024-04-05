@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
   Box,
   Grid,
@@ -8,17 +9,17 @@ import {
   useMediaQuery,
   TextField,
 } from '@mui/material';
-import { constantsState } from 'pages/rootState';
-import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+
+import { codeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
-import { videoSelector } from 'pages/video/state';
+import { videoSelector } from '../state';
 
 /**
  * 촬영 유형, 촬영일
  */
 const VideoShootTypeShootDt = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
   const { breakpoints } = useTheme();
   const matches = useMediaQuery(breakpoints.down('md'));
 

@@ -2,10 +2,10 @@ import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 
-import { videoSelector } from 'pages/video/state';
 import Archived from 'pages/@components/statusIcon/Archived';
 import DownloadContButton from 'pages/@components/button/DownloadContButton';
 import CopyIconButton from 'components/Button/CopyIconButton';
+import { videoSelector } from '../state';
 
 /**
  * 상태

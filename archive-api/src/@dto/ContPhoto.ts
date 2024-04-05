@@ -109,6 +109,8 @@ export class ContPhoto extends Cont implements IContPhoto {
     if (keyword && this.title) {
       const reg = new RegExp(keyword, 'ig');
       match = match && reg.test(this.title);
+    } else if (keyword && !this.title) {
+      match = false;
     }
 
     return match;

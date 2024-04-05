@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import { constantsState } from 'pages/rootState';
+import { codeMap } from 'pages/rootState';
 import StartEndDt from 'pages/@components/searchParams/StartEndDt';
 import Keyword from 'pages/@components/searchParams/Keyword';
 import FormSelect from 'components/Input/FormSelect';
 import { textListParams, textListSelector } from './state';
 
 const TextSearchParams = () => {
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
   const loadable = useRecoilValueLoadable(textListSelector);
   const [params, setParams] = useRecoilState(textListParams);
 

@@ -17,12 +17,12 @@ import TextRelations from './components/Relations';
 
 import { textOneState } from './state';
 
-type TextDetail = {
+export type TextDetailProps = {
   contId: number;
   highlightText?: string;
 };
 
-const Inner = ({ contId, highlightText }: TextDetail) => {
+const Inner = ({ contId, highlightText }: TextDetailProps) => {
   useRecoilValueLoadable(textOneState(contId));
 
   return (
@@ -58,7 +58,7 @@ const Inner = ({ contId, highlightText }: TextDetail) => {
   );
 };
 
-const TextDetail = (props: TextDetail) => (
+const TextDetail = (props: TextDetailProps) => (
   <RecoilRoot>
     <Inner {...props} />
   </RecoilRoot>

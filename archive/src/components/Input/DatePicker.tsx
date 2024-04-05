@@ -49,6 +49,14 @@ const DatePickerInput = React.forwardRef<
       format="####-##-##"
       customInput={TextField}
       InputProps={{
+        sx: {
+          ...(disabled && {
+            backgroundColor: 'rgba(118, 118, 118, 0.15)',
+          }),
+          'input[disabled]': {
+            backgroundColor: 'transparent',
+          },
+        },
         endAdornment: (
           <IconButton
             title="달력 열기"
@@ -60,6 +68,7 @@ const DatePickerInput = React.forwardRef<
             sx={{
               p: 0.5,
             }}
+            disabled={disabled}
           >
             <CalendarMonthIcon fontSize="small" />
           </IconButton>

@@ -1,5 +1,4 @@
 import { IRes } from 'archive-types';
-
 import * as api from 'api/photo';
 import { IContPhoto } from '@types';
 import { IContPhotoParams } from 'archive-types';

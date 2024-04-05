@@ -2,10 +2,10 @@ import { Outlet } from 'react-router';
 import { RecoilRoot, useRecoilValueLoadable } from 'recoil';
 
 import Layout from './@components/layout';
-import { asyncCodeMap } from './rootState';
+import { serverCodeMap } from './rootState';
 
 const Inner = () => {
-  useRecoilValueLoadable(asyncCodeMap);
+  useRecoilValueLoadable(serverCodeMap);
 
   return (
     <Layout>

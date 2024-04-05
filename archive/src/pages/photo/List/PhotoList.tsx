@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import React from 'react';
 import {
   RecoilRoot,
@@ -12,6 +12,7 @@ import MoreButton from 'pages/@components/button/MoreButton';
 import { photoListSelector, photoListParams, photoListState } from './state';
 import PhotoItem from './PhotoItem';
 import PhotoSearchParams from './SearchParams';
+import SearchCount from 'pages/@components/text/SearchCount';
 
 const Inner = () => {
   const [params, setParams] = useRecoilState(photoListParams);
@@ -69,11 +70,7 @@ const Inner = () => {
           }}
         >
           <PhotoSearchParams />
-          <Box textAlign="right" mb={1}>
-            <Typography variant="fs12">
-              검색 결과 : {count.toLocaleString()}개
-            </Typography>
-          </Box>
+          <SearchCount count={count} />
           {galleryPics.length > 0 && (
             <Box
               sx={{

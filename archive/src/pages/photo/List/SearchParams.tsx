@@ -1,15 +1,14 @@
 import React from 'react';
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilState, useRecoilValueLoadable } from 'recoil';
 import { Box } from '@mui/material';
+
 import ImgType from 'pages/@components/searchParams/ImgType';
 import ShootType from 'pages/@components/searchParams/ShootType';
 import StartEndDt from 'pages/@components/searchParams/StartEndDt';
 import Keyword from 'pages/@components/searchParams/Keyword';
-import { constantsState } from 'pages/rootState';
 import { photoListParams, photoListSelector } from './state';
 
 const PhotoSearchParams = () => {
-  const constants = useRecoilValue(constantsState);
   const loadable = useRecoilValueLoadable(photoListSelector);
   const [params, setParams] = useRecoilState(photoListParams);
 

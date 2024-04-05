@@ -1,7 +1,8 @@
 import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, TextField } from '@mui/material';
-import { audioSelector } from 'pages/audio/state';
+
+import { audioSelector } from '../state';
 
 /**
  * 저작권

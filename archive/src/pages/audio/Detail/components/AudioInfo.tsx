@@ -1,15 +1,16 @@
 import React from 'react';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { Box, Divider, Grid, Skeleton, Typography } from '@mui/material';
+
 import Allowed from 'pages/@components/statusIcon/Allowed';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
 import { formatBytes, secondsToTimeText } from 'utils/utils';
-import { audioSelector } from 'pages/audio/state';
-import { constantsState } from 'pages/rootState';
+import { codeMap } from 'pages/rootState';
+import { audioSelector } from '../state';
 
 const AudioInfo = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
-  const constants = useRecoilValue(constantsState);
+  const constants = useRecoilValue(codeMap);
 
   switch (state) {
     case 'loading':
@@ -35,7 +36,7 @@ const AudioInfo = ({ contId }: { contId: number }) => {
           <Grid item xs={10}>
             <Box px={4} display="flex" alignItems="center" gap={2}>
               <Typography variant="fs12">
-                {constants.AUDIO_MEDIA_TYPE[body!.mediaType] || ''}
+                {constants.AUDIO_MEDIA_TYPE[body!.mediaType!] || ''}
               </Typography>
               <Divider flexItem orientation="vertical" />
               <Typography variant="fs12">

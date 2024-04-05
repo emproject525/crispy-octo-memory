@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
-import { asyncCodeMap } from 'pages/rootState';
+import { serverCodeMap } from 'pages/rootState';
 import FormSelect from 'components/Input/FormSelect';
 import { photoOneState } from '../state';
 
@@ -10,7 +10,7 @@ import { photoOneState } from '../state';
  */
 const PhotoDepartment = ({ contId }: { contId: number }) => {
   const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
-  const code = useRecoilValue(asyncCodeMap);
+  const code = useRecoilValue(serverCodeMap);
 
   switch (state) {
     case 'loading':
