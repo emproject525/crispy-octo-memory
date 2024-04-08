@@ -3,17 +3,17 @@ import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 
 import { videoSelector } from '../state';
-import { getHighlightText } from 'utils/utils';
+import { getHighlight } from 'utils/utils';
 
 const VideoHeader = ({
   contId,
-  highlightText,
+  highlight,
 }: {
   contId: number;
   /**
    * 하이라이트 키워드
    */
-  highlightText?: string;
+  highlight?: string;
 }) => {
   const { contents, state } = useRecoilValueLoadable(videoSelector(contId));
 
@@ -42,7 +42,7 @@ const VideoHeader = ({
             <Typography
               variant="h3"
               dangerouslySetInnerHTML={{
-                __html: getHighlightText(body!.title || '', highlightText),
+                __html: getHighlight(body!.title || '', highlight),
               }}
             />
           </Box>

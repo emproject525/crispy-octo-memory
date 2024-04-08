@@ -3,14 +3,14 @@ import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 
 import { audioSelector } from '../state';
-import { getHighlightText } from 'utils/utils';
+import { getHighlight } from 'utils/utils';
 
 const AudioHeader = ({
   contId,
-  highlightText,
+  highlight,
 }: {
   contId: number;
-  highlightText?: string;
+  highlight?: string;
 }) => {
   const { contents, state } = useRecoilValueLoadable(audioSelector(contId));
 
@@ -39,7 +39,7 @@ const AudioHeader = ({
             <Typography
               variant="h3"
               dangerouslySetInnerHTML={{
-                __html: getHighlightText(body!.title || '', highlightText),
+                __html: getHighlight(body!.title || '', highlight),
               }}
             />
           </Box>

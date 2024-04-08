@@ -19,15 +19,15 @@ import { textOneState } from './state';
 
 export type TextDetailProps = {
   contId: number;
-  highlightText?: string;
+  highlight?: string;
 };
 
-const Inner = ({ contId, highlightText }: TextDetailProps) => {
+const Inner = ({ contId, highlight }: TextDetailProps) => {
   useRecoilValueLoadable(textOneState(contId));
 
   return (
     <Grid container spacing={2}>
-      <TextHeader contId={contId} highlightText={highlightText} />
+      <TextHeader contId={contId} highlight={highlight} />
       <TextRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />

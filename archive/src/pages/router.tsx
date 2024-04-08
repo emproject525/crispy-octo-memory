@@ -13,21 +13,13 @@ import Root from './Root';
 /** import pages */
 const Dashboard = React.lazy(() => import('pages/dashboard'));
 const Photos = React.lazy(() => import('pages/photo/Photos'));
-const PhotoDetailRoute = React.lazy(
-  () => import('pages/photo/Detail/PhotoDetailRoute'),
-);
+const PhotoOne = React.lazy(() => import('pages/photo/PhotoOne'));
 const Texts = React.lazy(() => import('pages/text/Texts'));
-const TextDetailRoute = React.lazy(
-  () => import('pages/text/Detail/TextDetailRoute'),
-);
+const TextOne = React.lazy(() => import('pages/text/TextOne'));
 const Videos = React.lazy(() => import('pages/video/Videos'));
-const VideoDetailRoute = React.lazy(
-  () => import('pages/video/Detail/VideoDetailRoute'),
-);
+const VideoOne = React.lazy(() => import('pages/video/VideoOne'));
 const Audios = React.lazy(() => import('pages/audio/Audios'));
-const AudioDetailRoute = React.lazy(
-  () => import('pages/audio/Detail/AudioDetailRoute'),
-);
+const AudioOne = React.lazy(() => import('pages/audio/AudioOne'));
 
 const getSuspensePages = (ele: JSX.Element) => (
   <Suspense fallback={<Fallback />}>{ele}</Suspense>
@@ -39,28 +31,19 @@ export default createBrowserRouter(
       <Route path={'/'} element={getSuspensePages(<Dashboard />)} />
       <Route path="/photos">
         <Route index element={getSuspensePages(<Photos />)} />
-        <Route
-          path=":contId"
-          element={getSuspensePages(<PhotoDetailRoute />)}
-        />
+        <Route path=":contId" element={getSuspensePages(<PhotoOne />)} />
       </Route>
       <Route path="/texts">
         <Route index element={getSuspensePages(<Texts />)} />
-        <Route path=":contId" element={getSuspensePages(<TextDetailRoute />)} />
+        <Route path=":contId" element={getSuspensePages(<TextOne />)} />
       </Route>
       <Route path="/videos">
         <Route index element={getSuspensePages(<Videos />)} />
-        <Route
-          path=":contId"
-          element={getSuspensePages(<VideoDetailRoute />)}
-        />
+        <Route path=":contId" element={getSuspensePages(<VideoOne />)} />
       </Route>
       <Route path="/audios">
         <Route index element={getSuspensePages(<Audios />)} />
-        <Route
-          path=":contId"
-          element={getSuspensePages(<AudioDetailRoute />)}
-        />
+        <Route path=":contId" element={getSuspensePages(<AudioOne />)} />
       </Route>
     </Route>,
   ),

@@ -54,7 +54,7 @@ const Inner = () => {
             key={`audio-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
-            highlightText={params.keyword}
+            highlight={params.keyword}
             {...origin}
           />
         );

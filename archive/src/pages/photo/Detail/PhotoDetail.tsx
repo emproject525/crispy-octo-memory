@@ -23,15 +23,15 @@ import { photoOneState } from './state';
 
 export type PhotoDetailType = {
   contId: number;
-  highlightText?: string;
+  highlight?: string;
 };
 
-const Inner = ({ contId, highlightText }: PhotoDetailType) => {
+const Inner = ({ contId, highlight }: PhotoDetailType) => {
   useRecoilValueLoadable(photoOneState(contId));
 
   return (
     <Grid container spacing={2}>
-      <PhotoHeader contId={contId} highlightText={highlightText} />
+      <PhotoHeader contId={contId} highlight={highlight} />
       <PhotoRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />

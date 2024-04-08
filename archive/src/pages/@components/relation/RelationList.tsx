@@ -53,7 +53,9 @@ const NoRelations = () => (
  */
 const RelationList = ({ relations }: { relations: RelationType[] }) => {
   const [width, setWidth] = React.useState(300);
-  const relationsByContType: Record<ContType, RelationType[]> = React.useMemo(
+
+  // 타입별 관련데이터
+  const relsByType: Record<ContType, RelationType[]> = React.useMemo(
     () => ({
       P: relations.filter((item) => item.contType === 'P'),
       V: relations.filter((item) => item.contType === 'V'),
@@ -62,9 +64,11 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
     }),
     [relations],
   );
-  const galleryPics: Record<ContType, PhotoProps[]> = React.useMemo(
+
+  // 타입별 이미지
+  const picsByType: Record<ContType, PhotoProps[]> = React.useMemo(
     () => ({
-      P: relationsByContType.P.map((item) => {
+      P: relsByType.P.map((item) => {
         const parsed = item as IContPhoto;
         return {
           width,
@@ -74,7 +78,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           key: `${item.contType}-rel-${item.contId}`,
         };
       }),
-      V: relationsByContType.V.map((item) => {
+      V: relsByType.V.map((item) => {
         const parsed = item as IContVideo;
         return {
           width,
@@ -87,7 +91,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           key: `${item.contType}-rel-${item.contId}`,
         };
       }),
-      A: relationsByContType.A.map((item) => {
+      A: relsByType.A.map((item) => {
         const parsed = item as IContAudio;
         return {
           width,
@@ -101,8 +105,9 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       }),
       T: [],
     }),
-    [relationsByContType, width],
+    [relsByType, width],
   );
+
   const boxRefCallback = React.useCallback((ele: HTMLDivElement | null) => {
     if (ele) {
       const observer = new ResizeObserver((entries) => {
@@ -121,13 +126,14 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
    */
   const renderItem = React.useCallback(
     (contType: ContType, targetProps: RenderImageProps) => {
-      const origin = relationsByContType[contType]?.[targetProps.index];
+      const origin = relsByType[contType]?.[targetProps.index];
 
       if (contType === 'V') {
         const parsed = origin as IContVideo;
 
         return (
           <VideoItem
+            relItem
             key={`${contType}-rel-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
@@ -139,6 +145,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
 
         return (
           <AudioItem
+            relItem
             key={`${contType}-rel-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
@@ -150,6 +157,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
 
         return (
           <PhotoItem
+            relItem
             key={`${contType}-rel-${targetProps.index}`}
             direction="row"
             targetProps={targetProps}
@@ -158,7 +166,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
         );
       }
     },
-    [relationsByContType],
+    [relsByType],
   );
 
   return (
@@ -185,7 +193,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
           flexWrap="nowrap"
           ref={boxRefCallback}
         >
-          {galleryPics.P.map((item, index) =>
+          {picsByType.P.map((item, index) =>
             renderItem('P', {
               direction: 'row',
               index,
@@ -194,7 +202,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
               margin: '0px',
             }),
           )}
-          {galleryPics.P.length === 0 && <NoRelations />}
+          {picsByType.P.length === 0 && <NoRelations />}
         </Box>
       </Grid>
       <Grid item xs={12}>
@@ -216,7 +224,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       </Grid>
       <Grid item xs={12}>
         <Box px={4} ref={boxRefCallback}>
-          {relationsByContType.T.length > 0 && (
+          {relsByType.T.length > 0 && (
             <TableContainer
               component={Paper}
               variant="outlined"
@@ -234,8 +242,9 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
                   onCheck={() => {}}
                 />
                 <TableBody>
-                  {relationsByContType.T.map((item) => (
+                  {relsByType.T.map((item) => (
                     <TextItemRow
+                      relItem
                       useCheckboxCell={false}
                       key={`rel-content-text-${item.contId}`}
                       checked={false}
@@ -247,7 +256,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
               </Table>
             </TableContainer>
           )}
-          {relationsByContType.T.length === 0 && <NoRelations />}
+          {relsByType.T.length === 0 && <NoRelations />}
         </Box>
       </Grid>
       <Grid item xs={12}>
@@ -269,7 +278,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       </Grid>
       <Grid item xs={12}>
         <Box px={4} display="flex" gap={2} flexWrap="nowrap">
-          {galleryPics.V.map((item, index) =>
+          {picsByType.V.map((item, index) =>
             renderItem('V', {
               direction: 'row',
               index,
@@ -278,7 +287,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
               margin: '0px',
             }),
           )}
-          {galleryPics.V.length === 0 && <NoRelations />}
+          {picsByType.V.length === 0 && <NoRelations />}
         </Box>
       </Grid>
       <Grid item xs={12}>
@@ -300,7 +309,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
       </Grid>
       <Grid item xs={12}>
         <Box px={4} display="flex" gap={2} flexWrap="nowrap">
-          {galleryPics.A.map((item, index) =>
+          {picsByType.A.map((item, index) =>
             renderItem('A', {
               direction: 'row',
               index,
@@ -309,7 +318,7 @@ const RelationList = ({ relations }: { relations: RelationType[] }) => {
               margin: '0px',
             }),
           )}
-          {galleryPics.A.length === 0 && <NoRelations />}
+          {picsByType.A.length === 0 && <NoRelations />}
         </Box>
       </Grid>
       <Grid item xs={12}>

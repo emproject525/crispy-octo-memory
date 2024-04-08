@@ -18,14 +18,14 @@ import VideoShootPlace from './components/ShootPlace';
 import VideoPayYnAdultYn from './components/PayYnAdultYn';
 import VideoRelations from './components/Relations';
 
-export type VideoDetailProps = { contId: number; highlightText?: string };
+export type VideoDetailProps = { contId: number; highlight?: string };
 
-const Inner = ({ contId, highlightText }: VideoDetailProps) => {
+const Inner = ({ contId, highlight }: VideoDetailProps) => {
   useRecoilValueLoadable(videoSelector(contId));
 
   return (
     <Grid container spacing={2}>
-      <VideoHeader contId={contId} highlightText={highlightText} />
+      <VideoHeader contId={contId} highlight={highlight} />
       <VideoRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />

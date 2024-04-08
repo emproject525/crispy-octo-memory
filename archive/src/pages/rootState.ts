@@ -1,10 +1,10 @@
 import { getCodes } from 'api/code';
-import { GroupType, ContType } from 'archive-types';
+import { GroupType } from 'archive-types';
 import { ICode } from '@types';
-import { atom, DefaultValue, selector } from 'recoil';
+import { atom, selector } from 'recoil';
 
 /**
- * 상수
+ * 프론트 코드맵
  */
 export const codeMap = atom({
   key: 'codeMap',
@@ -59,20 +59,19 @@ export const codeMap = atom({
   },
 });
 
-const defaultMap: Record<GroupType, ICode[]> = {
-  MEDIA: [],
-  SOURCE: [],
-  DEPARTMENT: [],
-  IMG_TYPE: [],
-};
-
 /**
- * 코드 데이터 조회
+ * 서버 코드맵
  */
-export const serverCodeMap = selector<typeof defaultMap>({
+export const serverCodeMap = selector<Record<GroupType, ICode[]>>({
   key: 'serverCodeMap',
   get: async () => {
     const response = await getCodes();
+    const defaultMap: Record<GroupType, ICode[]> = {
+      MEDIA: [],
+      SOURCE: [],
+      DEPARTMENT: [],
+      IMG_TYPE: [],
+    };
 
     if (response.status === 200) {
       const { data } = response;
@@ -85,69 +84,5 @@ export const serverCodeMap = selector<typeof defaultMap>({
     }
 
     return defaultMap;
-  },
-});
-
-/**
- * 보고 있는 컨텐츠
- */
-const viewingIds = atom<string[]>({
-  key: 'viewing',
-  default: [],
-  effects: [
-    ({ onSet }) => {
-      onSet((newValue) => {
-        if (newValue instanceof DefaultValue) {
-        } else {
-          console.log(newValue);
-        }
-      });
-    },
-  ],
-});
-
-export const viewContent = selector<{
-  contType: ContType;
-  contId: number;
-}>({
-  key: 'viewContent',
-  get: () => ({
-    contType: 'P',
-    contId: 0,
-  }),
-  set: ({ get, set }, newValue) => {
-    if (newValue instanceof DefaultValue) {
-    } else {
-      const id = `${newValue.contType}-${newValue.contId}`;
-      const ids = get(viewingIds);
-      if (ids.indexOf(id) < 0) {
-        set(viewingIds, [...ids, id]);
-      }
-    }
-  },
-});
-
-export const closeContent = selector<{
-  contType: ContType;
-  contId: number;
-}>({
-  key: 'closeContent',
-  get: () => ({
-    contType: 'P',
-    contId: 0,
-  }),
-  set: ({ get, set }, newValue) => {
-    if (newValue instanceof DefaultValue) {
-    } else {
-      const id = `${newValue.contType}-${newValue.contId}`;
-      const ids = [...get(viewingIds)];
-      const idx = ids.indexOf(id);
-
-      if (idx > -1) {
-        ids.splice(idx);
-      }
-
-      set(viewingIds, [...ids]);
-    }
   },
 });

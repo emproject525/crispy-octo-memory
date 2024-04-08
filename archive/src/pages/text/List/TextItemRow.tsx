@@ -1,19 +1,11 @@
 import React from 'react';
 import { Checkbox, TableCell, TableRow } from '@mui/material';
 import { IContText } from '@types';
-import TextDetailDialog from '../Detail/TextDetailDialog';
-import { getHighlightText } from 'utils/utils';
+import DraggablePaper, { clickTrigger } from 'components/DraggablePaper';
+import { getHighlight } from 'utils/utils';
+import TextDetail from '../Detail';
 
-/**
- * 문서 테이블 Body의 ROW 한줄
- */
-const TextItemRow = ({
-  checked,
-  onCheck,
-  useCheckboxCell,
-  highlightText,
-  ...rest
-}: {
+export type TextItemRowProps = {
   checked: boolean;
   onCheck: () => void;
   /**
@@ -23,10 +15,27 @@ const TextItemRow = ({
   /**
    * 하이라이트 키워드
    */
-  highlightText?: string;
-} & IContText) => {
-  const { contId, title, writers, regDt, modDt } = rest;
+  highlight?: string;
+  /**
+   * 관련 아이템 여부
+   */
+  relItem?: boolean;
+} & IContText;
+
+/**
+ * 문서 테이블 Body의 ROW 한줄
+ * @param props TextItemRowProps
+ * @returns JSX.Element
+ */
+const TextItemRow = (props: TextItemRowProps): JSX.Element => {
+  const { checked, onCheck, useCheckboxCell, highlight, relItem, ...rest } =
+    props;
+  const { contId, contType, title, writers, regDt, modDt } = rest;
+  const id = React.useMemo(() => `${contType}-${contId}`, [contId, contType]);
+
+  // 셀 숨김
   const [hideCell, setHideCell] = React.useState(false);
+
   const trRefCallback = React.useCallback((el: null | HTMLTableRowElement) => {
     if (el) {
       const observer = new ResizeObserver((entries) => {
@@ -42,7 +51,7 @@ const TextItemRow = ({
   }, []);
 
   // 상세 dialog 오픈
-  const [openDetail, setOpenDetail] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   return (
     <>
@@ -67,17 +76,23 @@ const TextItemRow = ({
           sx={{
             cursor: 'pointer',
           }}
-          onClick={() => {
-            const ele = document.getElementById(`text-${contId}`);
+          onClick={(e) => {
+            const ele = document.getElementById(id);
             if (ele) {
-              ele?.click();
+              e.preventDefault();
+              e.stopPropagation();
+              if (relItem) {
+                ele.dispatchEvent(clickTrigger);
+              } else {
+                ele.click();
+              }
             } else {
-              setOpenDetail(true);
+              setOpen(true);
             }
           }}
           title={title}
           dangerouslySetInnerHTML={{
-            __html: getHighlightText(title || '', highlightText),
+            __html: getHighlight(title || '', highlight),
           }}
         />
         {!hideCell && (
@@ -100,13 +115,16 @@ const TextItemRow = ({
       </TableRow>
 
       {contId && (
-        <TextDetailDialog
-          id={`text-${contId}`}
-          open={openDetail}
-          contId={contId}
-          onClose={() => setOpenDetail(false)}
-          highlightText={highlightText}
-        />
+        <DraggablePaper
+          open={open}
+          onClose={() => setOpen(false)}
+          handleId={id}
+          sx={{
+            width: 600,
+          }}
+        >
+          <TextDetail contId={contId} highlight={highlight} />
+        </DraggablePaper>
       )}
     </>
   );

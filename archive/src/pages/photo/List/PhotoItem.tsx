@@ -4,23 +4,33 @@ import { RenderImageProps } from 'react-photo-gallery';
 import { Box, Typography, useTheme, alpha, Divider } from '@mui/material';
 import Archived from 'pages/@components/statusIcon/Archived';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
-
+import DraggablePaper, { clickTrigger } from 'components/DraggablePaper';
 import Image from 'components/Image';
-import PhotoDetailDialog from '../Detail/PhotoDetailDialog';
-import { getHighlightText } from 'utils/utils';
+import { getHighlight } from 'utils/utils';
+import PhotoDetail from '../Detail';
 
-const PhotoItem = (
-  props: {
-    targetProps: RenderImageProps;
-    direction: 'row' | 'column';
-    /**
-     * 하이라이트 키워드
-     */
-    highlightText?: string;
-  } & IContPhoto,
-) => {
+export type PhotoItemProps = {
+  targetProps: RenderImageProps;
+  direction: 'row' | 'column';
+  /**
+   * 하이라이트 키워드
+   */
+  highlight?: string;
+  /**
+   * 관련 아이템 여부
+   */
+  relItem?: boolean;
+} & IContPhoto;
+
+/**
+ * 사진 아이템 1개
+ * @param props PhotoItemProps
+ * @returns JSX.Element
+ */
+const PhotoItem = (props: PhotoItemProps): JSX.Element => {
   const {
     direction,
+    contType,
     contId,
     title,
     width,
@@ -28,17 +38,19 @@ const PhotoItem = (
     dpi,
     archStatus,
     permissionYn,
-    highlightText,
+    highlight,
+    relItem,
   } = props;
   const { index, margin, photo, left, top } = props.targetProps;
   const theme = useTheme();
+  const id = React.useMemo(() => `${contType}-${contId}`, [contId, contType]);
   const isColumnPic = React.useMemo(() => direction === 'column', [direction]);
 
   //  hover 체크
   const [hovered, setHovered] = React.useState(false);
 
   // 상세 dialog 오픈
-  const [openDetail, setOpenDetail] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   //  HTML 제거한 타이틀
   const plainTitle = React.useMemo(() => {
@@ -71,15 +83,17 @@ const PhotoItem = (
           }),
         }}
         onClick={(e) => {
-          const ele = document.getElementById(`photo-${contId}`);
+          const ele = document.getElementById(id);
           if (ele) {
             e.preventDefault();
             e.stopPropagation();
-            setTimeout(() => {
-              ele?.click();
-            }, 0);
+            if (relItem) {
+              ele.dispatchEvent(clickTrigger);
+            } else {
+              ele.click();
+            }
           } else {
-            setOpenDetail(true);
+            setOpen(true);
           }
         }}
         onMouseEnter={() => setHovered(true)}
@@ -110,7 +124,7 @@ const PhotoItem = (
             textOverflow="ellipsis"
             title={plainTitle}
             dangerouslySetInnerHTML={{
-              __html: getHighlightText(title || '', highlightText) || '&nbsp;',
+              __html: getHighlight(title || '', highlight) || '&nbsp;',
             }}
             sx={{
               userSelect: 'none',
@@ -161,13 +175,16 @@ const PhotoItem = (
       </Box>
 
       {contId && (
-        <PhotoDetailDialog
-          id={`photo-${contId}`}
-          open={openDetail}
-          contId={contId}
-          onClose={() => setOpenDetail(false)}
-          highlightText={highlightText}
-        />
+        <DraggablePaper
+          open={open}
+          onClose={() => setOpen(false)}
+          handleId={id}
+          sx={{
+            width: 600,
+          }}
+        >
+          <PhotoDetail contId={contId} highlight={highlight} />
+        </DraggablePaper>
       )}
     </React.Fragment>
   );

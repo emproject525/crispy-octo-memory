@@ -4,25 +4,35 @@ import { RenderImageProps } from 'react-photo-gallery';
 import { alpha, Box, Typography, useTheme } from '@mui/material';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
-
+import DraggablePaper, { clickTrigger } from 'components/DraggablePaper';
 import Image from 'components/Image';
 import Archived from 'pages/@components/statusIcon/Archived';
 import Disallowed from 'pages/@components/statusIcon/Disallowed';
-import VideoDetailDialog from '../Detail/VideoDetailDialog';
-import { getHighlightText, secondsToTimeText } from 'utils/utils';
+import { getHighlight, secondsToTimeText } from 'utils/utils';
+import VideoDetail from '../Detail';
 
-const VideoItem = (
-  props: {
-    targetProps: RenderImageProps;
-    direction: 'row' | 'column';
-    /**
-     * 하이라이트 키워드
-     */
-    highlightText?: string;
-  } & IContVideo,
-) => {
+export type VideoItemProps = {
+  targetProps: RenderImageProps;
+  direction: 'row' | 'column';
+  /**
+   * 하이라이트 키워드
+   */
+  highlight?: string;
+  /**
+   * 관련 아이템 여부
+   */
+  relItem?: boolean;
+} & IContVideo;
+
+/**
+ * 영상 아이템 1개
+ * @param props VideoItemProps
+ * @returns JSX.Element
+ */
+const VideoItem = (props: VideoItemProps): JSX.Element => {
   const {
     direction,
+    contType,
     contId,
     title,
     mediaType,
@@ -30,17 +40,19 @@ const VideoItem = (
     archStatus,
     permissionYn,
     duration,
-    highlightText,
+    highlight,
+    relItem,
   } = props;
   const { index, margin, photo, left, top } = props.targetProps;
   const theme = useTheme();
+  const id = React.useMemo(() => `${contType}-${contId}`, [contId, contType]);
   const isColumnPic = React.useMemo(() => direction === 'column', [direction]);
 
   //  hover 체크
   const [hovered, setHovered] = React.useState(false);
 
   // 상세 dialog 오픈
-  const [openDetail, setOpenDetail] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   //  HTML 제거한 타이틀
   const plainTitle = React.useMemo(() => {
@@ -73,15 +85,17 @@ const VideoItem = (
           }),
         }}
         onClick={(e) => {
-          const ele = document.getElementById(`video-${contId}`);
+          const ele = document.getElementById(id);
           if (ele) {
             e.preventDefault();
             e.stopPropagation();
-            setTimeout(() => {
-              ele?.click();
-            }, 0);
+            if (relItem) {
+              ele.dispatchEvent(clickTrigger);
+            } else {
+              ele.click();
+            }
           } else {
-            setOpenDetail(true);
+            setOpen(true);
           }
         }}
         onMouseEnter={() => setHovered(true)}
@@ -167,7 +181,7 @@ const VideoItem = (
             textOverflow="ellipsis"
             title={plainTitle}
             dangerouslySetInnerHTML={{
-              __html: getHighlightText(title || '', highlightText) || '&nbsp;',
+              __html: getHighlight(title || '', highlight) || '&nbsp;',
             }}
             sx={{
               userSelect: 'none',
@@ -196,13 +210,16 @@ const VideoItem = (
       </Box>
 
       {contId && (
-        <VideoDetailDialog
-          id={`video-${contId}`}
-          open={openDetail}
-          contId={contId}
-          onClose={() => setOpenDetail(false)}
-          highlightText={highlightText}
-        />
+        <DraggablePaper
+          open={open}
+          onClose={() => setOpen(false)}
+          handleId={id}
+          sx={{
+            width: 600,
+          }}
+        >
+          <VideoDetail contId={contId} highlight={highlight} />
+        </DraggablePaper>
       )}
     </React.Fragment>
   );

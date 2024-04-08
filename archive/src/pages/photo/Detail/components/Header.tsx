@@ -2,17 +2,17 @@ import React from 'react';
 import { useRecoilValueLoadable } from 'recoil';
 import { Box, Grid, Skeleton, Typography } from '@mui/material';
 import { photoOneState } from '../state';
-import { getHighlightText } from 'utils/utils';
+import { getHighlight } from 'utils/utils';
 
 /**
  * 사진명
  */
 const PhotoHeader = ({
   contId,
-  highlightText,
+  highlight,
 }: {
   contId: number;
-  highlightText?: string;
+  highlight?: string;
 }) => {
   const { contents, state } = useRecoilValueLoadable(photoOneState(contId));
 
@@ -41,7 +41,7 @@ const PhotoHeader = ({
             <Typography
               variant="h3"
               dangerouslySetInnerHTML={{
-                __html: getHighlightText(body!.title || '', highlightText),
+                __html: getHighlight(body!.title || '', highlight),
               }}
             />
           </Box>

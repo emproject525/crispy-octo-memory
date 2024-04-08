@@ -20,15 +20,15 @@ import AudioRelations from './components/Relations';
 
 export type AudioDetailProps = {
   contId: number;
-  highlightText?: string;
+  highlight?: string;
 };
 
-const Inner = ({ contId, highlightText }: AudioDetailProps) => {
+const Inner = ({ contId, highlight }: AudioDetailProps) => {
   useRecoilValueLoadable(audioSelector(contId));
 
   return (
     <Grid container spacing={2}>
-      <AudioHeader contId={contId} highlightText={highlightText} />
+      <AudioHeader contId={contId} highlight={highlight} />
       <AudioRegDt contId={contId} />
       <Grid item xs={12}>
         <Divider />

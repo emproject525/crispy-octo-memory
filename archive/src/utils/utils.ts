@@ -86,7 +86,7 @@ const getHighlightRex = (keywords: string[]): RegExp => {
  * @param keyword 하이라이트 키워드
  * @returns 변환 후
  */
-export const getHighlightText = (text: string, keyword?: string): string => {
+export const getHighlight = (text: string, keyword?: string): string => {
   let msg = text;
 
   if (keyword) {
