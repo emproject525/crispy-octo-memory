@@ -95,8 +95,7 @@ const DraggablePaper = ({
             //   boxShadow: `0 0 0 3px ${alpha(theme.palette.warning.main, 0.25)}`,
             // }),
           }}
-          onClick={(e) => {
-            console.log(handleId, e.detail, e);
+          onClick={() => {
             setFocusOn(true);
           }}
           onBlur={(e) => {
