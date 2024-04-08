@@ -59,7 +59,7 @@ const DraggablePaper = ({
         ele.style.setProperty('z-index', '1500');
       });
 
-      // 클릭 시 z-index 조정 (trigger된 클릭, 이벤트 별도로 관리)
+      // 클릭이 trigger된 경우 z-index 조정 + 스크롤 탑 (customEvent)
       ele.addEventListener('clickTrigger', () => {
         ele.click();
         ele.querySelector('[data-dialog-scrollbody]')?.scrollTo({

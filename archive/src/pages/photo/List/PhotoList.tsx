@@ -51,6 +51,7 @@ const Inner = () => {
             key={`photo-${renderImageProps.index}`}
             direction="column"
             targetProps={renderImageProps}
+            highlight={params.keyword}
             {...originPhoto}
           />
         );
@@ -58,7 +59,7 @@ const Inner = () => {
 
       return null;
     },
-    [photos],
+    [params.keyword, photos],
   );
 
   return (
