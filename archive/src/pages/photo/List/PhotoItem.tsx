@@ -70,10 +70,14 @@ const PhotoItem = (
             boxShadow: `0 0 0 3px ${alpha(theme.palette.success.main, 0.6)}`,
           }),
         }}
-        onClick={() => {
+        onClick={(e) => {
           const ele = document.getElementById(`photo-${contId}`);
           if (ele) {
-            ele.parentElement?.focus();
+            e.preventDefault();
+            e.stopPropagation();
+            setTimeout(() => {
+              ele?.click();
+            }, 0);
           } else {
             setOpenDetail(true);
           }

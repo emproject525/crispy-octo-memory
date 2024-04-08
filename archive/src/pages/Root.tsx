@@ -19,7 +19,7 @@ const Inner = () => {
  * @returns JSX.Element
  */
 const Root = () => (
-  <RecoilRoot>
+  <RecoilRoot override={false}>
     <Inner />
   </RecoilRoot>
 );

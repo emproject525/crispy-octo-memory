@@ -1,7 +1,7 @@
 import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import {
-  alpha,
+  // alpha,
   Box,
   IconButton,
   Paper,
@@ -45,16 +45,11 @@ const DraggablePaper = ({
       observer.observe(ele);
       nodeRef.current = ele;
 
-      ele.addEventListener('focus', () => {
-        ele.style.setProperty('z-index', '1500');
-      });
-      ele.addEventListener('focusout', () => {
-        ele.style.setProperty('z-index', '1499');
-      });
-      ele.focus();
+      ele.click();
     }
   }, []);
   const theme = useTheme();
+  const [focusOn, setFocusOn] = React.useState(false);
   const [bounds, setBounds] = React.useState({
     top: 0,
     left: 0,
@@ -70,7 +65,7 @@ const DraggablePaper = ({
     <Portal key={handleId}>
       <Draggable
         nodeRef={nodeRef}
-        handle={`#${handleId}`}
+        handle={`#${handleId}-handle`}
         // cancel={'[class*="MuiPaper-root"]'}
         scale={1}
         // bounds="html"
@@ -80,12 +75,13 @@ const DraggablePaper = ({
         <Paper
           ref={nodeRefCallback}
           tabIndex={-1}
+          id={handleId}
           sx={{
             position: 'fixed',
             maxHeight: `calc(100vh - ${theme.spacing(20)})`,
             maxWidth: `calc(100vw - ${theme.spacing(20)})`,
             overflow: 'hidden',
-            zIndex: 1499,
+            zIndex: focusOn ? 1500 : 1499,
             p: 0,
             ...sx,
             top: theme.spacing(10),
@@ -93,17 +89,56 @@ const DraggablePaper = ({
             overflowY: 'auto',
             display: 'flex',
             flexDirection: 'column',
-            '&:focus, &:focus-visible': {
-              outline: 'none',
-              transition: 'none 400s ease 400s',
-              boxShadow: `0 0 0 3px ${alpha(theme.palette.warning.main, 0.25)}`,
-            },
+            // ...(focusOn && {
+            //   outline: 'none',
+            //   transition: 'none 400s ease 400s',
+            //   boxShadow: `0 0 0 3px ${alpha(theme.palette.warning.main, 0.25)}`,
+            // }),
+          }}
+          onClick={(e) => {
+            console.log(handleId, e.detail, e);
+            setFocusOn(true);
+          }}
+          onBlur={(e) => {
+            e.stopPropagation();
+
+            let isOwn = false; // 본인을 클릭해서 트리거된건지
+            let isChild = false; // 자식들을 클릭해서 트리거된건지
+            let isOut = false; // 밖을 클릭해서 트리거된건지
+
+            // currentTarget = 이벤트 걸린 곳 (부모까지 찾아감)
+            // target = 이벤트 트리거한 현재 엘리먼트
+            // relatedTarget = 이벤트 발생 시 마우스 근처 엘리먼트
+
+            if (e.currentTarget) {
+              // target이 currentTarget의 자식인지 확인
+              e.currentTarget.querySelectorAll('*')?.forEach((ch) => {
+                isChild =
+                  (e.relatedTarget
+                    ? ch.isSameNode(e.relatedTarget)
+                    : ch.isSameNode(e.target)) || isChild;
+              });
+            }
+
+            if (!isChild) {
+              // 트리거한 엘리먼트가 target 본인인지 확인
+              isOwn = e.currentTarget === e.target;
+
+              // 커서가 완전 밖으로 나갔는지 확인
+              isOut =
+                e.relatedTarget === null ||
+                !e.relatedTarget.isSameNode(e.currentTarget);
+
+              if (isOut || isOwn) {
+                setFocusOn(false);
+              }
+            }
           }}
           elevation={5}
           {...rest}
         >
           <Box
-            id={handleId}
+            id={`${handleId}-handle`}
             width="100%"
             sx={{
               cursor: 'move',

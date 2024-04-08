@@ -78,7 +78,7 @@ const AudioItem = (
         onClick={() => {
           const ele = document.getElementById(`audio-${contId}`);
           if (ele) {
-            ele.parentElement?.focus();
+            ele?.click();
           } else {
             setOpenDetail(true);
           }

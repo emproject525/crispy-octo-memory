@@ -1,7 +1,7 @@
 import { getCodes } from 'api/code';
-import { GroupType } from 'archive-types';
+import { GroupType, ContType } from 'archive-types';
 import { ICode } from '@types';
-import { atom, selector } from 'recoil';
+import { atom, DefaultValue, selector } from 'recoil';
 
 /**
  * 상수
@@ -85,5 +85,69 @@ export const serverCodeMap = selector<typeof defaultMap>({
     }
 
     return defaultMap;
+  },
+});
+
+/**
+ * 보고 있는 컨텐츠
+ */
+const viewingIds = atom<string[]>({
+  key: 'viewing',
+  default: [],
+  effects: [
+    ({ onSet }) => {
+      onSet((newValue) => {
+        if (newValue instanceof DefaultValue) {
+        } else {
+          console.log(newValue);
+        }
+      });
+    },
+  ],
+});
+
+export const viewContent = selector<{
+  contType: ContType;
+  contId: number;
+}>({
+  key: 'viewContent',
+  get: () => ({
+    contType: 'P',
+    contId: 0,
+  }),
+  set: ({ get, set }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+    } else {
+      const id = `${newValue.contType}-${newValue.contId}`;
+      const ids = get(viewingIds);
+      if (ids.indexOf(id) < 0) {
+        set(viewingIds, [...ids, id]);
+      }
+    }
+  },
+});
+
+export const closeContent = selector<{
+  contType: ContType;
+  contId: number;
+}>({
+  key: 'closeContent',
+  get: () => ({
+    contType: 'P',
+    contId: 0,
+  }),
+  set: ({ get, set }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+    } else {
+      const id = `${newValue.contType}-${newValue.contId}`;
+      const ids = [...get(viewingIds)];
+      const idx = ids.indexOf(id);
+
+      if (idx > -1) {
+        ids.splice(idx);
+      }
+
+      set(viewingIds, [...ids]);
+    }
   },
 });

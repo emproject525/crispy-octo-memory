@@ -70,7 +70,7 @@ const TextItemRow = ({
           onClick={() => {
             const ele = document.getElementById(`text-${contId}`);
             if (ele) {
-              ele.parentElement?.focus();
+              ele?.click();
             } else {
               setOpenDetail(true);
             }
