@@ -37,7 +37,7 @@ const client: IArchiveAxiosInstance = Object.assign({}, base, {
         responseType: 'blob',
       })
       .then((response) => {
-        const success = response.headers['download-success'] === 'Y';
+        const success = response.headers['ongoing'] === 'Y';
 
         if (success) {
           const disposition = response.headers['content-disposition'];

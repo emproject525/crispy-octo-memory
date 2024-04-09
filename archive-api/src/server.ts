@@ -7,7 +7,6 @@ import Throttle from 'throttle';
 
 import {
   IWriter,
-  IRelation,
   IContTextParams,
   IContPhotoParams,
   IContAudioParams,
@@ -226,9 +225,9 @@ app.post(
           res
             .status(200)
             .header({
-              'Download-Success': 'Y',
+              Ongoing: 'Y',
               'Access-Control-Expose-Headers': [
-                'Download-Success',
+                'Ongoing',
                 'Content-Disposition'
               ]
             })
@@ -249,29 +248,28 @@ app.post(
 
           res
             .header({
-              'Download-Success': 'Y',
+              Ongoing: 'Y',
               'Access-Control-Expose-Headers': [
-                'Download-Success',
+                'Ongoing',
                 'Content-Disposition'
               ]
             })
+            .attachment(target.orgFileName || '')
+            .contentType('video/mp4')
             .writeHead(200, {
-              'Content-Type': 'video/mp4',
-              'Content-Disposition': `attachment; filename=${target.orgFileName}`,
               'Content-Length': fileSize
             });
 
-          const readStream = fs.createReadStream(videoPath);
-          const throttle = new Throttle(1024 * 1024 * 5); // throttle to 5MB/sec - simulate lower speed
+          const stream = fs.createReadStream(videoPath);
+          // const throttle = new Throttle(1024 * 1024 * 5); // throttle to 5MB/sec - simulate lower speed
+          // stream.pipe(throttle);
 
-          readStream.pipe(throttle);
-
-          throttle.on('data', (chunk) => {
+          stream.pipe(res);
+          stream.on('data', (chunk) => {
             console.log(`Sent ${chunk.length} bytes to client.`);
             res.write(chunk);
           });
-
-          throttle.on('end', () => {
+          stream.on('end', () => {
             console.log('File fully sent to client.');
             res.end();
           });
@@ -290,9 +288,9 @@ app.post(
 
           res
             .header({
-              'Download-Success': 'Y',
+              Ongoing: 'Y',
               'Access-Control-Expose-Headers': [
-                'Download-Success',
+                'Ongoing',
                 'Content-Disposition'
               ]
             })
@@ -302,17 +300,16 @@ app.post(
               'Content-Length': fileSize
             });
 
-          const readStream = fs.createReadStream(audioPath);
-          const throttle = new Throttle(1024 * 1024 * 5); // throttle to 5MB/sec - simulate lower speed
+          const stream = fs.createReadStream(audioPath);
+          // const throttle = new Throttle(1024 * 1024 * 5); // throttle to 5MB/sec - simulate lower speed
+          // stream.pipe(throttle);
 
-          readStream.pipe(throttle);
-
-          throttle.on('data', (chunk) => {
+          stream.pipe(res);
+          stream.on('data', (chunk) => {
             console.log(`Sent ${chunk.length} bytes to client.`);
             res.write(chunk);
           });
-
-          throttle.on('end', () => {
+          stream.on('end', () => {
             console.log('File fully sent to client.');
             res.end();
           });

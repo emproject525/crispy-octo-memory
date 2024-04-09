@@ -29,7 +29,7 @@ const DownloadContButton = ({
   return (
     <Box flexShrink={0} title="다운로드">
       <Tooltip
-        // arrow
+        arrow
         PopperProps={{
           disablePortal: true,
         }}
@@ -53,9 +53,10 @@ const DownloadContButton = ({
               {
                 name: 'offset',
                 options: {
-                  offset: [0, -15],
+                  // arrow 없을 때 offset
+                  // offset: [0, -15],
                   // arrow 있을 때 offset
-                  // offset: [0, -5],
+                  offset: [0, -5],
                 },
               },
             ],

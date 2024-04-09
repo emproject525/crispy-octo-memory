@@ -5,12 +5,13 @@
 In the project directory, you can run:
 
 ### debug
-.vscode/launch.json 
+
+.vscode/launch.json
 
 request가 launch일 때랑 request가 attach일 때 방법이 다른 것 같음
 https://www.testkarts.com/blog/post/setting-up-debugging-express-with-vs-code-nodemon
 
-### `yarn rundemon`
+### `yarn start`
 
 localhost 8080 포트로 server 실행.
 
