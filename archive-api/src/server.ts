@@ -246,6 +246,10 @@ app.post(
           const stat = fs.statSync(videoPath);
           const fileSize = stat.size;
 
+          // 다운로드 방식이 2가지
+          // 1) res.download 사용  -> 오디오 다운로드 (header 만 변경 가능, writeHead 쓰면 에러남)
+          // 2) stream.pipe 사용   -> 비디오 다운로드 (예전 방식인듯)
+
           res
             .header({
               Ongoing: 'Y',
@@ -264,13 +268,13 @@ app.post(
           // const throttle = new Throttle(1024 * 1024 * 5); // throttle to 5MB/sec - simulate lower speed
           // stream.pipe(throttle);
 
-          stream.pipe(res);
-          stream.on('data', (chunk) => {
-            console.log(`Sent ${chunk.length} bytes to client.`);
-            res.write(chunk);
-          });
+          stream.pipe(res, { end: true });
+          // stream.on('data', (chunk) => {
+          //   console.log(`Sent ${chunk.length} bytes to client.`);
+          //   res.write(chunk);
+          // });
           stream.on('end', () => {
-            console.log('File fully sent to client.');
+            console.log(`File fully sent to client. : ${target.filePath} `);
             res.end();
           });
         } else {
@@ -284,7 +288,6 @@ app.post(
         if (target && target.filePath) {
           const audioPath = path.join(__dirname, '..', target.filePath);
           const stat = fs.statSync(audioPath);
-          const fileSize = stat.size;
 
           res
             .header({
@@ -294,25 +297,9 @@ app.post(
                 'Content-Disposition'
               ]
             })
-            .writeHead(200, {
-              'Content-Type': `audio/${target.format || 'mp3'}`,
-              'Content-Disposition': `attachment; filename=${target.orgFileName}`,
-              'Content-Length': fileSize
+            .download(audioPath, () => {
+              console.log(`File fully sent to client. : ${target.filePath} `);
             });
-
-          const stream = fs.createReadStream(audioPath);
-          // const throttle = new Throttle(1024 * 1024 * 5); // throttle to 5MB/sec - simulate lower speed
-          // stream.pipe(throttle);
-
-          stream.pipe(res);
-          stream.on('data', (chunk) => {
-            console.log(`Sent ${chunk.length} bytes to client.`);
-            res.write(chunk);
-          });
-          stream.on('end', () => {
-            console.log('File fully sent to client.');
-            res.end();
-          });
         } else {
           throw '다운로드할 오디오 파일이 없습니다.';
         }

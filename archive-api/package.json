@@ -38,8 +38,8 @@
     "tsconfig-paths": "^4.2.0"
   },
   "scripts": {
-    "start": "yarn nodemon ./src/server.ts",
-    "debug": "yarn nodemon --inspect=localhost:8080 ./src/server.ts",
+    "start": "yarn nodemon",
+    "debug": "yarn nodemon --inspect",
     "makestreamfiles": "node ffmpeg.cjs",
     "upgrade-type": "yarn add --dev @types/archive-types@link:./../types/archive-types"
   }

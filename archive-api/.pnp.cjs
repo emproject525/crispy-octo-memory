@@ -581,6 +581,14 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/node", [\
+      ["npm:18.19.31", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@types-node-npm-18.19.31-cace5a518d-10c0.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:18.19.31"],\
+          ["undici-types", "npm:5.26.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:20.11.19", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@types-node-npm-20.11.19-5d4958999b-10c0.zip/node_modules/@types/node/",\
         "packageDependencies": [\
@@ -4491,7 +4499,7 @@ const RAW_RUNTIME_STATE =
           ["@tsconfig/node12", "npm:1.0.11"],\
           ["@tsconfig/node14", "npm:1.0.3"],\
           ["@tsconfig/node16", "npm:1.0.4"],\
-          ["@types/node", null],\
+          ["@types/node", "npm:18.19.31"],\
           ["@types/swc__core", null],\
           ["@types/swc__wasm", null],\
           ["@types/typescript", null],\
@@ -4508,7 +4516,6 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@swc/core",\
           "@swc/wasm",\
-          "@types/node",\
           "@types/swc__core",\
           "@types/swc__wasm",\
           "@types/typescript",\

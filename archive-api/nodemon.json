@@ -1,0 +1,7 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "port": 8080,
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "ts-node --files --require tsconfig-paths/register src/server.ts"
+}
