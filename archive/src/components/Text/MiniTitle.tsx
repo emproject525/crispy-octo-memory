@@ -11,7 +11,12 @@ const MiniTitle = ({
   sx?: TypographyProps['sx'];
 }) => {
   return (
-    <>
+    <Box
+      sx={{
+        width: '100%',
+        overflow: 'hidden',
+      }}
+    >
       {startAdornment && (
         <Box
           height={20}
@@ -29,8 +34,6 @@ const MiniTitle = ({
         color="search.main"
         fontWeight="bold"
         sx={{
-          width: '100%',
-          overflow: 'hidden',
           float: 'left',
           cursor: 'default',
           userSelect: 'none',
@@ -39,7 +42,7 @@ const MiniTitle = ({
       >
         {text}
       </Typography>
-    </>
+    </Box>
   );
 };
 
