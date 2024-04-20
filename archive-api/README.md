@@ -11,6 +11,9 @@ In the project directory, you can run:
 request가 launch일 때랑 request가 attach일 때 방법이 다른 것 같음
 https://www.testkarts.com/blog/post/setting-up-debugging-express-with-vs-code-nodemon
 
+Attach to Process Id
+ProcessId로 디버깅할 때는 ts-node process를 잡아야함
+
 ### `yarn start`
 
 localhost 8080 포트로 server 실행.

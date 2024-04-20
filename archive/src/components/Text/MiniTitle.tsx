@@ -29,6 +29,8 @@ const MiniTitle = ({
         color="search.main"
         fontWeight="bold"
         sx={{
+          width: '100%',
+          overflow: 'hidden',
           float: 'left',
           cursor: 'default',
           userSelect: 'none',

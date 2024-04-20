@@ -18,7 +18,8 @@ import {
   IContVideo,
   ICode,
   ContType,
-  IRelationCont
+  IRelationCont,
+  IKeyword
 } from 'archive-types';
 
 import { make500Response, isNonNullable, getStartEnd } from 'utils';
@@ -33,6 +34,7 @@ import audios from '@data/audio/list.json';
 import writers from '@data/text/writers.json';
 import texts from '@data/text/list.json';
 import relations from '@data/relation/list.json';
+import keywords from '@data/keywords/list.json';
 
 import {
   ContAudio,
@@ -57,6 +59,7 @@ const textParsed = texts.map(
     })
 );
 const relationsParsed = relations.map((item) => new Relation(item));
+const keywordsParsed = keywords.map((item) => item as IKeyword);
 
 const app: Application = express();
 app.use(
@@ -629,6 +632,38 @@ app.get(
     }
   }
 );
+
+/**
+ * 최근 검색어 5개 랜덤
+ */
+app.get('/api/latestkeywords', (req: Request, res: Response) => {
+  try {
+    const totalCnt = keywordsParsed.length;
+    const count = 5;
+    const randomStart = Math.floor(Math.random() * (totalCnt - count)) + 1;
+
+    console.log(`최근 검색어 ${randomStart}부터 5개`);
+
+    const response: IRes<IKeyword> = {
+      header: {
+        success: true,
+        status: 200,
+        message: '성공하였습니다'
+      },
+      body: {
+        list: keywordsParsed.slice(randomStart, randomStart + count),
+        count,
+        keywords: []
+      }
+    };
+
+    res.status(200).type('application/json').send(response);
+  } catch (e) {
+    res
+      .status(200)
+      .send(make500Response(e instanceof Error ? e.message : String(e)));
+  }
+});
 
 const findCont = (
   contType: ContType,

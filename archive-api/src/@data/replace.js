@@ -102,38 +102,6 @@ t.map((item) => {
   return newItem;
 });
 
-function replaceDt(before, fillToday) {
-  if (!before) {
-    if (fillToday === true) {
-      const today = new Date();
-      var year = today.getFullYear();
-      var month = ('00' + (today.getMonth() + 1)).slice(-2);
-      var date = ('00' + today.getDate()).slice(-2);
-      var hours = ('00' + today.getHours()).slice(-2);
-      var minutes = ('00' + today.getMinutes()).slice(-2);
-      var seconds = ('00' + today.getSeconds()).slice(-2);
-
-      return (
-        year +
-        '-' +
-        month +
-        '-' +
-        date +
-        ' ' +
-        hours +
-        ':' +
-        minutes +
-        ':' +
-        seconds
-      );
-    }
-
-    return null;
-  }
-
-  return before.replace('T', ' ');
-}
-
 // 문서
 t.map((item) => {
   var newItem = {};
@@ -168,3 +136,55 @@ t.map((item) => {
 
   return newItem;
 });
+
+function replaceDt(before, fillToday) {
+  if (!before) {
+    if (fillToday === true) {
+      const today = new Date();
+      var year = today.getFullYear();
+      var month = ('00' + (today.getMonth() + 1)).slice(-2);
+      var date = ('00' + today.getDate()).slice(-2);
+      var hours = ('00' + today.getHours()).slice(-2);
+      var minutes = ('00' + today.getMinutes()).slice(-2);
+      var seconds = ('00' + today.getSeconds()).slice(-2);
+
+      return (
+        year +
+        '-' +
+        month +
+        '-' +
+        date +
+        ' ' +
+        hours +
+        ':' +
+        minutes +
+        ':' +
+        seconds
+      );
+    }
+
+    return null;
+  }
+
+  return before.replace('T', ' ');
+}
+
+[
+  '요다영',
+  '비주얼',
+  '가르나초',
+  'audio',
+  '중독사회',
+  '현봉식',
+  '사극',
+  '민주당',
+  '저격수',
+  '밤양갱',
+  '탄수화물',
+  'video'
+].map((item, idx) => ({
+  seq: idx + 1,
+  regId: 'test01',
+  regDt: replaceDt(undefined, true),
+  keyword: item
+}));
