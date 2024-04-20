@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper, useTheme, useMediaQuery, Box } from '@mui/material';
+import { Paper, useTheme, useMediaQuery, Box } from '@mui/material';
 import {
   RecoilRoot,
   useRecoilState,
@@ -11,28 +11,67 @@ import MoreButton from 'pages/@components/button/MoreButton';
 
 import AudioSearchParams from './SearchParams';
 import AudioItem from './AudioItem';
-import { audioListParams, audioListSelector, audioListState } from './state';
+import { audioListResponse, audioListState, audioParamsState } from './state';
 import SearchCount from 'pages/@components/text/SearchCount';
+import { IContAudioParams } from '@types';
+import MiniTitle from 'components/Text/MiniTitle';
 
-const Inner = () => {
+export type AudioListProps = {
+  /**
+   * 검색 기능 막기
+   */
+  suppressSearch?: boolean;
+  /**
+   * 더보기 기능 막기
+   */
+  suppressMoreButton?: boolean;
+  /**
+   * 타이틀
+   */
+  title?: string;
+  /**
+   * 목록 한 페이지 개수
+   */
+  size?: IContAudioParams['size'];
+  /**
+   * 한 Row의 개수 (정확한 계산 X)
+   */
+  rowCount?: number;
+};
+
+const Inner = ({
+  size,
+  suppressMoreButton,
+  suppressSearch,
+  title,
+  rowCount,
+}: AudioListProps) => {
   const { breakpoints } = useTheme();
-  const [params, setParams] = useRecoilState(audioListParams);
-  const [loadable, setAudioList] = useRecoilStateLoadable(audioListSelector);
+  const [params, setParams] = useRecoilState(
+    audioParamsState({
+      size,
+    }),
+  );
+  const [loadable, changeListState] = useRecoilStateLoadable(
+    audioListResponse({
+      size,
+    }),
+  );
   const audios = useRecoilValue(audioListState);
   const isDownXs = useMediaQuery(breakpoints.down('xs'));
   const isUpLg = useMediaQuery(breakpoints.up('lg'));
   const count = React.useMemo(
-    () =>
-      loadable.state === 'hasValue' ? loadable.contents.body?.count || 0 : 0,
-    [loadable.contents.body?.count, loadable.state],
+    () => (loadable.state === 'hasValue' ? loadable.contents.count || 0 : 0),
+    [loadable.contents.count, loadable.state],
   );
 
   React.useEffect(() => {
     if (loadable.state === 'hasValue') {
-      setAudioList((cur) => cur);
+      changeListState((cur) => cur);
     }
-  }, [loadable.state, setAudioList]);
+  }, [changeListState, loadable.state]);
 
+  // react-photo-gallery
   const galleryPics = React.useMemo(
     () =>
       audios.map((item) => ({
@@ -44,6 +83,7 @@ const Inner = () => {
     [audios],
   );
 
+  // react-photo-gallery component
   const renderItem = React.useCallback(
     (targetProps: RenderImageProps) => {
       const origin = audios[targetProps.index];
@@ -66,54 +106,77 @@ const Inner = () => {
   );
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12}>
-        <Paper
+    <Paper
+      sx={{
+        px: 4,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {title && (
+        <MiniTitle
+          text={title}
           sx={{
-            px: 4,
+            mb: 3,
           }}
-        >
-          <AudioSearchParams />
-          <SearchCount count={count} />
-          {galleryPics.length > 0 && (
-            <Box
-              sx={{
-                width: 'calc(100% + 12px)',
-                marginLeft: '-6px',
-              }}
-            >
-              <Gallery
-                margin={6}
-                photos={galleryPics}
-                direction="row"
-                renderImage={renderItem}
-                targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
-                limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
-              />
-            </Box>
-          )}
+        />
+      )}
 
-          <MoreButton
-            loading={loadable.state === 'loading'}
-            count={count}
-            size={params.size}
-            page={params.page}
-            onClick={(nextPage) =>
-              setParams((p) => ({
-                ...p,
-                page: nextPage,
+      {!suppressSearch && (
+        <>
+          <AudioSearchParams
+            disabled={loadable.state === 'loading'}
+            searchParams={params}
+            changeParams={(newParams) =>
+              setParams((before) => ({
+                ...before,
+                ...newParams,
               }))
             }
           />
-        </Paper>
-      </Grid>
-    </Grid>
+          <SearchCount count={count} />
+        </>
+      )}
+
+      {galleryPics.length > 0 && (
+        <Box
+          sx={{
+            width: 'calc(100% + 12px)',
+            marginLeft: '-6px',
+          }}
+        >
+          <Gallery
+            margin={6}
+            photos={galleryPics}
+            direction="row"
+            renderImage={renderItem}
+            targetRowHeight={rowCount || isDownXs ? 1 : isUpLg ? 4 : 2}
+            limitNodeSearch={rowCount || isDownXs ? 1 : isUpLg ? 4 : 2}
+          />
+        </Box>
+      )}
+
+      {!suppressMoreButton && (
+        <MoreButton
+          loading={loadable.state === 'loading'}
+          count={count}
+          size={params.size}
+          page={params.page}
+          onClick={(nextPage) =>
+            setParams((p) => ({
+              ...p,
+              page: nextPage,
+            }))
+          }
+        />
+      )}
+    </Paper>
   );
 };
 
-const AudioList = () => (
+const AudioList = (props: AudioListProps) => (
   <RecoilRoot>
-    <Inner />
+    <Inner {...props} />
   </RecoilRoot>
 );
 

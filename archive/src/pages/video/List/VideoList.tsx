@@ -1,5 +1,5 @@
-import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
+import { Box, Paper, useMediaQuery, useTheme } from '@mui/material';
 import Gallery, { RenderImageProps } from 'react-photo-gallery';
 import {
   RecoilRoot,
@@ -8,31 +8,70 @@ import {
   useRecoilValue,
 } from 'recoil';
 
+import { IContVideoParams } from '@types';
 import MoreButton from 'pages/@components/button/MoreButton';
+import SearchCount from 'pages/@components/text/SearchCount';
+import MiniTitle from 'components/Text/MiniTitle';
 import VideoSearchParams from './SearchParams';
 import VideoItem from './VideoItem';
-import { videoListSelector, videoListState, videoListParams } from './state';
-import SearchCount from 'pages/@components/text/SearchCount';
+import { videoListResponse, videoListState, videoParamsState } from './state';
 
-const Inner = () => {
+export type VideoListProps = {
+  /**
+   * 검색 기능 막기
+   */
+  suppressSearch?: boolean;
+  /**
+   * 더보기 기능 막기
+   */
+  suppressMoreButton?: boolean;
+  /**
+   * 타이틀
+   */
+  title?: string;
+  /**
+   * 목록 한 페이지 개수
+   */
+  size?: IContVideoParams['size'];
+  /**
+   * 한 Row의 개수 (정확한 계산 X)
+   */
+  rowCount?: number;
+};
+
+const Inner = ({
+  size,
+  suppressMoreButton,
+  suppressSearch,
+  title,
+  rowCount,
+}: VideoListProps) => {
   const { breakpoints } = useTheme();
-  const [params, setParams] = useRecoilState(videoListParams);
-  const [loadable, setVideoList] = useRecoilStateLoadable(videoListSelector);
+  const [params, setParams] = useRecoilState(
+    videoParamsState({
+      size,
+    }),
+  );
+  const [loadable, changeListState] = useRecoilStateLoadable(
+    videoListResponse({
+      size,
+    }),
+  );
   const videos = useRecoilValue(videoListState);
   const isDownXs = useMediaQuery(breakpoints.down('xs'));
   const isUpLg = useMediaQuery(breakpoints.up('lg'));
   const count = React.useMemo(
-    () =>
-      loadable.state === 'hasValue' ? loadable.contents.body?.count || 0 : 0,
-    [loadable.contents.body?.count, loadable.state],
+    () => (loadable.state === 'hasValue' ? loadable.contents.count || 0 : 0),
+    [loadable.contents.count, loadable.state],
   );
 
   React.useEffect(() => {
     if (loadable.state === 'hasValue') {
-      setVideoList((cur) => cur);
+      changeListState((cur) => cur);
     }
-  }, [loadable.state, setVideoList]);
+  }, [changeListState, loadable.state]);
 
+  // react-photo-gallery
   const galleryPics = React.useMemo(
     () =>
       videos.map((item) => ({
@@ -45,6 +84,7 @@ const Inner = () => {
     [videos],
   );
 
+  // react-photo-gallery component
   const renderItem = React.useCallback(
     (targetProps: RenderImageProps) => {
       const origin = videos[targetProps.index];
@@ -67,54 +107,77 @@ const Inner = () => {
   );
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12}>
-        <Paper
+    <Paper
+      sx={{
+        px: 4,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {title && (
+        <MiniTitle
+          text={title}
           sx={{
-            px: 4,
+            mb: 3,
           }}
-        >
-          <VideoSearchParams />
-          <SearchCount count={count} />
-          {galleryPics.length > 0 && (
-            <Box
-              sx={{
-                width: 'calc(100% + 12px)',
-                marginLeft: '-6px',
-              }}
-            >
-              <Gallery
-                margin={6}
-                photos={galleryPics}
-                direction="row"
-                renderImage={renderItem}
-                targetRowHeight={isDownXs ? 1 : isUpLg ? 4 : 2}
-                limitNodeSearch={isDownXs ? 1 : isUpLg ? 4 : 2}
-              />
-            </Box>
-          )}
+        />
+      )}
 
-          <MoreButton
-            loading={loadable.state === 'loading'}
-            count={count}
-            size={params.size}
-            page={params.page}
-            onClick={(nextPage) =>
-              setParams((p) => ({
-                ...p,
-                page: nextPage,
+      {!suppressSearch && (
+        <>
+          <VideoSearchParams
+            disabled={loadable.state === 'loading'}
+            searchParams={params}
+            changeParams={(newParams) =>
+              setParams((before) => ({
+                ...before,
+                ...newParams,
               }))
             }
           />
-        </Paper>
-      </Grid>
-    </Grid>
+          <SearchCount count={count} />
+        </>
+      )}
+
+      {galleryPics.length > 0 && (
+        <Box
+          sx={{
+            width: 'calc(100% + 12px)',
+            marginLeft: '-6px',
+          }}
+        >
+          <Gallery
+            margin={6}
+            photos={galleryPics}
+            direction="row"
+            renderImage={renderItem}
+            targetRowHeight={rowCount || isDownXs ? 1 : isUpLg ? 4 : 2}
+            limitNodeSearch={rowCount || isDownXs ? 1 : isUpLg ? 4 : 2}
+          />
+        </Box>
+      )}
+
+      {!suppressMoreButton && (
+        <MoreButton
+          loading={loadable.state === 'loading'}
+          count={count}
+          size={params.size}
+          page={params.page}
+          onClick={(nextPage) =>
+            setParams((p) => ({
+              ...p,
+              page: nextPage,
+            }))
+          }
+        />
+      )}
+    </Paper>
   );
 };
 
-const VideoList = () => (
+const VideoList = (props: VideoListProps) => (
   <RecoilRoot>
-    <Inner />
+    <Inner {...props} />
   </RecoilRoot>
 );
 

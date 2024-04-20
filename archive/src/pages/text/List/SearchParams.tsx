@@ -1,16 +1,19 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { Box } from '@mui/material';
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { IContTextParams } from '@types';
 import { codeMap } from 'pages/rootState';
 import StartEndDt from 'pages/@components/searchParams/StartEndDt';
 import Keyword from 'pages/@components/searchParams/Keyword';
 import FormSelect from 'components/Input/FormSelect';
-import { textListParams, textListSelector } from './state';
 
-const TextSearchParams = () => {
+const TextSearchParams = (props: {
+  searchParams: IContTextParams;
+  changeParams: (newParams: Partial<IContTextParams>) => void;
+  disabled?: boolean;
+}) => {
+  const { changeParams, searchParams, disabled } = props;
   const constants = useRecoilValue(codeMap);
-  const loadable = useRecoilValueLoadable(textListSelector);
-  const [params, setParams] = useRecoilState(textListParams);
 
   return (
     <Box display="flex" flexWrap="wrap" gap={2} mb={2}>
@@ -25,47 +28,43 @@ const TextSearchParams = () => {
             value: key,
             label: constants.TEXT_TYPE[key as keyof typeof constants.TEXT_TYPE],
           }))}
-          disabled={loadable.state === 'loading'}
-          value={params.textType || ''}
+          disabled={disabled}
+          value={searchParams.textType || ''}
           onChange={(evt) => {
-            setParams((before) => ({
-              ...before,
+            changeParams({
               page: 1,
               textType: evt.target.value,
-            }));
+            });
           }}
         />
       </Box>
       <StartEndDt
-        disabled={loadable.state === 'loading'}
-        startDt={params.startDt}
-        endDt={params.endDt}
+        disabled={disabled}
+        startDt={searchParams.startDt}
+        endDt={searchParams.endDt}
         onChange={(dates) =>
-          setParams((before) => ({
-            ...before,
+          changeParams({
             page: 1,
             startDt: dates[0],
             endDt: dates[1],
-          }))
+          })
         }
       />
       <Keyword
-        value={params.keyword}
+        value={searchParams.keyword}
         onChange={(newValue) =>
-          setParams((before) => ({
-            ...before,
+          changeParams({
             page: 1,
             keyword: newValue,
-          }))
+          })
         }
-        disabled={loadable.state === 'loading'}
+        disabled={disabled}
         useSearchButton
         onSearch={(keyword) =>
-          setParams((before) => ({
-            ...before,
+          changeParams({
             page: 1,
             keyword,
-          }))
+          })
         }
       />
     </Box>

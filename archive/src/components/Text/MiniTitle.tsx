@@ -1,12 +1,14 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, TypographyProps } from '@mui/material';
 
 const MiniTitle = ({
   text,
   startAdornment,
+  sx,
 }: {
   text: string;
   startAdornment?: React.ReactNode;
+  sx?: TypographyProps['sx'];
 }) => {
   return (
     <>
@@ -30,6 +32,7 @@ const MiniTitle = ({
           float: 'left',
           cursor: 'default',
           userSelect: 'none',
+          ...sx,
         }}
       >
         {text}

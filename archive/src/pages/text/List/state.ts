@@ -1,79 +1,102 @@
-import { IRes, IContTextParams } from 'archive-types';
+import { IRes } from 'archive-types';
 
 import * as api from 'api/text';
-import { IContText } from '@types';
+import { IContText, IContTextParams } from '@types';
 import { format, subMonths } from 'date-fns';
-import { atom, DefaultValue, selector } from 'recoil';
+import {
+  atom,
+  atomFamily,
+  DefaultValue,
+  selector,
+  selectorFamily,
+} from 'recoil';
 
-export const textListParams = atom<
-  Omit<IContTextParams, 'startDt' | 'endDt'> & {
-    startDt?: Date;
-    endDt?: Date;
-  }
+// 검색 조건
+export const textParamsState = atomFamily<
+  IContTextParams,
+  Partial<Pick<IContTextParams, 'size'>>
 >({
-  key: 'textListParams',
-  default: {
-    size: 20,
+  key: 'textParamsState',
+  default: (params) => ({
+    size: params.size || 20,
     page: 1,
     startDt: subMonths(new Date(), 6),
     endDt: new Date(),
-  },
+  }),
 });
 
+// 검색 결과의 목록
 export const textListState = atom<IContText[]>({
   key: 'textListState',
   default: [],
 });
 
-/**
- * params 변경 => 문서 목록 조회
- */
-export const textListSelector = selector<IRes<IContText>>({
-  key: 'textListSelector',
-  get: async ({ get }) => {
-    const params = get(textListParams);
-    const startDt = params.startDt
-      ? format(params.startDt, 'yyyy-MM-dd')
-      : undefined;
-    const endDt = params.endDt ? format(params.endDt, 'yyyy-MM-dd') : undefined;
+// params 변경 => 문서 목록 조회
+export const textListResponse = selectorFamily<
+  {
+    header: IRes<IContText>['header'];
+  } & Exclude<IRes<IContText>['body'], undefined>,
+  Partial<Pick<IContTextParams, 'size'>>
+>({
+  key: 'textListResponse',
+  get:
+    (overrides) =>
+    async ({ get }) => {
+      const params = get(textParamsState(overrides));
+      const startDt = params.startDt
+        ? format(params.startDt, 'yyyy-MM-dd')
+        : undefined;
+      const endDt = params.endDt
+        ? format(params.endDt, 'yyyy-MM-dd')
+        : undefined;
 
-    const response = await api.getTexts({
-      ...params,
-      startDt,
-      endDt,
-    });
-    await new Promise((resolve) => setTimeout(resolve, 500));
+      const response = await api.getTexts({
+        ...params,
+        startDt,
+        endDt,
+      });
 
-    if (response.status === 200 && response.data.header.success) {
-      return response.data;
-    }
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-    throw true;
-  },
-  set: ({ set, get }, newValue) => {
-    if (newValue instanceof DefaultValue) {
-    } else if (newValue.header.success) {
-      const before = get(textListState);
-      const params = get(textListParams);
-      const newList = newValue.body!.list.map((item) => ({
-        ...item,
-      }));
-      set(textListState, params.page === 1 ? newList : [...before, ...newList]);
-    }
-  },
+      if (response.status === 200 && response.data.header.success) {
+        return {
+          header: response.data.header,
+          ...response.data.body!,
+        };
+      }
+
+      return {
+        header: response.data.header,
+        list: [],
+        count: 0,
+        keywords: [],
+      };
+    },
+  set:
+    (overrides) =>
+    ({ set, get }, newValue) => {
+      if (newValue instanceof DefaultValue) {
+      } else if (newValue.header.success) {
+        const before = get(textListState);
+        const params = get(textParamsState(overrides));
+        const newList = newValue.list.map((item) => ({
+          ...item,
+        }));
+        set(
+          textListState,
+          params.page === 1 ? newList : [...before, ...newList],
+        );
+      }
+    },
 });
 
-/**
- * 체크한 목록
- */
+// 체크한 목록
 export const checkedState = atom<IContText[]>({
   key: 'checkedState',
   default: [],
 });
 
-/**
- * 목록 전체를 체크했는지 확인
- */
+// 목록 전체를 체크했는지 확인
 export const isCheckedAll = selector<boolean>({
   key: 'isCheckedAll',
   get: ({ get }) => {
@@ -83,9 +106,7 @@ export const isCheckedAll = selector<boolean>({
   },
 });
 
-/**
- * 체크
- */
+// 체크
 export const checkTextOne = selector<undefined | IContText | 'all' | 'uncheck'>(
   {
     key: 'checkTextOne',
