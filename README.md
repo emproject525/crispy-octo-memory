@@ -19,6 +19,7 @@
 - 익명 커뮤니티 front 서버 (포트 3000)
 - typescript 적용
 - nextjs + express
+- nextjs + mui (https://mui.com/material-ui/integrations/nextjs/)
 
 ```
 yarn create next-app lawyercommu-next
