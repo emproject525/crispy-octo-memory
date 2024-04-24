@@ -1502,7 +1502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
   version: 7.24.4
   resolution: "@babel/runtime@npm:7.24.4"
   dependencies:
@@ -1594,53 +1594,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/cache@npm:^11.11.0":
-  version: 11.11.0
-  resolution: "@emotion/cache@npm:11.11.0"
-  dependencies:
-    "@emotion/memoize": "npm:^0.8.1"
-    "@emotion/sheet": "npm:^1.2.2"
-    "@emotion/utils": "npm:^1.2.1"
-    "@emotion/weak-memoize": "npm:^0.3.1"
-    stylis: "npm:4.2.0"
-  checksum: 10c0/a23ab5ab2fd08e904698106d58ad3536fed51cc1aa0ef228e95bb640eaf11f560dbd91a395477b0d84e1e3c20150263764b4558517cf6576a89d2d6cc5253688
-  languageName: node
-  linkType: hard
-
-"@emotion/memoize@npm:^0.8.1":
-  version: 0.8.1
-  resolution: "@emotion/memoize@npm:0.8.1"
-  checksum: 10c0/dffed372fc3b9fa2ba411e76af22b6bb686fb0cb07694fdfaa6dd2baeb0d5e4968c1a7caa472bfcf06a5997d5e7c7d16b90e993f9a6ffae79a2c3dbdc76dfe78
-  languageName: node
-  linkType: hard
-
-"@emotion/sheet@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "@emotion/sheet@npm:1.2.2"
-  checksum: 10c0/69827a1bfa43d7b188f1d8cea42163143a36312543fdade5257c459a2b3efd7ce386aac84ba152bc2517a4f7e54384c04800b26adb382bb284ac7e4ad40e584b
-  languageName: node
-  linkType: hard
-
 "@emotion/use-insertion-effect-with-fallbacks@npm:^1.0.1":
   version: 1.0.1
   resolution: "@emotion/use-insertion-effect-with-fallbacks@npm:1.0.1"
   peerDependencies:
     react: ">=16.8.0"
   checksum: 10c0/a15b2167940e3a908160687b73fc4fcd81e59ab45136b6967f02c7c419d9a149acd22a416b325c389642d4f1c3d33cf4196cad6b618128b55b7c74f6807a240b
-  languageName: node
-  linkType: hard
-
-"@emotion/utils@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@emotion/utils@npm:1.2.1"
-  checksum: 10c0/db43ca803361740c14dfb1cca1464d10d27f4c8b40d3e8864e6932ccf375d1450778ff4e4eadee03fb97f2aeb18de9fae98294905596a12ff7d4cd1910414d8d
-  languageName: node
-  linkType: hard
-
-"@emotion/weak-memoize@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@emotion/weak-memoize@npm:0.3.1"
-  checksum: 10c0/ed514b3cb94bbacece4ac2450d98898066c0a0698bdeda256e312405ca53634cb83c75889b25cd8bbbe185c80f4c05a1f0a0091e1875460ba6be61d0334f0b8a
   languageName: node
   linkType: hard
 
@@ -2138,29 +2097,6 @@ __metadata:
     "@types/react": ">=16"
     react: ">=16"
   checksum: 10c0/d210d926ef488d39ad65f04d821936b668eadcdde3b6421e94ec4200ca7ad17f17d24c5cbc543882586af9f08b10e2eea715c728ce6277487945e05c5199f532
-  languageName: node
-  linkType: hard
-
-"@mui/material-nextjs@npm:^5.15.11":
-  version: 5.15.11
-  resolution: "@mui/material-nextjs@npm:5.15.11"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.9"
-  peerDependencies:
-    "@emotion/cache": ^11.11.0
-    "@emotion/server": ^11.11.0
-    "@mui/material": ^5.0.0
-    "@types/react": ^17.0.0 || ^18.0.0
-    next: ^13.0.0 || ^14.0.0
-    react: ^17.0.0 || ^18.0.0
-  peerDependenciesMeta:
-    "@emotion/cache":
-      optional: true
-    "@emotion/server":
-      optional: true
-    "@types/react":
-      optional: true
-  checksum: 10c0/1d01366b6a9501785571082dd2e5e5dc449ffb7ea95fa65f80508a763e716817f4832575b2f97f7b4749f1ea990ffd1b6b95aa7945ed7d0e6bb83d58be85d22f
   languageName: node
   linkType: hard
 
@@ -5066,7 +5002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.5.3, chokidar@npm:^3.6.0":
+"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.5.3, chokidar@npm:^3.6.0":
   version: 3.6.0
   resolution: "chokidar@npm:3.6.0"
   dependencies:
@@ -7878,6 +7814,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"immutable@npm:^4.0.0":
+  version: 4.3.5
+  resolution: "immutable@npm:4.3.5"
+  checksum: 10c0/63d2d7908241a955d18c7822fd2215b6e89ff5a1a33cc72cd475b013cbbdef7a705aa5170a51ce9f84a57f62fdddfaa34e7b5a14b33d8a43c65cc6a881d6e894
+  languageName: node
+  linkType: hard
+
 "import-fresh@npm:^3.2.1, import-fresh@npm:^3.3.0":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
@@ -8627,8 +8570,6 @@ __metadata:
   resolution: "lawyercommu-next@workspace:."
   dependencies:
     "@chromatic-com/storybook": "npm:1.3.3"
-    "@emotion/cache": "npm:^11.11.0"
-    "@mui/material-nextjs": "npm:^5.15.11"
     "@storybook/addon-essentials": "npm:^8.0.9"
     "@storybook/addon-interactions": "npm:^8.0.9"
     "@storybook/addon-links": "npm:^8.0.9"
@@ -8647,6 +8588,7 @@ __metadata:
     prettier: "npm:^3.2.5"
     react: "npm:^18"
     react-dom: "npm:^18"
+    sass: "npm:^1.75.0"
     sb: "npm:^8.0.9"
     storybook: "npm:^8.0.9"
     typescript: "npm:^5"
@@ -10997,6 +10939,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sass@npm:^1.75.0":
+  version: 1.75.0
+  resolution: "sass@npm:1.75.0"
+  dependencies:
+    chokidar: "npm:>=3.0.0 <4.0.0"
+    immutable: "npm:^4.0.0"
+    source-map-js: "npm:>=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: 10c0/1564ab2c8041c99a330cec93127fe8abcf65ac63eecb471610ed7f3126a2599a58b788a3a98eb8719f7f40b9b04e00c92bc9e11a9c2180ad582b8cba9fb030b0
+  languageName: node
+  linkType: hard
+
 "sb@npm:^8.0.9":
   version: 8.0.9
   resolution: "sb@npm:8.0.9"
@@ -11334,7 +11289,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^1.0.2, source-map-js@npm:^1.2.0":
+"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.2, source-map-js@npm:^1.2.0":
   version: 1.2.0
   resolution: "source-map-js@npm:1.2.0"
   checksum: 10c0/7e5f896ac10a3a50fe2898e5009c58ff0dc102dcb056ed27a354623a0ece8954d4b2649e1a1b2b52ef2e161d26f8859c7710350930751640e71e374fe2d321a4
@@ -11680,13 +11635,6 @@ __metadata:
     babel-plugin-macros:
       optional: true
   checksum: 10c0/42655cdadfa5388f8a48bb282d6b450df7d7b8cf066ac37038bd0499d3c9f084815ebd9ff9dfa12a218fd4441338851db79603498d7557207009c1cf4d609835
-  languageName: node
-  linkType: hard
-
-"stylis@npm:4.2.0":
-  version: 4.2.0
-  resolution: "stylis@npm:4.2.0"
-  checksum: 10c0/a7128ad5a8ed72652c6eba46bed4f416521bc9745a460ef5741edc725252cebf36ee45e33a8615a7057403c93df0866ab9ee955960792db210bb80abd5ac6543
   languageName: node
   linkType: hard
 

@@ -1,0 +1,10 @@
+@use 'variable';
+@use 'mixin';
+
+@include mixin.desktop {
+  .contents {
+    max-width: #{variable.$breakpoint-desktop}px;
+    margin: 0 auto;
+    position: relative;
+  }
+}

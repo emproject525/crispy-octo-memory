@@ -11,8 +11,6 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@emotion/cache": "^11.11.0",
-    "@mui/material-nextjs": "^5.15.11",
     "next": "14.2.2",
     "react": "^18",
     "react-dom": "^18"
@@ -34,6 +32,7 @@
     "eslint-config-next": "14.2.2",
     "eslint-plugin-storybook": "^0.8.0",
     "prettier": "^3.2.5",
+    "sass": "^1.75.0",
     "sb": "^8.0.9",
     "storybook": "^8.0.9",
     "typescript": "^5",

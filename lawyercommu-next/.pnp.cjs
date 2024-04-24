@@ -27,8 +27,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@chromatic-com/storybook", "npm:1.3.3"],\
-          ["@emotion/cache", "npm:11.11.0"],\
-          ["@mui/material-nextjs", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.15.11"],\
           ["@storybook/addon-essentials", "npm:8.0.9"],\
           ["@storybook/addon-interactions", "npm:8.0.9"],\
           ["@storybook/addon-links", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
@@ -47,6 +45,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.2.5"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:50806adc1a15ac3203587e8f275c2309094d4a8459c7bc11165b390f7b65859c9d86ca51d7d9dc33ba9cdd5f7e51bfc75078ff13f9aea9ccf0b5637764d70c45#npm:18.2.0"],\
+          ["sass", "npm:1.75.0"],\
           ["sb", "npm:8.0.9"],\
           ["storybook", "npm:8.0.9"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
@@ -2821,38 +2820,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@emotion/cache", [\
-      ["npm:11.11.0", {\
-        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@emotion-cache-npm-11.11.0-3e6e449071-10c0.zip/node_modules/@emotion/cache/",\
-        "packageDependencies": [\
-          ["@emotion/cache", "npm:11.11.0"],\
-          ["@emotion/memoize", "npm:0.8.1"],\
-          ["@emotion/sheet", "npm:1.2.2"],\
-          ["@emotion/utils", "npm:1.2.1"],\
-          ["@emotion/weak-memoize", "npm:0.3.1"],\
-          ["stylis", "npm:4.2.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@emotion/memoize", [\
-      ["npm:0.8.1", {\
-        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@emotion-memoize-npm-0.8.1-9b1e35ff15-10c0.zip/node_modules/@emotion/memoize/",\
-        "packageDependencies": [\
-          ["@emotion/memoize", "npm:0.8.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@emotion/sheet", [\
-      ["npm:1.2.2", {\
-        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@emotion-sheet-npm-1.2.2-a918ac483c-10c0.zip/node_modules/@emotion/sheet/",\
-        "packageDependencies": [\
-          ["@emotion/sheet", "npm:1.2.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["@emotion/use-insertion-effect-with-fallbacks", [\
       ["npm:1.0.1", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@emotion-use-insertion-effect-with-fallbacks-npm-1.0.1-730758c66c-10c0.zip/node_modules/@emotion/use-insertion-effect-with-fallbacks/",\
@@ -2884,24 +2851,6 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/react",\
           "react"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@emotion/utils", [\
-      ["npm:1.2.1", {\
-        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@emotion-utils-npm-1.2.1-3d04f99348-10c0.zip/node_modules/@emotion/utils/",\
-        "packageDependencies": [\
-          ["@emotion/utils", "npm:1.2.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@emotion/weak-memoize", [\
-      ["npm:0.3.1", {\
-        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@emotion-weak-memoize-npm-0.3.1-bfc18213af-10c0.zip/node_modules/@emotion/weak-memoize/",\
-        "packageDependencies": [\
-          ["@emotion/weak-memoize", "npm:0.3.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3504,45 +3453,6 @@ const RAW_RUNTIME_STATE =
         ],\
         "packagePeers": [\
           "@types/react",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@mui/material-nextjs", [\
-      ["npm:5.15.11", {\
-        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@mui-material-nextjs-npm-5.15.11-c1c7f34dd3-10c0.zip/node_modules/@mui/material-nextjs/",\
-        "packageDependencies": [\
-          ["@mui/material-nextjs", "npm:5.15.11"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.15.11", {\
-        "packageLocation": "./.yarn/__virtual__/@mui-material-nextjs-virtual-94c8843085/6/C:/Users/allme/AppData/Local/Yarn/Berry/cache/@mui-material-nextjs-npm-5.15.11-c1c7f34dd3-10c0.zip/node_modules/@mui/material-nextjs/",\
-        "packageDependencies": [\
-          ["@mui/material-nextjs", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.15.11"],\
-          ["@babel/runtime", "npm:7.24.4"],\
-          ["@emotion/cache", "npm:11.11.0"],\
-          ["@emotion/server", null],\
-          ["@mui/material", null],\
-          ["@types/emotion__cache", null],\
-          ["@types/emotion__server", null],\
-          ["@types/mui__material", null],\
-          ["@types/next", null],\
-          ["@types/react", "npm:18.2.79"],\
-          ["next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
-          ["react", "npm:18.2.0"]\
-        ],\
-        "packagePeers": [\
-          "@emotion/cache",\
-          "@emotion/server",\
-          "@mui/material",\
-          "@types/emotion__cache",\
-          "@types/emotion__server",\
-          "@types/mui__material",\
-          "@types/next",\
-          "@types/react",\
-          "next",\
           "react"\
         ],\
         "linkType": "HARD"\
@@ -10634,6 +10544,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["immutable", [\
+      ["npm:4.3.5", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/immutable-npm-4.3.5-5958499808-10c0.zip/node_modules/immutable/",\
+        "packageDependencies": [\
+          ["immutable", "npm:4.3.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["import-fresh", [\
       ["npm:3.3.0", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/import-fresh-npm-3.3.0-3e34265ca9-10c0.zip/node_modules/import-fresh/",\
@@ -11517,8 +11436,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["lawyercommu-next", "workspace:."],\
           ["@chromatic-com/storybook", "npm:1.3.3"],\
-          ["@emotion/cache", "npm:11.11.0"],\
-          ["@mui/material-nextjs", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.15.11"],\
           ["@storybook/addon-essentials", "npm:8.0.9"],\
           ["@storybook/addon-interactions", "npm:8.0.9"],\
           ["@storybook/addon-links", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
@@ -11537,6 +11454,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.2.5"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:50806adc1a15ac3203587e8f275c2309094d4a8459c7bc11165b390f7b65859c9d86ca51d7d9dc33ba9cdd5f7e51bfc75078ff13f9aea9ccf0b5637764d70c45#npm:18.2.0"],\
+          ["sass", "npm:1.75.0"],\
           ["sb", "npm:8.0.9"],\
           ["storybook", "npm:8.0.9"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
@@ -12258,7 +12176,7 @@ const RAW_RUNTIME_STATE =
           ["postcss", "npm:8.4.31"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:50806adc1a15ac3203587e8f275c2309094d4a8459c7bc11165b390f7b65859c9d86ca51d7d9dc33ba9cdd5f7e51bfc75078ff13f9aea9ccf0b5637764d70c45#npm:18.2.0"],\
-          ["sass", null],\
+          ["sass", "npm:1.75.0"],\
           ["styled-jsx", "virtual:f9e693c8c404ca343c0ae42da2caa06998c814fae757892209539499f54c38e65f40de8c29ef45412671225cdf4e8dda409b00f02e7564a1bf5fc3d6c59a38ef#npm:5.1.1"]\
         ],\
         "packagePeers": [\
@@ -14251,6 +14169,18 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["sass", [\
+      ["npm:1.75.0", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/sass-npm-1.75.0-d06f84fbd4-10c0.zip/node_modules/sass/",\
+        "packageDependencies": [\
+          ["sass", "npm:1.75.0"],\
+          ["chokidar", "npm:3.6.0"],\
+          ["immutable", "npm:4.3.5"],\
+          ["source-map-js", "npm:1.2.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["sass-loader", [\
       ["npm:12.6.0", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/sass-loader-npm-12.6.0-19096ee50d-10c0.zip/node_modules/sass-loader/",\
@@ -15041,15 +14971,6 @@ const RAW_RUNTIME_STATE =
           "@types/react",\
           "babel-plugin-macros",\
           "react"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["stylis", [\
-      ["npm:4.2.0", {\
-        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/stylis-npm-4.2.0-6b07f11c99-10c0.zip/node_modules/stylis/",\
-        "packageDependencies": [\
-          ["stylis", "npm:4.2.0"]\
         ],\
         "linkType": "HARD"\
       }]\
