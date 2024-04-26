@@ -1,10 +1,87 @@
 @use 'variable';
 @use 'mixin';
 
-@include mixin.desktop {
-  .contents {
-    max-width: #{variable.$breakpoint-desktop}px;
-    margin: 0 auto;
-    position: relative;
+.contents {
+  padding-top: 65px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
+  background-color: #fff;
+  max-width: 100%;
+
+  main {
+    padding: 2rem;
   }
+
+  @include mixin.desktop {
+    max-width: #{variable.$breakpoint-desktop}px;
+  }
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  top: 0;
+  left: 0;
+  background-color: #{variable.$gray-800};
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    top: 0;
+    left: 0;
+    box-shadow: 0 5px 10px -4px #{variable.$gray-400};
+  }
+}
+
+.header_area {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  nav > ul {
+    display: flex;
+    height: 100%;
+  }
+
+  nav > ul li a {
+    font-style: normal;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.8rem;
+    height: 100%;
+    color: #fff;
+    padding: 21px 21px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+
+    &:hover {
+      color: #{variable.$positive};
+      background: hsla(0, 0%, 100%, 0.1);
+      opacity: 1;
+    }
+  }
+
+  @include mixin.desktop {
+    max-width: #{variable.$breakpoint-desktop}px;
+  }
+}
+
+.skip_nav {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }

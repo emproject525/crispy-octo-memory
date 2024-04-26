@@ -1,0 +1,38 @@
+@use 'variable';
+@use 'mixin';
+
+.input {
+  min-height: 32px;
+  padding-left: #{variable.$gap};
+  padding-right: #{variable.$gap};
+  border-width: 1px;
+  border-style: solid;
+  border-color: light-dark(
+    #{variable.$gray-400},
+    lighten(variable.$gray-400, 10%)
+  );
+  outline: none;
+  width: 100%;
+
+  &:focus:not(:disabled),
+  &:active:not(:disabled) {
+    transition: none 0s ease 0s;
+    box-shadow: 0 0 0 1px #{variable.$gray-400};
+    border-color: #{variable.$gray-400};
+  }
+}
+
+.input_disabled {
+  user-select: none;
+  background-color: #{variable.$gray-300};
+}
+
+.input_error {
+  border-color: #{variable.$danger};
+
+  &:focus:not(:disabled),
+  &:active:not(:disabled) {
+    box-shadow: 0 0 0 1px #{variable.$danger};
+    border-color: #{variable.$danger};
+  }
+}

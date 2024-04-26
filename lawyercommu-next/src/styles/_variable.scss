@@ -1,22 +1,37 @@
 $ft-weights: 100, 200, 300, 400, 500, 600, 700, 800, 900, bold;
 $ft-sizes: 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20;
+$num: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
+
+$gap: 0.5rem;
 
 /** Maximum */
-$breakpoint-desktop: 1200;
+$breakpoint-desktop: 1024;
 $breakpoint-tablet: 768;
 $breakpoint-mobile: 320;
 
 $white: #fff;
+$black: #232337;
 $highlight: #fff4ce;
 
-$primary: #90caf9;
-$secondary: #1f8068;
-$success: #66bb6a;
-$info: #6159ff;
-$warning: #e84393;
-$danger: #d63031;
-
+$primary: #ff7a18;
+$secondary: #90caf9;
+$success: #428f4c;
+$info: #345eeb;
+$warning: #dba830;
+$danger: #a31f0d;
 $search: #333348;
+
+$theme-color: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'search': $search,
+);
+
+$positive: #ff7a18;
 $disabled: #eceef2;
 
 $gray-100: #f5f5f5;

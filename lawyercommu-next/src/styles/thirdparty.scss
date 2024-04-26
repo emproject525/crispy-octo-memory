@@ -1,0 +1,14 @@
+@use 'variable';
+@import 'react-quill/dist/quill.snow.css';
+
+// react-quill
+.ql-container {
+  font-family: inherit;
+}
+.ql-editor {
+  min-height: 300px;
+}
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border-color: #{variable.$gray-400};
+}

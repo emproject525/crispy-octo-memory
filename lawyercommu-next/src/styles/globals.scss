@@ -1,6 +1,7 @@
 @use 'variable';
 
 :root {
+  --gap: #{variable.$gap};
   --max-width: #{variable.$breakpoint-desktop}px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
@@ -95,6 +96,75 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+nav ol,
+nav ul {
+  list-style: none;
+  list-style-image: none;
+}
+
+button {
+  font-family: inherit;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+@each $size in variable.$num {
+  .m-#{$size} {
+    margin: #{variable.$gap * $size};
+  }
+  .mb-#{$size} {
+    margin-bottom: #{variable.$gap * $size};
+  }
+  .mt-#{$size} {
+    margin-top: #{variable.$gap * $size};
+  }
+  .ml-#{$size} {
+    margin-left: #{variable.$gap * $size};
+  }
+  .mr-#{$size} {
+    margin-right: #{variable.$gap * $size};
+  }
+  .my-#{$size} {
+    margin-top: #{variable.$gap * $size};
+    margin-bottom: #{variable.$gap * $size};
+  }
+  .mx-#{$size} {
+    margin-left: #{variable.$gap * $size};
+    margin-right: #{variable.$gap * $size};
+  }
+  .p-#{$size} {
+    padding: #{variable.$gap * $size};
+  }
+  .pb-#{$size} {
+    padding-bottom: #{variable.$gap * $size};
+  }
+  .pt-#{$size} {
+    padding-top: #{variable.$gap * $size};
+  }
+  .pl-#{$size} {
+    padding-left: #{variable.$gap * $size};
+  }
+  .pr-#{$size} {
+    padding-right: #{variable.$gap * $size};
+  }
+  .py-#{$size} {
+    padding-top: #{variable.$gap * $size};
+    padding-bottom: #{variable.$gap * $size};
+  }
+  .px-#{$size} {
+    padding-left: #{variable.$gap * $size};
+    padding-right: #{variable.$gap * $size};
+  }
 }
 
 @media (prefers-color-scheme: dark) {

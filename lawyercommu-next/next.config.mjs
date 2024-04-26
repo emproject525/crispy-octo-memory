@@ -5,7 +5,10 @@ const __dirname = path.resolve();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   sassOptions: {
-    includePaths: [path.join(__dirname, 'src/styles')],
+    includePaths: [
+      path.join(__dirname, 'src/styles'),
+      path.join(__dirname, '.yarn/cache'),
+    ],
   },
 };
 
