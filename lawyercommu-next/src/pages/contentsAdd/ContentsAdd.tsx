@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import FlexBox from '@/components/Box/FlexBox';
 import ContentsEditor from '@/components/Editor/ContentsEditor';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
+import { postContent } from '@/services/contents';
 
 /**
  * app > contents > add > page
@@ -14,16 +16,37 @@ const ContentsAdd = () => {
   const [body, setBody] = useState('');
 
   return (
-    <div>
+    <FlexBox column>
       <Input
+        size="lg"
+        id="title"
         name="title"
         placeholder="제목"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => setTitle(e.target.value.slice(0, 45))}
+        onlyBorderBottom
       />
-      <ContentsEditor value={body} onChange={(value) => setBody(value)} />
-      <Button block>게시글 등록</Button>
-    </div>
+      <ContentsEditor
+        autoHeight
+        value={body}
+        onChange={(value) => setBody(value)}
+      />
+      <Button
+        block
+        onClick={() => {
+          //
+
+          postContent({
+            title,
+            body,
+          }).then((res) => {
+            debugger;
+          });
+        }}
+      >
+        게시글 등록
+      </Button>
+    </FlexBox>
   );
 };
 

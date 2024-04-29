@@ -6,9 +6,9 @@ export default function Page() {
     <main>
       TEST
       <div>
-        <Button>
-          <Link href="/contents/add">게시글 등록</Link>
-        </Button>
+        <Link href="/contents/add">
+          <Button>글 작성</Button>
+        </Link>
       </div>
     </main>
   );

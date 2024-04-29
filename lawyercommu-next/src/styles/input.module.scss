@@ -8,8 +8,8 @@
   border-width: 1px;
   border-style: solid;
   border-color: light-dark(
-    #{variable.$gray-400},
-    lighten(variable.$gray-400, 10%)
+    #{variable.$gray-300},
+    lighten(variable.$gray-300, 10%)
   );
   outline: none;
   width: 100%;
@@ -17,8 +17,27 @@
   &:focus:not(:disabled),
   &:active:not(:disabled) {
     transition: none 0s ease 0s;
-    box-shadow: 0 0 0 1px #{variable.$gray-400};
-    border-color: #{variable.$gray-400};
+    box-shadow: 0 0 0 1px #{variable.$gray-300};
+    border-color: #{variable.$gray-300};
+  }
+}
+
+.input_lg {
+  font-size: 1.6rem;
+  min-height: 52px;
+}
+
+.input_border_bottom {
+  border: 0px;
+  border-bottom: 1px solid
+    light-dark(#{variable.$gray-300}, lighten(variable.$gray-300, 10%));
+  background-color: inherit;
+  color: #{variable.$gray-800};
+
+  &:focus:not(:disabled),
+  &:active:not(:disabled) {
+    border-width: 2px;
+    box-shadow: initial;
   }
 }
 

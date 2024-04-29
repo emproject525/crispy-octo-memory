@@ -36,8 +36,10 @@ const RAW_RUNTIME_STATE =
           ["@storybook/react", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/test", "npm:8.0.9"],\
           ["@types/node", "npm:20.12.7"],\
+          ["@types/qs", "npm:6.9.15"],\
           ["@types/react", "npm:18.2.79"],\
           ["@types/react-dom", "npm:18.2.25"],\
+          ["axios", "npm:1.6.8"],\
           ["clsx", "npm:2.1.1"],\
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
@@ -45,6 +47,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:5.0.0-beta.5"],\
           ["next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
           ["prettier", "npm:3.2.5"],\
+          ["qs", "npm:6.12.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:50806adc1a15ac3203587e8f275c2309094d4a8459c7bc11165b390f7b65859c9d86ca51d7d9dc33ba9cdd5f7e51bfc75078ff13f9aea9ccf0b5637764d70c45#npm:18.2.0"],\
           ["react-quill", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:2.0.0"],\
@@ -6659,6 +6662,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["asynckit", [\
+      ["npm:0.4.0", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/asynckit-npm-0.4.0-c718858525-10c0.zip/node_modules/asynckit/",\
+        "packageDependencies": [\
+          ["asynckit", "npm:0.4.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["available-typed-arrays", [\
       ["npm:1.0.7", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/available-typed-arrays-npm-1.0.7-e5e5d79687-10c0.zip/node_modules/available-typed-arrays/",\
@@ -6674,6 +6686,18 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/axe-core-npm-4.7.0-a095cfe0ae-10c0.zip/node_modules/axe-core/",\
         "packageDependencies": [\
           ["axe-core", "npm:4.7.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["axios", [\
+      ["npm:1.6.8", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/axios-npm-1.6.8-85cf1e7152-10c0.zip/node_modules/axios/",\
+        "packageDependencies": [\
+          ["axios", "npm:1.6.8"],\
+          ["follow-redirects", "virtual:85cf1e7152e3c0d8e39e61ad2b81b59a43fb6bdb8f3bf49869bb97804b1403ecaee4505fcb0d4869cfdd99ee3eaa880b79498575407fb770c800bf64c64156ec#npm:1.15.6"],\
+          ["form-data", "npm:4.0.0"],\
+          ["proxy-from-env", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7541,6 +7565,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["combined-stream", [\
+      ["npm:1.0.8", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/combined-stream-npm-1.0.8-dc14d4a63a-10c0.zip/node_modules/combined-stream/",\
+        "packageDependencies": [\
+          ["combined-stream", "npm:1.0.8"],\
+          ["delayed-stream", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["commander", [\
       ["npm:2.20.3", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/commander-npm-2.20.3-d8dcbaa39b-10c0.zip/node_modules/commander/",\
@@ -8191,6 +8225,15 @@ const RAW_RUNTIME_STATE =
           ["p-map", "npm:4.0.0"],\
           ["rimraf", "npm:3.0.2"],\
           ["slash", "npm:3.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["delayed-stream", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/delayed-stream-npm-1.0.0-c5a4c4cc02-10c0.zip/node_modules/delayed-stream/",\
+        "packageDependencies": [\
+          ["delayed-stream", "npm:1.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9767,6 +9810,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["follow-redirects", [\
+      ["npm:1.15.6", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/follow-redirects-npm-1.15.6-50635fe51d-10c0.zip/node_modules/follow-redirects/",\
+        "packageDependencies": [\
+          ["follow-redirects", "npm:1.15.6"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:85cf1e7152e3c0d8e39e61ad2b81b59a43fb6bdb8f3bf49869bb97804b1403ecaee4505fcb0d4869cfdd99ee3eaa880b79498575407fb770c800bf64c64156ec#npm:1.15.6", {\
+        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-7bb5ea93fd/6/C:/Users/allme/AppData/Local/Yarn/Berry/cache/follow-redirects-npm-1.15.6-50635fe51d-10c0.zip/node_modules/follow-redirects/",\
+        "packageDependencies": [\
+          ["follow-redirects", "virtual:85cf1e7152e3c0d8e39e61ad2b81b59a43fb6bdb8f3bf49869bb97804b1403ecaee4505fcb0d4869cfdd99ee3eaa880b79498575407fb770c800bf64c64156ec#npm:1.15.6"],\
+          ["@types/debug", null],\
+          ["debug", null]\
+        ],\
+        "packagePeers": [\
+          "@types/debug",\
+          "debug"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["for-each", [\
       ["npm:0.3.3", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/for-each-npm-0.3.3-0010ca8cdd-10c0.zip/node_modules/for-each/",\
@@ -9822,6 +9887,18 @@ const RAW_RUNTIME_STATE =
           "@types/webpack",\
           "typescript",\
           "webpack"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["form-data", [\
+      ["npm:4.0.0", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/form-data-npm-4.0.0-916facec2d-10c0.zip/node_modules/form-data/",\
+        "packageDependencies": [\
+          ["form-data", "npm:4.0.0"],\
+          ["asynckit", "npm:0.4.0"],\
+          ["combined-stream", "npm:1.0.8"],\
+          ["mime-types", "npm:2.1.35"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11521,8 +11598,10 @@ const RAW_RUNTIME_STATE =
           ["@storybook/react", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/test", "npm:8.0.9"],\
           ["@types/node", "npm:20.12.7"],\
+          ["@types/qs", "npm:6.9.15"],\
           ["@types/react", "npm:18.2.79"],\
           ["@types/react-dom", "npm:18.2.25"],\
+          ["axios", "npm:1.6.8"],\
           ["clsx", "npm:2.1.1"],\
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
@@ -11530,6 +11609,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:5.0.0-beta.5"],\
           ["next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
           ["prettier", "npm:3.2.5"],\
+          ["qs", "npm:6.12.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:50806adc1a15ac3203587e8f275c2309094d4a8459c7bc11165b390f7b65859c9d86ca51d7d9dc33ba9cdd5f7e51bfc75078ff13f9aea9ccf0b5637764d70c45#npm:18.2.0"],\
           ["react-quill", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:2.0.0"],\
@@ -13418,6 +13498,15 @@ const RAW_RUNTIME_STATE =
           ["proxy-addr", "npm:2.0.7"],\
           ["forwarded", "npm:0.2.0"],\
           ["ipaddr.js", "npm:1.9.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["proxy-from-env", [\
+      ["npm:1.1.0", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/proxy-from-env-npm-1.1.0-c13d07f26b-10c0.zip/node_modules/proxy-from-env/",\
+        "packageDependencies": [\
+          ["proxy-from-env", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\

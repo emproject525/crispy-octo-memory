@@ -1,15 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import ReactQuill, { ReactQuillProps } from 'react-quill';
+import clsx from 'clsx';
+import styles from '@/styles/editor.module.scss';
 
-export type ContentsEditorProps = {} & ReactQuillProps;
+export type ContentsEditorProps = {
+  /**
+   * flex 영역 안에서 꽉 채움
+   */
+  autoHeight?: boolean;
+} & ReactQuillProps;
 
 /**
  * @see https://quilljs.com/
  * @returns
  */
 const ContentsEditor = (props: ContentsEditorProps) => {
+  const { autoHeight, onChange, ...rest } = props;
+  const [value, setValue] = useState('');
+
   const modules = {
     toolbar: [
       [{ header: '1' }, { header: '2' }],
@@ -24,7 +34,7 @@ const ContentsEditor = (props: ContentsEditorProps) => {
       ],
       [{ align: [] }],
       ['link', 'image', 'video'],
-      //["clean"],
+      ['clean'],
     ],
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
@@ -58,20 +68,28 @@ const ContentsEditor = (props: ContentsEditorProps) => {
   ];
 
   return (
-    <div className="my-4">
+    <div
+      className={clsx({
+        [styles.flex_auto_height]: autoHeight,
+      })}
+    >
       <ReactQuill
         theme="snow"
         modules={modules}
-        formats={formats}
-        placeholder="내용을 입력하세요..."
-        {...props}
+        // formats={formats}
+        placeholder="내용을 입력하세요."
+        onChange={(content, delta, source, editor) => {
+          onChange?.(content, delta, source, editor);
+          setValue(content);
+        }}
+        {...rest}
         // value={value || ''}
         // onChange={(content, delta, source, editor) =>
         //   onChange(editor.getHTML())
         // }
       />
 
-      <input type="hidden" name="body" />
+      <input type="hidden" id="body" name="body" value={value} readOnly />
     </div>
   );
 };

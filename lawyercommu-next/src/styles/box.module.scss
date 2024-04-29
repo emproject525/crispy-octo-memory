@@ -1,0 +1,16 @@
+@use 'variable';
+@use 'mixin';
+
+.flex_box {
+  height: 100%;
+  display: flex;
+  gap: #{variable.$gap * 4};
+}
+
+.flex_box_column {
+  flex-direction: column;
+}
+
+.flex_box_row {
+  flex-direction: row;
+}

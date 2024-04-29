@@ -2,13 +2,24 @@
 @import 'react-quill/dist/quill.snow.css';
 
 // react-quill
+.quill {
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .ql-container {
   font-family: inherit;
 }
 .ql-editor {
   min-height: 300px;
 }
-.ql-toolbar.ql-snow,
+.ql-toolbar.ql-snow {
+  border: 0;
+  border-bottom: 1px solid #{variable.$gray-300};
+}
 .ql-container.ql-snow {
-  border-color: #{variable.$gray-400};
+  border: 0;
+  height: 100%;
+  overflow: hidden;
 }

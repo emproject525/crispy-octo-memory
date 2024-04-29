@@ -1,0 +1,8 @@
+@use 'variable';
+@use 'mixin';
+
+.flex_auto_height {
+  flex: 1 1 auto;
+  height: 100%;
+  overflow: hidden;
+}
