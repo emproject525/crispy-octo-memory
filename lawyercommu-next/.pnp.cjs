@@ -35,6 +35,7 @@ const RAW_RUNTIME_STATE =
           ["@storybook/nextjs", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/react", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/test", "npm:8.0.9"],\
+          ["@types/lodash", "npm:4.17.0"],\
           ["@types/node", "npm:20.12.7"],\
           ["@types/qs", "npm:6.9.15"],\
           ["@types/react", "npm:18.2.79"],\
@@ -45,11 +46,14 @@ const RAW_RUNTIME_STATE =
           ["eslint-config-next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
           ["eslint-plugin-storybook", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:0.8.0"],\
           ["immutable", "npm:5.0.0-beta.5"],\
+          ["lodash", "npm:4.17.21"],\
+          ["mysql2", "npm:3.9.7"],\
           ["next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
           ["prettier", "npm:3.2.5"],\
           ["qs", "npm:6.12.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:50806adc1a15ac3203587e8f275c2309094d4a8459c7bc11165b390f7b65859c9d86ca51d7d9dc33ba9cdd5f7e51bfc75078ff13f9aea9ccf0b5637764d70c45#npm:18.2.0"],\
+          ["react-icons", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.2.0"],\
           ["react-quill", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:2.0.0"],\
           ["sass", "npm:1.75.0"],\
           ["sb", "npm:8.0.9"],\
@@ -8238,6 +8242,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["denque", [\
+      ["npm:2.1.0", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/denque-npm-2.1.0-578d0b6297-10c0.zip/node_modules/denque/",\
+        "packageDependencies": [\
+          ["denque", "npm:2.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["depd", [\
       ["npm:2.0.0", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/depd-npm-2.0.0-b6c51a4b43-10c0.zip/node_modules/depd/",\
@@ -10039,6 +10052,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["generate-function", [\
+      ["npm:2.3.1", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/generate-function-npm-2.3.1-c839dc559c-10c0.zip/node_modules/generate-function/",\
+        "packageDependencies": [\
+          ["generate-function", "npm:2.3.1"],\
+          ["is-property", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["gensync", [\
       ["npm:1.0.0-beta.2", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/gensync-npm-1.0.0-beta.2-224666d72f-10c0.zip/node_modules/gensync/",\
@@ -11099,6 +11122,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["is-property", [\
+      ["npm:1.0.2", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/is-property-npm-1.0.2-6eac53b30e-10c0.zip/node_modules/is-property/",\
+        "packageDependencies": [\
+          ["is-property", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["is-regex", [\
       ["npm:1.1.4", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/is-regex-npm-1.1.4-cca193ef11-10c0.zip/node_modules/is-regex/",\
@@ -11597,6 +11629,7 @@ const RAW_RUNTIME_STATE =
           ["@storybook/nextjs", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/react", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/test", "npm:8.0.9"],\
+          ["@types/lodash", "npm:4.17.0"],\
           ["@types/node", "npm:20.12.7"],\
           ["@types/qs", "npm:6.9.15"],\
           ["@types/react", "npm:18.2.79"],\
@@ -11607,11 +11640,14 @@ const RAW_RUNTIME_STATE =
           ["eslint-config-next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
           ["eslint-plugin-storybook", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:0.8.0"],\
           ["immutable", "npm:5.0.0-beta.5"],\
+          ["lodash", "npm:4.17.21"],\
+          ["mysql2", "npm:3.9.7"],\
           ["next", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:14.2.2"],\
           ["prettier", "npm:3.2.5"],\
           ["qs", "npm:6.12.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:50806adc1a15ac3203587e8f275c2309094d4a8459c7bc11165b390f7b65859c9d86ca51d7d9dc33ba9cdd5f7e51bfc75078ff13f9aea9ccf0b5637764d70c45#npm:18.2.0"],\
+          ["react-icons", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.2.0"],\
           ["react-quill", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:2.0.0"],\
           ["sass", "npm:1.75.0"],\
           ["sb", "npm:8.0.9"],\
@@ -11764,6 +11800,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["long", [\
+      ["npm:5.2.3", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/long-npm-5.2.3-61dddb7586-10c0.zip/node_modules/long/",\
+        "packageDependencies": [\
+          ["long", "npm:5.2.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["loose-envify", [\
       ["npm:1.4.0", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/loose-envify-npm-1.4.0-6307b72ccf-10c0.zip/node_modules/loose-envify/",\
@@ -11815,6 +11860,20 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["lru-cache", "npm:6.0.0"],\
           ["yallist", "npm:4.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.18.3", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/lru-cache-npm-7.18.3-e68be5b11c-10c0.zip/node_modules/lru-cache/",\
+        "packageDependencies": [\
+          ["lru-cache", "npm:7.18.3"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:8.0.5", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/lru-cache-npm-8.0.5-bb030cd93e-10c0.zip/node_modules/lru-cache/",\
+        "packageDependencies": [\
+          ["lru-cache", "npm:8.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12259,6 +12318,33 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/ms-npm-2.1.3-81ff3cfac1-10c0.zip/node_modules/ms/",\
         "packageDependencies": [\
           ["ms", "npm:2.1.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["mysql2", [\
+      ["npm:3.9.7", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/mysql2-npm-3.9.7-8fe89e50ac-10c0.zip/node_modules/mysql2/",\
+        "packageDependencies": [\
+          ["mysql2", "npm:3.9.7"],\
+          ["denque", "npm:2.1.0"],\
+          ["generate-function", "npm:2.3.1"],\
+          ["iconv-lite", "npm:0.6.3"],\
+          ["long", "npm:5.2.3"],\
+          ["lru-cache", "npm:8.0.5"],\
+          ["named-placeholders", "npm:1.1.3"],\
+          ["seq-queue", "npm:0.0.5"],\
+          ["sqlstring", "npm:2.3.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["named-placeholders", [\
+      ["npm:1.1.3", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/named-placeholders-npm-1.1.3-1b385febe5-10c0.zip/node_modules/named-placeholders/",\
+        "packageDependencies": [\
+          ["named-placeholders", "npm:1.1.3"],\
+          ["lru-cache", "npm:7.18.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13886,6 +13972,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-icons", [\
+      ["npm:5.2.0", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/react-icons-npm-5.2.0-a5a82320b5-10c0.zip/node_modules/react-icons/",\
+        "packageDependencies": [\
+          ["react-icons", "npm:5.2.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.2.0", {\
+        "packageLocation": "./.yarn/__virtual__/react-icons-virtual-b7a140baf0/6/C:/Users/allme/AppData/Local/Yarn/Berry/cache/react-icons-npm-5.2.0-a5a82320b5-10c0.zip/node_modules/react-icons/",\
+        "packageDependencies": [\
+          ["react-icons", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.2.0"],\
+          ["@types/react", "npm:18.2.79"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["react-is", [\
       ["npm:16.13.1", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/react-is-npm-16.13.1-a9b9382b4f-10c0.zip/node_modules/react-is/",\
@@ -14543,6 +14651,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["seq-queue", [\
+      ["npm:0.0.5", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/seq-queue-npm-0.0.5-d5064d9793-10c0.zip/node_modules/seq-queue/",\
+        "packageDependencies": [\
+          ["seq-queue", "npm:0.0.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["serialize-javascript", [\
       ["npm:6.0.2", {\
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/serialize-javascript-npm-6.0.2-cc09461d45-10c0.zip/node_modules/serialize-javascript/",\
@@ -14862,6 +14979,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/sprintf-js-npm-1.1.3-b99efd75b2-10c0.zip/node_modules/sprintf-js/",\
         "packageDependencies": [\
           ["sprintf-js", "npm:1.1.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["sqlstring", [\
+      ["npm:2.3.3", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/sqlstring-npm-2.3.3-2db6939570-10c0.zip/node_modules/sqlstring/",\
+        "packageDependencies": [\
+          ["sqlstring", "npm:2.3.3"]\
         ],\
         "linkType": "HARD"\
       }]\

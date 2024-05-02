@@ -1,0 +1,25 @@
+@use 'variable';
+@use 'mixin';
+
+.breadcrumb {
+  display: flex;
+  cursor: default;
+  column-gap: #{variable.$gap};
+  align-items: center;
+  font-size: 13px;
+  color: #{variable.$gray-700};
+}
+
+.detail {
+}
+
+.contents_body {
+  letter-spacing: -0.5px;
+  font-size: 14px;
+  font-weight: normal;
+
+  ol,
+  ul {
+    padding-left: 16px;
+  }
+}
