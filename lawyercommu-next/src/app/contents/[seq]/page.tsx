@@ -1,9 +1,17 @@
 import { cache } from 'react';
 import { RxSlash } from 'react-icons/rx';
+import { CgMenu } from 'react-icons/cg';
+import { FaRegCommentAlt } from 'react-icons/fa';
+import { IoShareSocialSharp } from 'react-icons/io5';
+
 import clsx from 'clsx';
 import { Metadata, ResolvingMetadata } from 'next';
 import { IContentsDetail, IRes } from '@/types';
 import styles from '@/styles/contens.module.scss';
+import Button from '@/components/Button/Button';
+import Link from 'next/link';
+import FlexBox from '@/components/Box/FlexBox';
+import Span from '@/components/Font/Span';
 
 type PageData = {
   status: number;
@@ -40,6 +48,8 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const { status, header, body } = await getData(params);
+  const title = body?.title || '';
+  const url = `${process.env.NEXT_PUBLIC_SITE_DOMAIN}/contents/${params.seq}`;
 
   // fetch data
   // const product = await fetch(`https://.../${id}`).then((res) => res.json());
@@ -48,12 +58,17 @@ export async function generateMetadata(
   // const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: header.success ? body?.title || '' : '잘못된 글입니다',
-    // openGraph: {
-    //   images: ['/some-specific-page-image.jpg', ...previousImages],
-    // },
+    title,
+    openGraph: {
+      title,
+      description: title,
+      url,
+      // images: ['/some-specific-page-image.jpg', ...previousImages],
+    },
   };
 }
+
+const Hr = () => <hr className={clsx('my-2', styles.horizon)} />;
 
 /**
  * @see https://react-icons.github.io/react-icons/ icon library
@@ -65,20 +80,59 @@ export default async function Page({ params }: Pick<PageProps, 'params'>) {
     <main>
       {status === 200 && header.success && (
         <div className={styles.detail}>
-          <div className={clsx(styles.breadcrumb, 'mb-1')}>
+          <div
+            className={clsx(styles.breadcrumb, 'mb-1')}
+            data-desc="breadcrumb"
+          >
             <span>{body?.mainName || ''}</span>
             <RxSlash />
             <span>{body?.subName || ''}</span>
           </div>
           <h1>{body?.title || ''}</h1>
-          <hr className="my-2" />
+          <Hr />
           <div
+            data-desc="body"
             className={styles.contents_body}
             dangerouslySetInnerHTML={{
               __html: body?.body || '',
             }}
           />
-          <hr className="my-2" />
+          <Hr />
+          <FlexBox
+            row
+            style={{
+              columnGap: '0.5em',
+            }}
+            data-desc="operation"
+          >
+            <Link href="/contents">
+              <Button flexContents variant="outlined">
+                <CgMenu />
+                목록
+              </Button>
+            </Link>
+            <Button flexContents variant="outlined">
+              스크랩
+            </Button>
+            <Button flexContents variant="outlined">
+              <IoShareSocialSharp />
+              공유
+            </Button>
+          </FlexBox>
+          <Hr />
+          <div data-desc="comment">
+            <FlexBox
+              row
+              style={{
+                columnGap: '0.5em',
+              }}
+            >
+              <FaRegCommentAlt />
+              <Span>댓글</Span>
+              <Span color="info">0</Span>
+            </FlexBox>
+          </div>
+          <Hr />
         </div>
       )}
     </main>

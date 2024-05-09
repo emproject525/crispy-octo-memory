@@ -2,18 +2,15 @@
 @use 'mixin';
 
 .contents {
-  padding-top: 65px;
   margin: 0 auto;
+  margin-top: 65px;
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100% - 65px);
   background-color: #fff;
   max-width: 100%;
 
   main {
-    padding: 2rem;
-    height: calc(100vh - 65px);
-    overflow: hidden;
-    overflow-y: auto;
+    padding: 1.2em;
   }
 
   @include mixin.desktop {
@@ -46,32 +43,38 @@
   height: 100%;
   margin: 0 auto;
   display: flex;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
 
   nav > ul {
     display: flex;
     height: 100%;
   }
 
-  nav > ul li a {
-    font-style: normal;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 0.8rem;
-    height: 100%;
-    color: #fff;
-    padding: 21px 21px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
+  nav > ul li {
+    a {
+      font-style: normal;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 0.8rem;
+      height: 100%;
+      color: #fff;
+      padding: 21px 21px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
 
-    &:hover {
+    &.active a {
+      color: #{variable.$positive};
+    }
+
+    &:hover a {
       text-decoration: none;
       color: #{variable.$positive};
       background: hsla(0, 0%, 100%, 0.1);

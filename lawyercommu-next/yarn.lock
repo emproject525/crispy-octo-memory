@@ -3244,6 +3244,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.35.1":
+  version: 5.35.1
+  resolution: "@tanstack/query-core@npm:5.35.1"
+  checksum: 10c0/c991efeb29ec42f9aadf43130dac5e4e9e0651880ef96e0cb5f0dc3224b9b919b34f0e4af53231a7de32582aa7ba801ed6683ed7448e41e7b2a344803f08f3fe
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-devtools@npm:5.32.1":
+  version: 5.32.1
+  resolution: "@tanstack/query-devtools@npm:5.32.1"
+  checksum: 10c0/ad13f04641cae4c6ac70094d4979a5b1cbf3dc7a4795fce6847eb645ba06bd9e0e7057af3204c5ee9170c011290504d0edf26a8cdb920a65c4b1bb97bcbe037a
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.35.1":
+  version: 5.35.1
+  resolution: "@tanstack/react-query-devtools@npm:5.35.1"
+  dependencies:
+    "@tanstack/query-devtools": "npm:5.32.1"
+  peerDependencies:
+    "@tanstack/react-query": ^5.35.1
+    react: ^18.0.0
+  checksum: 10c0/030ed59d06824fa08d676855c1d008ded16bbc76ad4cf0fb375cacc36da4dfd3bc72b315a74f3570db7795a84601a7059d97520e1247d0084df0e1677dde198d
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.35.1":
+  version: 5.35.1
+  resolution: "@tanstack/react-query@npm:5.35.1"
+  dependencies:
+    "@tanstack/query-core": "npm:5.35.1"
+  peerDependencies:
+    react: ^18.0.0
+  checksum: 10c0/80b3d4e295b05171e34f522c1856bcd561c58963e7661ae2340f3406a3097b7c9896d4f67005876c634ce1d808791498a987b200f00341e6df9fcc862060e6ad
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:^9.3.4":
   version: 9.3.4
   resolution: "@testing-library/dom@npm:9.3.4"
@@ -8721,6 +8758,8 @@ __metadata:
     "@storybook/nextjs": "npm:^8.0.9"
     "@storybook/react": "npm:^8.0.9"
     "@storybook/test": "npm:^8.0.9"
+    "@tanstack/react-query": "npm:^5.35.1"
+    "@tanstack/react-query-devtools": "npm:^5.35.1"
     "@types/lodash": "npm:^4"
     "@types/node": "npm:^20"
     "@types/qs": "npm:^6"
@@ -8744,7 +8783,7 @@ __metadata:
     sass: "npm:^1.75.0"
     sb: "npm:^8.0.9"
     storybook: "npm:^8.0.9"
-    typescript: "npm:^5"
+    typescript: "npm:5.4.5"
     webpack: "npm:^5.91.0"
   languageName: unknown
   linkType: soft
@@ -12356,7 +12395,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5":
+"typescript@npm:5.4.5":
   version: 5.4.5
   resolution: "typescript@npm:5.4.5"
   bin:
@@ -12366,7 +12405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>":
   version: 5.4.5
   resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"
   bin:

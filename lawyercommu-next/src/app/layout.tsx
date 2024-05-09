@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import Link from 'next/link';
 import { Noto_Sans_KR } from 'next/font/google';
 import '@/styles/globals.scss';
 import '@/styles/thirdparty.scss';
 import styles from '@/styles/layout.module.scss';
+import Nav from '@/containers/layout/Nav';
+import ReactQueryProviders from '@/services/ReactQueryProviders';
 
 const notosans = Noto_Sans_KR({
   subsets: ['latin'],
@@ -37,19 +38,12 @@ export default function RootLayout({
             </a>
             <div className={styles.header_area}>
               <div>HOME</div>
-              <nav>
-                <ul>
-                  <li>
-                    <Link href="/contents">게시판</Link>
-                  </li>
-                  <li>
-                    <Link href="/practice">타자 연습</Link>
-                  </li>
-                </ul>
-              </nav>
+              <Nav />
             </div>
           </header>
-          <div id="content">{children}</div>
+          <ReactQueryProviders>
+            <div id="content">{children}</div>
+          </ReactQueryProviders>
         </div>
       </body>
     </html>

@@ -1,12 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
+import client from '@/services/client';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { IRes } from '@/types';
 import FlexBox from '@/components/Box/FlexBox';
 import ContentsEditor from '@/components/Editor/ContentsEditor';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
-import { postContents } from '@/services/contents';
+import { AxiosError, AxiosResponse } from 'axios';
 
 /**
  * app > contents > add > page
@@ -16,6 +19,24 @@ const ContentsAdd = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const router = useRouter();
+  const mutation = useMutation<
+    AxiosResponse<IRes<boolean>>,
+    AxiosError,
+    {
+      title: string;
+      body: string;
+    }
+  >({
+    mutationFn: (data) => client.post('/contents/add', data),
+    onSuccess: (res) => {
+      if (res.status === 200 && res.data.header.success) {
+        alert('게시글을 등록하였습니다.');
+        router.push('/contents');
+      } else {
+        alert('작성 실패');
+      }
+    },
+  });
 
   // 처리하지 않는 것으로. 입력한 값 그대로 저장, '만 values 입력 시 걸려서 걔만 replace
   // const escapeTitleHtml = (text: string) => {
@@ -40,7 +61,12 @@ const ContentsAdd = () => {
   };
 
   return (
-    <FlexBox column>
+    <FlexBox
+      column
+      style={{
+        rowGap: '1em',
+      }}
+    >
       <Input
         size="lg"
         id="title"
@@ -57,19 +83,12 @@ const ContentsAdd = () => {
       />
       <Button
         block
-        onClick={() => {
-          postContents({
+        onClick={() =>
+          mutation.mutate({
             title: escapeBodyHtml(title),
             body: escapeBodyHtml(body),
-          }).then((res) => {
-            if (res.status === 200 && res.data.header.success) {
-              alert('게시글을 등록하였습니다.');
-              router.push('/contents');
-            } else {
-              alert('작성 실패');
-            }
-          });
-        }}
+          })
+        }
       >
         게시글 등록
       </Button>

@@ -11,6 +11,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.35.1",
+    "@tanstack/react-query-devtools": "^5.35.1",
     "axios": "^1.6.8",
     "clsx": "^2.1.1",
     "immutable": "^5.0.0-beta.5",
@@ -45,7 +47,7 @@
     "sass": "^1.75.0",
     "sb": "^8.0.9",
     "storybook": "^8.0.9",
-    "typescript": "^5",
+    "typescript": "5.4.5",
     "webpack": "^5.91.0"
   },
   "packageManager": "yarn@4.1.1"

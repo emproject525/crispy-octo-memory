@@ -1,7 +1,7 @@
 import { Metadata, ResolvingMetadata } from 'next';
 import dynamic from 'next/dynamic';
 
-const ContentsAdd = dynamic(() => import('@/pages/contentsAdd'), {
+const ContentsAdd = dynamic(() => import('@/containers/contentsAdd'), {
   ssr: false,
 });
 
@@ -34,7 +34,11 @@ export async function generateMetadata(
 
 export default function Page() {
   return (
-    <main>
+    <main
+      style={{
+        height: 'calc(100vh - 65px)',
+      }}
+    >
       <ContentsAdd />
     </main>
   );

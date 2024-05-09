@@ -1,0 +1,14 @@
+@use 'variable';
+@use 'mixin';
+
+@each $name, $color in variable.$theme-color {
+  .font_color_#{$name} {
+    color: $color;
+  }
+}
+
+@each $name, $color in variable.$gray {
+  .font_color_gray_#{$name} {
+    color: $color;
+  }
+}

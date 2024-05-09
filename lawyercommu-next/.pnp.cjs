@@ -35,6 +35,8 @@ const RAW_RUNTIME_STATE =
           ["@storybook/nextjs", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/react", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/test", "npm:8.0.9"],\
+          ["@tanstack/react-query", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1"],\
+          ["@tanstack/react-query-devtools", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1"],\
           ["@types/lodash", "npm:4.17.0"],\
           ["@types/node", "npm:20.12.7"],\
           ["@types/qs", "npm:6.9.15"],\
@@ -5123,6 +5125,74 @@ const RAW_RUNTIME_STATE =
           ["@swc/helpers", "npm:0.5.5"],\
           ["@swc/counter", "npm:0.1.3"],\
           ["tslib", "npm:2.6.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tanstack/query-core", [\
+      ["npm:5.35.1", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@tanstack-query-core-npm-5.35.1-701ee86644-10c0.zip/node_modules/@tanstack/query-core/",\
+        "packageDependencies": [\
+          ["@tanstack/query-core", "npm:5.35.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tanstack/query-devtools", [\
+      ["npm:5.32.1", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@tanstack-query-devtools-npm-5.32.1-8ee0e20ede-10c0.zip/node_modules/@tanstack/query-devtools/",\
+        "packageDependencies": [\
+          ["@tanstack/query-devtools", "npm:5.32.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tanstack/react-query", [\
+      ["npm:5.35.1", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@tanstack-react-query-npm-5.35.1-a3ab926490-10c0.zip/node_modules/@tanstack/react-query/",\
+        "packageDependencies": [\
+          ["@tanstack/react-query", "npm:5.35.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1", {\
+        "packageLocation": "./.yarn/__virtual__/@tanstack-react-query-virtual-a8362c4482/6/C:/Users/allme/AppData/Local/Yarn/Berry/cache/@tanstack-react-query-npm-5.35.1-a3ab926490-10c0.zip/node_modules/@tanstack/react-query/",\
+        "packageDependencies": [\
+          ["@tanstack/react-query", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1"],\
+          ["@tanstack/query-core", "npm:5.35.1"],\
+          ["@types/react", "npm:18.2.79"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tanstack/react-query-devtools", [\
+      ["npm:5.35.1", {\
+        "packageLocation": "../../../../../C:/Users/allme/AppData/Local/Yarn/Berry/cache/@tanstack-react-query-devtools-npm-5.35.1-7963ab963e-10c0.zip/node_modules/@tanstack/react-query-devtools/",\
+        "packageDependencies": [\
+          ["@tanstack/react-query-devtools", "npm:5.35.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1", {\
+        "packageLocation": "./.yarn/__virtual__/@tanstack-react-query-devtools-virtual-18facadb55/6/C:/Users/allme/AppData/Local/Yarn/Berry/cache/@tanstack-react-query-devtools-npm-5.35.1-7963ab963e-10c0.zip/node_modules/@tanstack/react-query-devtools/",\
+        "packageDependencies": [\
+          ["@tanstack/react-query-devtools", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1"],\
+          ["@tanstack/query-devtools", "npm:5.32.1"],\
+          ["@tanstack/react-query", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1"],\
+          ["@types/react", "npm:18.2.79"],\
+          ["@types/tanstack__react-query", null],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@tanstack/react-query",\
+          "@types/react",\
+          "@types/tanstack__react-query",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11629,6 +11699,8 @@ const RAW_RUNTIME_STATE =
           ["@storybook/nextjs", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/react", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:8.0.9"],\
           ["@storybook/test", "npm:8.0.9"],\
+          ["@tanstack/react-query", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1"],\
+          ["@tanstack/react-query-devtools", "virtual:2201d61b5aa40b5edc493fd271fdb748a4088a5bff1bcc482561c184684b1fd9eb1c36c67ffdb070ec0b2c8a6161ed6ea9542d1351a21d919f3db490931e6006#npm:5.35.1"],\
           ["@types/lodash", "npm:4.17.0"],\
           ["@types/node", "npm:20.12.7"],\
           ["@types/qs", "npm:6.9.15"],\

@@ -23,3 +23,9 @@
     padding-left: 16px;
   }
 }
+
+.horizon {
+  height: 1px;
+  border: none;
+  background-color: #{variable.$gray-400};
+}

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import Button from '@/components/Button/Button';
 import { IContentsTableRow, IPagingList, IRes } from '@/types';
 import Table from '@/components/Table/Table';
@@ -41,7 +40,7 @@ export default async function Page() {
 
   return (
     <main>
-      <div>
+      <div data-desc="list" className="mb-3">
         {status === 200 && header.success && (
           <Table<IContentsTableRow>
             fields={[
@@ -73,6 +72,7 @@ export default async function Page() {
           />
         )}
       </div>
+      <div data-desc="pagination"></div>
       <div>
         <Link href="/contents/add">
           <Button>글 작성</Button>

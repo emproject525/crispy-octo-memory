@@ -4,6 +4,7 @@
 .flex_box {
   height: 100%;
   display: flex;
+  align-items: center;
   gap: #{variable.$gap * 4};
 }
 
