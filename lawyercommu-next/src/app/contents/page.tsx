@@ -53,7 +53,7 @@ export default async function Page({
 
   return (
     <main>
-      <div data-desc="list" className="mb-3">
+      <div data-desc="list" className="mb-1">
         {status === 200 && header.success && (
           <Table<IContentsTableRow>
             fields={[
@@ -85,17 +85,20 @@ export default async function Page({
           />
         )}
       </div>
-      <Pagination
-        className="mb-3"
-        page={Number(searchParams?.['page'] ?? 1)}
-        totalCount={body.count}
-        count={20}
-      />
-      <div>
+      <div
+        style={{
+          textAlign: 'right',
+        }}
+      >
         <Link href="/contents/add">
           <Button>글 작성</Button>
         </Link>
       </div>
+      <Pagination
+        page={Number(searchParams?.['page'] ?? 1)}
+        totalCount={body.count}
+        count={20}
+      />
     </main>
   );
 }
