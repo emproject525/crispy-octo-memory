@@ -1,8 +1,15 @@
 import execute from '@/db/pool';
 import { IContentsTableRow } from '@/types';
 
+/**
+ * 페이징 정책 세우기
+ * @see https://jeong-pro.tistory.com/244
+ */
 export async function GET(req: Request) {
-  // const { searchParams } = new URL(request.url);
+  const { searchParams } = new URL(req.url);
+  const paramPage = Number(searchParams.get('page') ?? 1);
+  const paramCount = Number(searchParams.get('count') ?? 20);
+
   // const id = searchParams.get('id');
   // const res = await fetch(`https://data.mongodb-api.com/product/${id}`, {
   //   headers: {
@@ -21,10 +28,10 @@ export async function GET(req: Request) {
     from contents inner join contents_category
     on contents.category_seq = contents_category.seq
     order by seq desc 
-    limit 20`,
+    limit ${(paramPage - 1) * paramCount}, ${paramCount};`,
   );
   const count = await execute<{ cnt: number }>(
-    `select count(*) as cnt from contents`,
+    `select count(*) as cnt from contents;`,
   );
 
   return Response.json({

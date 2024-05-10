@@ -8,6 +8,14 @@
  */
 
 /**
+ * search params
+ */
+export interface IParamsContents {
+  page: number;
+  count: number;
+}
+
+/**
  * `contents`
  */
 export interface IContents {

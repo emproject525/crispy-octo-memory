@@ -22,7 +22,7 @@ export async function GET(
     from contents
     inner join contents_category on contents.category_seq = contents_category.seq
     inner join contents_body on contents.seq = contents_body.contents_seq
-    where contents.seq=${seq}
+    where contents.seq=${seq};
     `,
   ).then(
     (result) => {

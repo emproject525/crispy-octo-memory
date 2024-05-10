@@ -85,3 +85,40 @@
 .table_latitude_link {
   text-align: start;
 }
+
+.pagination_wrap {
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+
+  li {
+    display: inline;
+  }
+
+  a {
+    font-size: 0.8em;
+    float: left;
+    padding: 6px 0;
+    text-decoration: none;
+    width: 35px;
+    height: 31px;
+    color: #{variable.$gray-800};
+
+    &.active {
+      background-color: #{variable.$primary};
+      color: #{variable.$gray-100};
+    }
+
+    &.disabled {
+      user-select: none;
+      pointer-events: none;
+      color: #{variable.$gray-300};
+    }
+
+    &:hover:not(.active, .disabled) {
+      background-color: #{variable.$gray-200};
+    }
+  }
+}

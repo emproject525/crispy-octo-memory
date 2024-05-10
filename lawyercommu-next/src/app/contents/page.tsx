@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Button from '@/components/Button/Button';
-import { IContentsTableRow, IPagingList, IRes } from '@/types';
+import { IContentsTableRow, IPagingList, IRes, IParamsContents } from '@/types';
 import Table from '@/components/Table/Table';
+import Pagination from '@/components/Table/Pagination';
 
 // * generic 컴포넌트를 dynamic하게 import하는 방법
 // const Table = dynamic(() => import('@/components/Table/Table'), {
@@ -13,13 +14,18 @@ type PageData = {
 } & IRes<IPagingList<IContentsTableRow>>;
 
 // 모든 요청에서 호출된다.
-async function getData(): Promise<PageData> {
+async function getData(props: IParamsContents): Promise<PageData> {
   'use server';
 
+  const { page, count } = props;
+
   // Fetch data from external API
-  const response = await fetch('http://localhost:3000/api/contents', {
-    cache: 'no-store',
-  });
+  const response = await fetch(
+    `http://localhost:3000/api/contents?page=${page}&count=${count}`,
+    {
+      cache: 'no-store',
+    },
+  );
   const data: Pick<PageData, 'header' | 'body'> = await response.json();
 
   // if (response.status !== 200) {
@@ -35,8 +41,15 @@ async function getData(): Promise<PageData> {
   };
 }
 
-export default async function Page() {
-  const { status, header, body } = await getData();
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  const { status, header, body } = await getData({
+    page: Number(searchParams?.['page'] ?? 1),
+    count: 20,
+  });
 
   return (
     <main>
@@ -72,7 +85,12 @@ export default async function Page() {
           />
         )}
       </div>
-      <div data-desc="pagination"></div>
+      <Pagination
+        className="mb-3"
+        page={Number(searchParams?.['page'] ?? 1)}
+        totalCount={body.count}
+        count={20}
+      />
       <div>
         <Link href="/contents/add">
           <Button>글 작성</Button>
