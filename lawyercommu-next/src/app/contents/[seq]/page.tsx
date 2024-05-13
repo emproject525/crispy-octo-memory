@@ -9,9 +9,11 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { IContentsDetail, IRes } from '@/types';
 import styles from '@/styles/contens.module.scss';
 import Button from '@/components/Button/Button';
+import TextArea from '@/components/Input/TextArea';
 import Link from 'next/link';
 import FlexBox from '@/components/Box/FlexBox';
 import Span from '@/components/Font/Span';
+import CommendAdd from '@/containers/commentAdd';
 
 type PageData = {
   status: number;
@@ -120,18 +122,7 @@ export default async function Page({ params }: Pick<PageProps, 'params'>) {
             </Button>
           </FlexBox>
           <Hr />
-          <div data-desc="comment">
-            <FlexBox
-              row
-              style={{
-                columnGap: '0.5em',
-              }}
-            >
-              <FaRegCommentAlt />
-              <Span>댓글</Span>
-              <Span color="info">0</Span>
-            </FlexBox>
-          </div>
+          <CommendAdd />
           <Hr />
         </div>
       )}

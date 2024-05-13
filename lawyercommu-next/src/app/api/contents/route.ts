@@ -1,4 +1,4 @@
-import execute from '@/db/pool';
+import { select } from '@/db/pool';
 import { IContentsTableRow } from '@/types';
 
 /**
@@ -18,7 +18,7 @@ export async function GET(req: Request) {
   //   },
   // });
   // const product = await res.json();
-  const list = await execute<IContentsTableRow>(
+  const list = await select<IContentsTableRow>(
     `select contents.seq, contents.title,
     case 
       when DATE(contents.reg_dt) = CURDATE()
@@ -30,7 +30,7 @@ export async function GET(req: Request) {
     order by seq desc 
     limit ${(paramPage - 1) * paramCount}, ${paramCount};`,
   );
-  const count = await execute<{ cnt: number }>(
+  const count = await select<{ cnt: number }>(
     `select count(*) as cnt from contents;`,
   );
 

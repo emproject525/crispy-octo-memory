@@ -1,6 +1,11 @@
 @use 'variable';
 @use 'mixin';
 
+/** ------------------------------
+* 게시글 상세
+* 본문, 댓글
+* ---------------------------- **/
+
 .breadcrumb {
   display: flex;
   cursor: default;
@@ -11,6 +16,25 @@
 }
 
 .detail {
+}
+
+.comment_item {
+  font-size: 14px;
+  margin-bottom: variable.$gap * 2;
+  white-space: pre-wrap;
+
+  .noname_title {
+    font-size: 13px;
+    font-weight: bold;
+    user-select: none;
+  }
+
+  .noname_regdt {
+    font-size: 13px;
+    color: #{variable.$gray-700};
+    margin-left: 0.8em;
+    user-select: none;
+  }
 }
 
 .contents_body {

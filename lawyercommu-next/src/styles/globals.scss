@@ -126,11 +126,16 @@ button {
   outline: inherit;
 }
 
-input {
+input,
+textarea {
   font-family: inherit;
   &::placeholder {
     color: #{variable.$gray-300};
   }
+}
+
+textarea {
+  resize: vertical;
 }
 
 table {

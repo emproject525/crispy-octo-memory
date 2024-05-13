@@ -1,9 +1,10 @@
 /**
  * ------------------------------------
- * 게시글, 카테고리, 게시글 본문
+ * 게시글, 카테고리, 게시글 본문, 댓글
  * `contents`
  * `contents_body`
  * `contents_category`
+ * `comment`
  * ------------------------------------
  */
 
@@ -51,4 +52,18 @@ export interface IContentsTableRow {
   regDt: string;
   // 카테고리의 sub_name
   subName: string;
+}
+
+/**
+ * `comment`
+ */
+export interface IComment {
+  seq: number;
+  contentsSeq: number;
+  userSeq: number;
+  regDt: string;
+  body: string;
+  delYn: 'Y' | 'N';
+  delDt?: string;
+  parentSeq?: number;
 }

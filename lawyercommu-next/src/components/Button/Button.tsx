@@ -7,7 +7,7 @@ import styles from '@/styles/button.module.scss';
 export type ButtonProps = {
   size?: 'sm' | 'md' | 'lg';
   flexContents?: boolean;
-  variant?: 'contained' | 'outlined';
+  variant?: 'contained' | 'outlined' | 'text';
   block?: boolean;
   color?:
     | 'primary'
@@ -29,6 +29,8 @@ const Button = (props: ButtonProps) => {
         [styles[`button_${color}`]]: !!color,
         [styles.button_block]: block,
         [styles.button_contents_flex]: flexContents,
+        [styles.button_sm]: size === 'sm',
+        [styles.button_text]: variant === 'text',
       })}
       {...rest}
     >

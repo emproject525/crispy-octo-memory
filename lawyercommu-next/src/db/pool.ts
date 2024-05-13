@@ -9,6 +9,11 @@ let pool = createPool({
   port: Number(process.env.NEXT_PUBLIC_DB_PORT || 3306),
 });
 
+/**
+ * key를 카멜표기법으로 변경
+ * @param obj object
+ * @returns 카멜로 변경한 obj
+ */
 function objectToCamelCase(obj: any) {
   return mapKeys(obj, (v, k: string) => camelCase(k));
 }
@@ -39,24 +44,22 @@ const runConnectionError = (
 };
 
 /**
- * execute query
+ * select
  * @param query query
- * @param values
- * @returns Promise<QueryResult>
+ * @returns Promise<T[]>
  */
-export const execute = <T>(query: string, values?: any): Promise<T[]> =>
+export const select = <T>(query: string): Promise<T[]> =>
   new Promise((resolve, reject) => {
     const dt = new Date();
 
     pool.getConnection((err, conn) => {
       if (err) {
-        runConnectionError(err, () => execute(query, values));
+        runConnectionError(err, () => select(query));
         reject(err);
       } else if (conn) {
         try {
           conn.query<[(T & RowDataPacket)[], ResultSetHeader]>(
             query,
-            values,
             (err, queryResult) => {
               if (err) {
                 throw err;
@@ -68,6 +71,47 @@ export const execute = <T>(query: string, values?: any): Promise<T[]> =>
               resolve(queryResult.map(objectToCamelCase).map<T>((i) => i as T));
             },
           );
+        } catch (inner) {
+          console.groupCollapsed(`[Fail To Execute Query] ${dt}`);
+          console.log(`${query}`);
+          console.groupEnd();
+          reject(inner);
+        } finally {
+          conn.release();
+        }
+      }
+    });
+  });
+
+/**
+ * execute query (not select)
+ * @param query query
+ * @param values
+ * @returns Promise<ResultSetHeader>
+ */
+export const execute = (
+  query: string,
+  values?: any,
+): Promise<ResultSetHeader> =>
+  new Promise((resolve, reject) => {
+    const dt = new Date();
+
+    pool.getConnection((err, conn) => {
+      if (err) {
+        runConnectionError(err, () => execute(query, values));
+        reject(err);
+      } else if (conn) {
+        try {
+          conn.query<ResultSetHeader>(query, values, (err, queryResult) => {
+            if (err) {
+              throw err;
+            }
+
+            console.groupCollapsed(`[Success To Execute Query] ${dt}`);
+            console.log(`${query}`);
+            console.groupEnd();
+            resolve(queryResult);
+          });
         } catch (inner) {
           console.groupCollapsed(`[Fail To Execute Query] ${dt}`);
           console.log(`${query}`);

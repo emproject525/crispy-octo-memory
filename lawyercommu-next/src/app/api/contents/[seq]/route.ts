@@ -1,4 +1,4 @@
-import execute from '@/db/pool';
+import { select } from '@/db/pool';
 import { IContentsDetail } from '@/types';
 import { NextRequest } from 'next/server';
 
@@ -11,7 +11,7 @@ export async function GET(
   let success = false;
   let body: IContentsDetail | null = null;
 
-  await execute<IContentsDetail>(
+  await select<IContentsDetail>(
     `select 
     contents.seq, contents.title, contents.user_seq,
     DATE_FORMAT(contents.reg_dt, '%Y-%m-%d %H:%i') as reg_dt,
