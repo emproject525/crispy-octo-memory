@@ -64,3 +64,16 @@
   transition: transform 0.5s;
   transform: rotate(0deg);
 }
+
+@keyframes spin_animation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin_animation 3s;
+}

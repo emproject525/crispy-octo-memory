@@ -19,7 +19,7 @@ export async function GET(
   const { contentsSeq } = params;
   const { searchParams } = new URL(req.url);
   const paramPage = Number(searchParams.get('page') ?? 1);
-  const paramCount = 100;
+  const paramCount = 2;
 
   let success = false;
   let list: ICommentParent[] = [];
@@ -58,6 +58,8 @@ export async function GET(
     count = result[0]?.count || 0;
   });
 
+  const total = Math.ceil(count / paramCount);
+
   return Response.json({
     header: {
       status: 200,
@@ -66,6 +68,10 @@ export async function GET(
     body: {
       list,
       count,
+      /**
+       * 전체 페이지 수
+       */
+      total,
     },
   });
 }

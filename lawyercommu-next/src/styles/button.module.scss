@@ -52,6 +52,19 @@
   }
 }
 
+@each $name, $color in variable.$gray {
+  .button_gray-#{$name}:not(.button_text):not(:disabled) {
+    @include mixin.set-bgcolor($color);
+    &:hover:not(:disabled),
+    &:active:not(:disabled) {
+      @include mixin.set-bgcolor(darken($color, 5%));
+    }
+  }
+  .button_gray-#{$name}.button_text:not(:disabled) {
+    color: $color;
+  }
+}
+
 .button_disabled {
   cursor: default;
   user-select: none;

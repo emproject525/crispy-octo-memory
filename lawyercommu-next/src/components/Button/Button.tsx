@@ -16,7 +16,16 @@ export type ButtonProps = {
     | 'info'
     | 'warning'
     | 'danger'
-    | 'search';
+    | 'search'
+    | 'gray-100'
+    | 'gray-200'
+    | 'gray-300'
+    | 'gray-400'
+    | 'gray-500'
+    | 'gray-600'
+    | 'gray-700'
+    | 'gray-800'
+    | 'gray-900';
   children?: React.ReactNode;
   disabled?: boolean;
 } & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'>;
