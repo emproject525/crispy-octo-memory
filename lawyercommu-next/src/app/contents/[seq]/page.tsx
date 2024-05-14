@@ -1,18 +1,15 @@
 import { cache } from 'react';
 import { RxSlash } from 'react-icons/rx';
 import { CgMenu } from 'react-icons/cg';
-import { FaRegCommentAlt } from 'react-icons/fa';
 import { IoShareSocialSharp } from 'react-icons/io5';
-
 import clsx from 'clsx';
 import { Metadata, ResolvingMetadata } from 'next';
 import { IContentsDetail, IRes } from '@/types';
 import styles from '@/styles/contens.module.scss';
 import Button from '@/components/Button/Button';
-import TextArea from '@/components/Input/TextArea';
 import Link from 'next/link';
+import Hr from '@/components/Hr/Hr';
 import FlexBox from '@/components/Box/FlexBox';
-import Span from '@/components/Font/Span';
 import CommendAdd from '@/containers/commentAdd';
 
 type PageData = {
@@ -70,8 +67,6 @@ export async function generateMetadata(
   };
 }
 
-const Hr = () => <hr className={clsx('my-2', styles.horizon)} />;
-
 /**
  * @see https://react-icons.github.io/react-icons/ icon library
  */
@@ -122,7 +117,7 @@ export default async function Page({ params }: Pick<PageProps, 'params'>) {
             </Button>
           </FlexBox>
           <Hr />
-          <CommendAdd />
+          <CommendAdd totalCommentCnt={body?.commentCnt || 0} />
           <Hr />
         </div>
       )}

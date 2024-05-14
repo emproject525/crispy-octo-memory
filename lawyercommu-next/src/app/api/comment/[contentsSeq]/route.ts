@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import execute, { select } from '@/db/pool';
-import { IComment } from '@/types';
+import { ICommentParent } from '@/types';
 
 /**
  * `OPTIONS`
@@ -22,19 +22,22 @@ export async function GET(
   const paramCount = 100;
 
   let success = false;
-  let list: IComment[] = [];
+  let list: ICommentParent[] = [];
 
   // 사용할 때는 역순으로 사용하기
-  await select<IComment>(
-    `select seq, contents_seq, user_seq, del_yn, del_dt, parent_seq,
-    DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i') as reg_dt,
+  await select<ICommentParent>(
+    `select p.seq, p.contents_seq, p.user_seq, p.del_yn, p.del_dt, p.parent_seq,
+    DATE_FORMAT(p.reg_dt, '%Y-%m-%d %H:%i') as reg_dt,
     case
-      when del_yn = 'Y'
+      when p.del_yn = 'Y'
       then '삭제된 댓글입니다.'
-      else body end as body
-    from comment
-    where contents_seq=${contentsSeq} & parent_seq is NULL
-    order by seq desc
+      else p.body end as body,
+    count (distinct c.seq) as reply_cnt
+    from comment p
+    left join comment as c on p.seq=c.parent_seq
+    where p.contents_seq=${contentsSeq} and p.parent_seq is NULL
+    group by p.seq
+    order by p.seq desc
     limit ${(paramPage - 1) * paramCount}, ${paramCount};
     `,
   ).then(
@@ -47,6 +50,14 @@ export async function GET(
     },
   );
 
+  let count = 0;
+
+  await select<{ count: number }>(
+    `select count(*) from comment where contents_seq=${contentsSeq} and parent_seq is NULL;`,
+  ).then((result) => {
+    count = result[0]?.count || 0;
+  });
+
   return Response.json({
     header: {
       status: 200,
@@ -54,13 +65,14 @@ export async function GET(
     },
     body: {
       list,
-      count: 0,
+      count,
     },
   });
 }
 
 /**
  * `POST` 특정 컨텐츠에 댓글 추가
+ * - 답글 등록
  */
 export async function POST(
   req: NextRequest,

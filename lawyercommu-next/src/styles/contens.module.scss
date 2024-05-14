@@ -19,18 +19,19 @@
 }
 
 .comment_item {
-  font-size: 14px;
+  font-size: 0.9em;
+  line-height: 1.4em;
   margin-bottom: variable.$gap * 2;
   white-space: pre-wrap;
 
   .noname_title {
-    font-size: 13px;
+    font-size: 0.8em;
     font-weight: bold;
     user-select: none;
   }
 
   .noname_regdt {
-    font-size: 13px;
+    font-size: 0.8em;
     color: #{variable.$gray-700};
     margin-left: 0.8em;
     user-select: none;
@@ -52,4 +53,14 @@
   height: 1px;
   border: none;
   background-color: #{variable.$gray-400};
+}
+
+.rotate_180 {
+  transition: transform 0.5s;
+  transform: rotate(180deg);
+}
+
+.rotate_0 {
+  transition: transform 0.5s;
+  transform: rotate(0deg);
 }

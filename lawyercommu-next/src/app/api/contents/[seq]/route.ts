@@ -18,7 +18,8 @@ export async function GET(
     DATE_FORMAT(contents.mod_dt, '%Y-%m-%d %H:%i') as mod_dt,
     contents_category.main_name as main_name,
     contents_category.sub_name as sub_name,
-    contents_body.body as body
+    contents_body.body as body,
+    (select count(*) from comment where comment.contents_seq = ${seq} and parent_seq is NULL) as comment_cnt
     from contents
     inner join contents_category on contents.category_seq = contents_category.seq
     inner join contents_body on contents.seq = contents_body.contents_seq

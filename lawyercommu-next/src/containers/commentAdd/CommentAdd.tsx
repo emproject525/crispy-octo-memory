@@ -1,46 +1,61 @@
 'use client';
 
 import React, { useState } from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import client from '@/services/client';
 import { FaRegCommentAlt } from 'react-icons/fa';
+import { RxReload } from 'react-icons/rx';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { IComment, IPagingList, IRes } from '@/types';
+import { ICommentParent, IPagingList, IRes } from '@/types';
 import FlexBox from '@/components/Box/FlexBox';
 import Button from '@/components/Button/Button';
 import TextArea from '@/components/Input/TextArea';
 import Span from '@/components/Font/Span';
-import styles from '@/styles/contens.module.scss';
+import CommentParent from '@/containers/commentAdd/CommentParent';
+import { escapeMySQL } from '@/utils/utils';
 
-const CommentAdd = () => {
+type CommentAddProps = {
+  /**
+   * 전체 댓글 수
+   */
+  totalCommentCnt: number;
+};
+
+const CommentAdd = ({ totalCommentCnt }: CommentAddProps) => {
   const [body, setBody] = useState('');
   const { seq } = useParams();
 
   // 댓글 조회
-  const { data, refetch } = useQuery<IComment[], AxiosError>({
-    initialData: [],
+  const { data, refetch } = useQuery<IPagingList<ICommentParent>, AxiosError>({
+    initialData: {
+      list: [],
+      count: 0,
+    },
     queryKey: ['comment', seq],
     _defaulted: true,
     queryFn: () =>
       client
-        .get<IRes<IPagingList<IComment>>>(`/comment/${seq}`)
+        .get<IRes<IPagingList<ICommentParent>>>(`/comment/${seq}`)
         .then((res) =>
-          res.data.header.success ? res.data.body.list.reverse() : [],
+          res.data.header.success
+            ? {
+                count: res.data.body.count,
+                list: res.data.body.list.reverse(),
+              }
+            : {
+                count: 0,
+                list: [],
+              },
         ),
   });
 
   // 댓글 등록
-  const mutation = useMutation<
-    IRes<boolean>,
-    AxiosError,
-    {
-      body: string;
-      parentSeq?: number;
-    }
-  >({
-    mutationFn: (data) =>
-      client.post(`/comment/${seq}`, data).then((res) => res.data),
+  const addComment = useMutation<IRes<boolean>, AxiosError, string>({
+    mutationFn: (body) =>
+      client
+        .post(`/comment/${seq}`, { body: escapeMySQL(body) })
+        .then((res) => res.data),
     onSuccess: (res) => {
       if (res.header.success) {
         alert('댓글을 등록하였습니다.');
@@ -62,31 +77,21 @@ const CommentAdd = () => {
       >
         <FaRegCommentAlt />
         <Span>댓글</Span>
-        <Span color="info">0</Span>
+        <Span color="info">{data.count || totalCommentCnt || 0}</Span>
       </FlexBox>
       <div className="my-2">
-        {data.map((commentItem, idx) => (
-          <div
-            className={styles.comment_item}
+        {data.list.map((commentItem, idx) => (
+          <CommentParent
             key={`comment-${seq}-${commentItem.seq}`}
-          >
-            <div className="mb-1">
-              <span className={styles.noname_title}>익명 {idx + 1}</span>
-              <span className={styles.noname_regdt}>{commentItem.regDt}</span>
-            </div>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: commentItem.body,
-              }}
-            />
-            <div className="mt-1">
-              <Button size="sm" variant="text">
-                답글
-              </Button>
-            </div>
-          </div>
+            title={`익명 ${idx + 1}`}
+            {...commentItem}
+          />
         ))}
       </div>
+      <Button block flexContents onClick={() => refetch()}>
+        <RxReload />
+        새로운 댓글 확인
+      </Button>
       <div className="my-2">
         <TextArea
           rows={5}
@@ -94,14 +99,7 @@ const CommentAdd = () => {
           onChange={(e) => setBody(e.target.value)}
         />
       </div>
-      <Button
-        block
-        onClick={() => {
-          mutation.mutate({
-            body,
-          });
-        }}
-      >
+      <Button block onClick={() => addComment.mutate(body)}>
         댓글 쓰기
       </Button>
     </div>

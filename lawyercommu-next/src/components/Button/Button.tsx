@@ -18,11 +18,19 @@ export type ButtonProps = {
     | 'danger'
     | 'search';
   children?: React.ReactNode;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+  disabled?: boolean;
+} & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'>;
 
-const Button = (props: ButtonProps) => {
-  const { size, variant, color, children, block, flexContents, ...rest } =
-    props;
+const Button = ({
+  size,
+  variant,
+  color,
+  children,
+  block,
+  flexContents,
+  disabled,
+  ...rest
+}: ButtonProps) => {
   return (
     <button
       className={clsx(styles.button, {
@@ -31,7 +39,9 @@ const Button = (props: ButtonProps) => {
         [styles.button_contents_flex]: flexContents,
         [styles.button_sm]: size === 'sm',
         [styles.button_text]: variant === 'text',
+        [styles.button_disabled]: disabled,
       })}
+      disabled={disabled || false}
       {...rest}
     >
       {children}

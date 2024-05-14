@@ -8,24 +8,24 @@
   border-radius: 4px;
 
   @include mixin.set-bgcolor(variable.$gray-800);
-  &:hover,
-  &:active {
+  &:hover:not(:disabled),
+  &:active:not(:disabled) {
     @include mixin.set-bgcolor(darken(variable.$gray-800, 5%));
   }
-}
-
-.button_sm {
-  padding: 0.3em 0.8em !important;
 }
 
 .button_text {
   background-color: transparent;
   color: #{variable.$gray-600};
 
-  &:hover,
-  &:active {
+  &:hover:not(:disabled),
+  &:active:not(:disabled) {
     @include mixin.set-bgcolor(darken(variable.$gray-100, 5%));
   }
+}
+
+.button_sm {
+  padding: 0.3em 0.8em !important;
 }
 
 .button_block {
@@ -40,11 +40,21 @@
 }
 
 @each $name, $color in variable.$theme-color {
-  .button_#{$name} {
+  .button_#{$name}:not(.button_text):not(:disabled) {
     @include mixin.set-bgcolor($color);
-    &:hover,
-    &:active {
+    &:hover:not(:disabled),
+    &:active:not(:disabled) {
       @include mixin.set-bgcolor(darken($color, 5%));
     }
   }
+  .button_#{$name}.button_text:not(:disabled) {
+    color: $color;
+  }
+}
+
+.button_disabled {
+  cursor: default;
+  user-select: none;
+  color: #{variable.$gray-400} !important;
+  background-color: #{variable.$gray-300};
 }

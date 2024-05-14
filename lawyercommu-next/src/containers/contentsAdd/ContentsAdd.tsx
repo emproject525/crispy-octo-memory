@@ -10,6 +10,7 @@ import ContentsEditor from '@/components/Editor/ContentsEditor';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
 import { AxiosError, AxiosResponse } from 'axios';
+import { escapeMySQL } from '@/utils/utils';
 
 /**
  * app > contents > add > page
@@ -51,15 +52,6 @@ const ContentsAdd = () => {
   //   return text.replace(/[&<>"']/g, (m) => map[m as keyof typeof map]);
   // };
 
-  const escapeBodyHtml = (text: string) => {
-    const map = {
-      // mysql insert시 ' 때문에 저장이 안됨
-      "'": "\\'",
-    };
-
-    return text.replace(/[']/g, (m) => map[m as keyof typeof map]);
-  };
-
   return (
     <FlexBox
       column
@@ -85,8 +77,8 @@ const ContentsAdd = () => {
         block
         onClick={() =>
           mutation.mutate({
-            title: escapeBodyHtml(title),
-            body: escapeBodyHtml(body),
+            title: escapeMySQL(title),
+            body: escapeMySQL(body),
           })
         }
       >

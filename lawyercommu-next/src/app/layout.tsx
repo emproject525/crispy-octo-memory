@@ -1,13 +1,21 @@
 import type { Metadata, Viewport } from 'next';
-import { Noto_Sans_KR } from 'next/font/google';
+// import { Noto_Sans_KR } from 'next/font/google';
+import localFont from 'next/font/local';
 import '@/styles/globals.scss';
 import '@/styles/thirdparty.scss';
 import styles from '@/styles/layout.module.scss';
 import Nav from '@/containers/layout/Nav';
 import ReactQueryProviders from '@/services/ReactQueryProviders';
 
-const notosans = Noto_Sans_KR({
-  subsets: ['latin'],
+// const notosans = Noto_Sans_KR({
+//   subsets: ['latin'],
+// });
+
+const pretendard = localFont({
+  src: '../styles/fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
 });
 
 export const metadata: Metadata = {
@@ -30,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={notosans.className}>
+      <body className={pretendard.className}>
         <div className={styles.contents}>
           <header className={styles.header}>
             <a id="skip-nav" className={styles.skip_nav} href="#content">

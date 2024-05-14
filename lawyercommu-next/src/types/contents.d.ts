@@ -35,11 +35,13 @@ export interface IContents {
  * `contents`
  * - `inner join contents_body on contents_seq`
  * - `inner join contents_category on category_seq`
+ * - `inner join comment on contents_seq`
  */
 export interface IContentsDetail extends IContents {
   body: string;
   mainName: string;
   subName: string;
+  commentCnt: number;
 }
 
 /**
@@ -66,4 +68,15 @@ export interface IComment {
   delYn: 'Y' | 'N';
   delDt?: string;
   parentSeq?: number;
+}
+
+/**
+ * `comment`
+ * - parent_seq is NULL
+ */
+export interface ICommentParent extends IComment {
+  /**
+   * 답글 갯수
+   */
+  replyCnt?: number;
 }

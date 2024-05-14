@@ -14,11 +14,12 @@ export type InputProps = {
   size?: 'sm' | 'md' | 'lg';
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'disabled' | 'size'>;
 
-const Input = (props: InputProps) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { error, disabled, size, onlyBorderBottom, ...rest } = props;
 
   return (
     <input
+      ref={ref}
       disabled={disabled}
       aria-disabled={disabled}
       className={clsx(styles.input, {
@@ -30,6 +31,8 @@ const Input = (props: InputProps) => {
       {...rest}
     />
   );
-};
+});
+
+Input.displayName = 'Input';
 
 export default Input;
