@@ -79,4 +79,5 @@ export interface ICommentParent extends IComment {
    * 답글 갯수
    */
   replyCnt?: number;
+  first?: number;
 }

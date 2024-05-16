@@ -85,7 +85,7 @@ export default async function Page({ params }: Pick<PageProps, 'params'>) {
             <RxSlash />
             <span>{body?.subName || ''}</span>
           </div>
-          <h1>{body?.title || ''}</h1>
+          <h1 className={styles.title}>{body?.title || ''}</h1>
           <Hr />
           <div
             data-desc="body"

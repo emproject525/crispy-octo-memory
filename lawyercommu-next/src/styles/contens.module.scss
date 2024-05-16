@@ -15,6 +15,10 @@
   color: #{variable.$gray-700};
 }
 
+.title {
+  font-size: 1.6em;
+}
+
 .detail {
 }
 
@@ -40,7 +44,7 @@
 
 .contents_body {
   letter-spacing: -0.5px;
-  font-size: 14px;
+  font-size: 1em;
   font-weight: normal;
 
   ol,

@@ -9,6 +9,7 @@ import FlexBox from '@/components/Box/FlexBox';
 import ContentsEditor from '@/components/Editor/ContentsEditor';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
+import Spinner from '@/components/Icon/Spinner';
 import { AxiosError, AxiosResponse } from 'axios';
 import { escapeMySQL } from '@/utils/utils';
 
@@ -20,7 +21,7 @@ const ContentsAdd = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const router = useRouter();
-  const mutation = useMutation<
+  const { mutate, isPending } = useMutation<
     AxiosResponse<IRes<boolean>>,
     AxiosError,
     {
@@ -75,14 +76,17 @@ const ContentsAdd = () => {
       />
       <Button
         block
+        flexContents
+        disabled={isPending}
         onClick={() =>
-          mutation.mutate({
+          mutate({
             title: escapeMySQL(title),
             body: escapeMySQL(body),
           })
         }
       >
         게시글 등록
+        {isPending && <Spinner />}
       </Button>
     </FlexBox>
   );

@@ -4,7 +4,6 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { AxiosError } from 'axios';
 import client from '@/services/client';
 import { FaRegCommentAlt } from 'react-icons/fa';
-import { ImSpinner } from 'react-icons/im';
 import { RxReload } from 'react-icons/rx';
 import { IoArrowUpOutline } from 'react-icons/io5';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -16,7 +15,7 @@ import TextArea from '@/components/Input/TextArea';
 import Span from '@/components/Font/Span';
 import CommentParent from '@/containers/commentAdd/CommentParent';
 import { escapeMySQL } from '@/utils/utils';
-import styles from '@/styles/contens.module.scss';
+import Spinner from '@/components/Icon/Spinner';
 
 type CommentAddProps = {
   /**
@@ -28,41 +27,40 @@ type CommentAddProps = {
 type CommentList = {
   count: number;
   list: ICommentParent[];
-  total: number;
+  first: number;
 };
 
 const CommentAdd = ({ totalCommentCnt }: CommentAddProps) => {
   const [body, setBody] = useState('');
   const { seq } = useParams();
-  const [target, setTarget] = useState<ICommentParent[]>([]);
-  const [page, setPage] = useState(1); // 코멘트의 페이지
-  const [total, setTotal] = useState(0); // 캐싱 때문에 total이 자꾸 0으로와서 UI 깜빡거림 -> 별도 state로 관리
+  const [target, setTarget] = useState<ICommentParent[]>([]); // 렌더링 대상
+  const [p, setP] = useState({ p: -1, n: -1 }); // 파라미터
 
   // 댓글 조회
-  const { data, refetch, isFetching, isFetched } = useQuery<
+  const { data, isFetching, refetch, isFetched } = useQuery<
     CommentList,
     AxiosError
   >({
+    queryKey: ['comment', seq, p],
     initialData: {
-      list: [],
-      count: 0,
-      total: 0,
+      list: target,
+      count: target.length,
+      first: target[0]?.seq ?? -1,
     },
-    queryKey: ['comment', seq, page],
     _defaulted: true,
     queryFn: () =>
       client
-        .get<IRes<CommentList>>(`/comment/${seq}?page=${page}`)
+        .get<IRes<CommentList>>(`/comment/${seq}?p=${p.p}&n=${p.n}`)
         .then((res) =>
           res.data.header.success
             ? {
                 count: res.data.body.count,
-                total: res.data.body.total,
+                first: res.data.body.first,
                 list: res.data.body.list.reverse(),
               }
             : {
                 count: 0,
-                total: 0,
+                first: 0,
                 list: [],
               },
         ),
@@ -70,28 +68,32 @@ const CommentAdd = ({ totalCommentCnt }: CommentAddProps) => {
 
   useEffect(() => {
     if (isFetched) {
-      setTotal((b) => data.total ?? b);
-      if (page === 1) {
-        setTarget(data.list);
-      } else {
-        setTarget((b) => [...data.list, ...b]);
-      }
+      setTarget((b) => {
+        const map = new Map(data.list.map((item) => [`${item.seq}`, item]));
+        b.forEach((item) => {
+          map.set(`${item.seq}`, item);
+        });
+        return Array.from(map.values()).sort((a, b) =>
+          a.regDt < b.regDt ? -1 : a.regDt > b.regDt ? 1 : a.seq - b.seq,
+        );
+      });
     }
-  }, [isFetched, page, data.list, data.total]);
+  }, [data.list, isFetched]);
 
   // 댓글 등록
-  const addComment = useMutation<IRes<boolean>, AxiosError, string>({
+  const { mutate, isPending } = useMutation<IRes<boolean>, AxiosError, string>({
+    mutationKey: [target],
     mutationFn: (body) =>
       client
         .post(`/comment/${seq}`, { body: escapeMySQL(body) })
         .then((res) => res.data),
     onSuccess: (res) => {
       if (res.header.success) {
-        alert('댓글을 등록하였습니다.');
         setBody('');
-        refetch();
-      } else {
-        alert('작성 실패');
+        setP({
+          p: -1,
+          n: target.slice(-1)?.[0]?.seq || -1,
+        });
       }
     },
   });
@@ -114,18 +116,14 @@ const CommentAdd = ({ totalCommentCnt }: CommentAddProps) => {
         <Span color="info">{cnt}</Span>
       </FlexBox>
       <div className="my-2">
-        {page < total && (
+        {(target[0]?.seq ?? -1) > data.first && (
           <Button
             block
             flexContents
             color="gray-200"
-            onClick={() => setPage(page + 1)}
+            onClick={() => setP({ p: data.list[0]!.seq, n: -1 })}
           >
-            {isFetching ? (
-              <ImSpinner className={styles.spin} />
-            ) : (
-              <IoArrowUpOutline />
-            )}
+            {isFetching ? <Spinner /> : <IoArrowUpOutline />}
             이전 댓글 확인
           </Button>
         )}
@@ -139,8 +137,19 @@ const CommentAdd = ({ totalCommentCnt }: CommentAddProps) => {
           />
         ))}
       </div>
-      <Button block flexContents onClick={() => refetch()} color="gray-200">
-        {isFetching ? <ImSpinner className={styles.spin} /> : <RxReload />}
+      <Button
+        block
+        flexContents
+        onClick={() => {
+          setP({
+            p: -1,
+            n: target.slice(-1)?.[0]?.seq || -1,
+          });
+          refetch();
+        }}
+        color="gray-200"
+      >
+        {isFetching ? <Spinner /> : <RxReload />}
         새로운 댓글 확인
       </Button>
       <div className="my-2">
@@ -150,8 +159,14 @@ const CommentAdd = ({ totalCommentCnt }: CommentAddProps) => {
           onChange={(e) => setBody(e.target.value)}
         />
       </div>
-      <Button block onClick={() => addComment.mutate(body)}>
+      <Button
+        block
+        flexContents
+        onClick={() => mutate(body)}
+        disabled={isPending}
+      >
         댓글 쓰기
+        {isPending && <Spinner />}
       </Button>
     </div>
   );
