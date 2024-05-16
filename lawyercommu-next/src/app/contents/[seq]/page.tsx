@@ -2,11 +2,13 @@ import { cache } from 'react';
 import { RxSlash } from 'react-icons/rx';
 import { CgMenu } from 'react-icons/cg';
 import { IoShareSocialSharp } from 'react-icons/io5';
+import { RxDividerVertical } from 'react-icons/rx';
 import clsx from 'clsx';
 import { Metadata, ResolvingMetadata } from 'next';
 import { IContentsDetail, IRes } from '@/types';
 import styles from '@/styles/contens.module.scss';
 import Button from '@/components/Button/Button';
+import Span from '@/components/Font/Span';
 import Link from 'next/link';
 import Hr from '@/components/Hr/Hr';
 import FlexBox from '@/components/Box/FlexBox';
@@ -86,6 +88,17 @@ export default async function Page({ params }: Pick<PageProps, 'params'>) {
             <span>{body?.subName || ''}</span>
           </div>
           <h1 className={styles.title}>{body?.title || ''}</h1>
+          <FlexBox
+            className={clsx('mt-1', styles.info)}
+            style={{
+              columnGap: 4,
+            }}
+          >
+            <Span>{body?.regDt || ''}</Span>
+            <RxDividerVertical />
+            <Span>조회수</Span>
+            <Span color="info">0</Span>
+          </FlexBox>
           <Hr />
           <div
             data-desc="body"

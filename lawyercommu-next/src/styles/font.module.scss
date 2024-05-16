@@ -8,7 +8,7 @@
 }
 
 @each $name, $color in variable.$gray {
-  .font_color_gray_#{$name} {
+  .font_color_gray-#{$name} {
     color: $color;
   }
 }

@@ -80,7 +80,7 @@ const CommentParent = ({
   );
 
   return (
-    <Comment body={body} regDt={regDt} title={title}>
+    <Comment body={body} regDt={regDt.slice(0, 16)} title={title}>
       <FlexBox
         className="mt-1"
         style={{
