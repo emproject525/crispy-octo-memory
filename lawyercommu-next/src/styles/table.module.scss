@@ -12,17 +12,16 @@
   }
 
   thead {
-    border-top: 2px solid #{variable.$search};
-    border-bottom: 2px solid #{variable.$search};
+    border-top: 2px solid var(--gray-300-hex);
+    border-bottom: 2px solid var(--gray-300-hex);
 
     th {
       font-weight: 600;
       font-size: 13px;
       text-transform: uppercase;
       text-align: center;
-      padding: 8px 10px;
-      color: #{variable.$search};
-      border: 1px solid #f1f1f1;
+      padding: 0.8em;
+      border-bottom: 1px solid var(--gray-300-hex);
       &:nth-child(1) {
         border-left: 0px;
       }
@@ -34,44 +33,30 @@
 
   tbody {
     tr {
-      border-bottom: 1px solid #f1f1f1;
-      color: #{variable.$black};
+      border-bottom: 1px solid var(--gray-300-hex);
       font-size: 14px;
       text-align: center;
 
       td {
         padding: 8px 10px;
-        border: 1px solid #f1f1f1;
-        &:nth-child(1) {
-          border-left: 0px;
-        }
-        &:nth-last-child(1) {
-          border-right: 0px;
-        }
+        border-bottom: 1px solid var(--gray-300-hex);
       }
 
       th {
         padding-left: 10px;
-        border: 1px solid #f1f1f1;
-        &:nth-child(1) {
-          border-left: 0px;
-        }
-        &:nth-last-child(1) {
-          border-right: 0px;
-        }
+        border-bottom: 1px solid var(--gray-300-hex);
       }
     }
   }
 
   tfoot {
-    color: #{variable.$empathy};
     font-style: italic;
     border-bottom: 2px solid #{variable.$empathy};
 
     tr {
       td {
         padding: 10px;
-        border: 1px solid #f1f1f1;
+        border: 1px solid var(--gray-300-hex);
       }
     }
   }
@@ -105,11 +90,10 @@
     width: 35px;
     height: 31px;
     line-height: 20px;
-    color: #{variable.$gray-800};
 
     &.active {
       background-color: #{variable.$primary};
-      color: #{variable.$gray-100};
+      color: #{variable.$white};
     }
 
     &.disabled {
@@ -119,7 +103,7 @@
     }
 
     &:hover:not(.active, .disabled) {
-      background-color: #{variable.$gray-200};
+      background-color: var(--gray-300-hex);
     }
   }
 }

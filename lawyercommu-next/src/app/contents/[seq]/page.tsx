@@ -78,15 +78,18 @@ export default async function Page({ params }: Pick<PageProps, 'params'>) {
   return (
     <main>
       {status === 200 && header.success && (
-        <div className={styles.detail}>
-          <div
+        <div data-desc="detail">
+          <FlexBox
             className={clsx(styles.breadcrumb, 'mb-1')}
             data-desc="breadcrumb"
+            style={{
+              columnGap: 4,
+            }}
           >
-            <span>{body?.mainName || ''}</span>
-            <RxSlash />
-            <span>{body?.subName || ''}</span>
-          </div>
+            <Span>{body?.mainName || ''}</Span>
+            <RxDividerVertical />
+            <Span>{body?.subName || ''}</Span>
+          </FlexBox>
           <h1 className={styles.title}>{body?.title || ''}</h1>
           <FlexBox
             className={clsx('mt-1', styles.info)}

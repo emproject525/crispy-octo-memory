@@ -2,17 +2,20 @@
 @use 'mixin';
 
 /** ------------------------------
+* 게시글 목록
 * 게시글 상세
 * 본문, 댓글
 * ---------------------------- **/
 
-.breadcrumb {
+.category {
   display: flex;
+  gap: 1em;
+}
+
+.breadcrumb {
   cursor: default;
-  column-gap: #{variable.$gap};
-  align-items: center;
   font-size: 13px;
-  color: #{variable.$gray-700};
+  color: var(--gray-700-hex);
 }
 
 .title {
@@ -21,10 +24,7 @@
 
 .info {
   font-size: 0.8em;
-  color: #{variable.$gray-700};
-}
-
-.detail {
+  color: var(--gray-700-hex);
 }
 
 .comment_item {
@@ -41,7 +41,7 @@
 
   .noname_regdt {
     font-size: 0.8em;
-    color: #{variable.$gray-700};
+    color: var(--gray-700-hex);
     margin-left: 0.8em;
     user-select: none;
   }
@@ -65,7 +65,7 @@
 .horizon {
   height: 1px;
   border: none;
-  background-color: #{variable.$gray-400};
+  background-color: var(--gray-400-hex);
 }
 
 .rotate_180 {

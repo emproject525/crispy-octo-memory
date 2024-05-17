@@ -1,16 +1,16 @@
 @use 'variable';
 
 :root {
-  --gap: #{variable.$gap};
-  --max-width: #{variable.$breakpoint-desktop}px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --foreground-rgb: #232337;
+  --background-rgb: rgb(255, 255, 255);
 
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  @each $name, $color in variable.$theme-color {
+    --#{$name}-hex: #{$color};
+  }
+
+  @each $name, $color in variable.$gray {
+    --gray-#{$name}-hex: #{$color};
+  }
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -36,21 +36,20 @@
     #00000010,
     #00000080
   );
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    // --foreground-rgb: 255, 255, 255;
-    // --background-start-rgb: 0, 0, 0;
-    // --background-end-rgb: 0, 0, 0;
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: #fff;
+    --background-rgb: rgb(30, 32, 34);
+
+    @each $name, $color in variable.$theme-color {
+      --#{$name}-hex: #{$color};
+    }
+
+    @each $name, $color in variable.$gray {
+      --gray-#{1000 - $name}-hex: #{$color};
+    }
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
@@ -71,11 +70,6 @@
       #ffffff10,
       #ffffff80
     );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
   }
 }
 
@@ -92,8 +86,8 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: #{variable.$gray-100};
+  color: var(--foreground-rgb);
+  background: var(--background-rgb);
   letter-spacing: -0.5px;
 }
 

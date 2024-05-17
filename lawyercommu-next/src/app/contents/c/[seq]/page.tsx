@@ -8,11 +8,6 @@ import styles from '@/styles/contens.module.scss';
 import FlexBox from '@/components/Box/FlexBox';
 import Span from '@/components/Font/Span';
 
-// * generic 컴포넌트를 dynamic하게 import하는 방법
-// const Table = dynamic(() => import('@/components/Table/Table'), {
-//   ssr: false,
-// }) as <T extends {}>(props: TableProps<T>) => JSX.Element;
-
 type PageData = {
   contents: { status: number } & IRes<IPagingList<IContentsTableRow>>;
   category: { status: number } & IRes<IPagingList<ICategory>>;
@@ -22,34 +17,39 @@ type PageData = {
 async function getData({
   page,
   count,
+  c,
 }: {
   page: number;
   count?: number;
-  main?: number;
+  // 카테고리 번호
+  c: number;
 }): Promise<PageData> {
   'use server';
 
+  const categoryResponse = await fetch(
+    `http://localhost:3000/api/category/${c}`,
+    {
+      cache: 'default',
+    },
+  );
+  const categoryData: IRes<
+    { info: ICategory | null } & IPagingList<ICategory>
+  > = await categoryResponse.json();
+
+  // 카테고리 정보
+  const cate = categoryData.body.info;
+
   // Fetch data from external API
   const contentsResponse = await fetch(
-    `http://localhost:3000/api/contents?page=${page}&count=${count}`,
+    cate?.sub === 1 // 전체 카테
+      ? `http://localhost:3000/api/contents?page=${page}&count=${count}&m=${cate.main || 0}`
+      : `http://localhost:3000/api/contents?page=${page}&count=${count}&c=${c}`,
     {
       cache: 'no-store',
     },
   );
   const contentsData: IRes<IPagingList<IContentsTableRow>> =
     await contentsResponse.json();
-
-  // 카테고리 TODO
-  const categoryResponse = await fetch(
-    `http://localhost:3000/api/category?m=1`,
-  );
-  const categoryData: IRes<IPagingList<ICategory>> =
-    await categoryResponse.json();
-
-  // if (response.status !== 200) {
-  //   // This will activate the closest `error.js` Error Boundary
-  //   throw new Error('Failed to fetch data');
-  // }
 
   // Pass data to the page via props
   return {
@@ -67,13 +67,16 @@ async function getData({
 }
 
 export default async function Page({
+  params,
   searchParams,
 }: {
+  params?: { [key: string]: string | string[] | undefined };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const { contents, category } = await getData({
     page: Number(searchParams?.['page'] ?? 1),
     count: 20,
+    c: Number(params?.['seq'] ?? 0),
   });
 
   return (
@@ -92,7 +95,7 @@ export default async function Page({
           {category.body.list.map(({ seq, main, sub, subName }) => (
             <li key={`${main}-${sub}`}>
               <Link href={`/contents/c/${seq}`}>
-                {sub === 1 ? (
+                {params?.['seq'] === String(seq) ? (
                   <strong>
                     <Span>{subName}</Span>
                   </strong>

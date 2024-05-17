@@ -9,14 +9,6 @@
  */
 
 /**
- * search params
- */
-export interface IParamsContents {
-  page: number;
-  count: number;
-}
-
-/**
  * `contents`
  */
 export interface IContents {
@@ -80,4 +72,18 @@ export interface ICommentParent extends IComment {
    */
   replyCnt?: number;
   first?: number;
+}
+
+/**
+ * `category`
+ */
+export interface ICategory {
+  seq: number;
+  main: number;
+  sub: number;
+  mainName: string;
+  subName: string;
+  regDt: string;
+  modDt?: string;
+  usedYn: 'Y' | 'N';
 }
